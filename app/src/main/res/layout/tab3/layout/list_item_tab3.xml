@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/meetingPlace"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:textSize="22sp"/>
+
+    <TextView
+        android:id="@+id/am"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:hint="上午"
+        android:textSize="22sp"/>
+
+    <TextView
+        android:id="@+id/pm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="下午"
+        android:textSize="22sp"/>
+
+    <TextView
+        android:id="@+id/meetingRoomId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:textSize="22sp"/>
+
+    <TextView
+        android:id="@+id/publishRoomIdAm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:textSize="22sp"/>
+
+    <TextView
+        android:id="@+id/publishRoomIdPm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:textSize="22sp"/>
+
+    <TextView
+        android:id="@+id/bookUserIdAm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:textSize="22sp"/>
+    <TextView
+        android:id="@+id/bookUserIdPm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:textSize="22sp"/>
+
+</LinearLayout>

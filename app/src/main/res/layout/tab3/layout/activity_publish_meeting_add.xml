@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".afterLogin.tab3.ActivityPublishMeetingAdd">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal">
+        <com.huizhou.receptionbooking.common.XTextView
+            android:id="@+id/publishMeetingBack"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.8"
+            android:background="#1D82EA"
+            android:gravity="center"
+            android:text="发布会议"
+            android:drawableLeft="@mipmap/back"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:textColor="@color/white"
+            android:textSize="22dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/threadEt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="主题"
+            android:background="@drawable/bg_edittext_selector"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="0.3"
+            android:layout_height="wrap_content"
+            android:textColor="@color/txtcolor"
+            android:onClick="getStartTime"
+            android:hint="时间段"
+            />
+        <TextView
+            android:id="@+id/meetingBeginTime"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.35"
+            android:textColor="@color/txtcolor"
+            android:onClick="getStartTime"
+            android:hint="开始时段"
+            />
+        <TextView
+            android:id="@+id/meetingEndTime"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/txtcolor"
+            android:onClick="getEndTime"
+            android:layout_weight="0.35"
+            android:hint="结束时段"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/meetingContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="内容"
+            android:background="@drawable/bg_edittext_selector"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="0.2"
+            android:layout_height="wrap_content"
+            android:hint="与会人"
+            />
+
+        <TextView
+            android:id="@+id/getFromContact"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.35"
+            android:hint="从通讯录选择"
+            android:onClick="getFromContact"
+            />
+
+        <TextView
+            android:id="@+id/getFromGroup"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.35"
+            android:hint="从群组选择"
+            android:onClick="getFromGroup"
+            />
+        <Button
+            android:id="@+id/clearPerson"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:text="清除"
+            android:onClick="clearPerson"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/meetingPersonName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+        <TextView
+            android:id="@+id/meetingPersonId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/meetingClothes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="着装要求"
+            android:background="@drawable/bg_edittext_selector"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/meetingWakeType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="提醒"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/meetingDiscipline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="纪律要求"
+            android:background="@drawable/bg_edittext_selector"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/meetingConnectPerson"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="会议联系人"
+            android:background="@drawable/bg_edittext_selector"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/meetingConnectPhone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="联系人电话"
+            android:background="@drawable/bg_edittext_selector"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/meetingRemark"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="备注"
+            android:background="@drawable/bg_edittext_selector"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/publishMeetingSave"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="publishMeetingSave"
+           android:text="保存"
+            />
+    </LinearLayout>
+
+</LinearLayout>
