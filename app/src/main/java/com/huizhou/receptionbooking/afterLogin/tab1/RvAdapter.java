@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.huizhou.receptionbooking.R;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2017/11/22.
@@ -20,27 +21,46 @@ public class RvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 {
     private LayoutInflater mLayoutInflater;
     private Context mContext;
-    private List<String> mTitle;
+    private List<Integer> midsList;
+    private Map<Integer, String> threadItemMap;
+    private Map<Integer, String> meetingTimeMap;
+    private Map<Integer, String> departmentItemMap;
+    private Map<Integer, String> meetingRoomItemMap;
+
 
     private OnItemClickListener mOnItemClickListener;
 
-    public RvAdapter(Context context, List<String> title)
+    public RvAdapter(
+            Context context, List<Integer> ids, Map<Integer, String> threadItemMaps,
+            Map<Integer, String> meetingTimeMaps, Map<Integer, String> departmentItemMaps,
+            Map<Integer, String> meetingRoomItemMaps
+    )
     {
         mContext = context;
-        mTitle = title;
+        midsList = ids;
+        threadItemMap = threadItemMaps;
+        meetingTimeMap = meetingTimeMaps;
+        departmentItemMap = departmentItemMaps;
+        meetingRoomItemMap = meetingRoomItemMaps;
         mLayoutInflater = LayoutInflater.from(context);
     }
 
     //自定义的ViewHolder，持有每个Item的的所有界面元素
     public static class NormalViewHolder extends RecyclerView.ViewHolder
     {
-        public  TextView mTextView;
-        public  CardView mCardView;
+        public TextView threadItem;
+        public TextView meetingTime;
+        public TextView departmentItem;
+        public TextView meetingRoomItem;
+        public CardView mCardView;
 
         public NormalViewHolder(View itemView)
         {
             super(itemView);
-            mTextView = (TextView) itemView.findViewById(R.id.tv_item_text);
+            threadItem = (TextView) itemView.findViewById(R.id.threadItem);
+            meetingTime = (TextView) itemView.findViewById(R.id.meetingTime);
+            departmentItem = (TextView) itemView.findViewById(R.id.departmentItem);
+            meetingRoomItem = (TextView) itemView.findViewById(R.id.meetingRoomItem);
             mCardView = (CardView) itemView.findViewById(R.id.cv_item);
         }
     }
@@ -58,7 +78,11 @@ public class RvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position)
     {
         NormalViewHolder viewholder = (NormalViewHolder) holder;
-        viewholder.mTextView.setText(mTitle.get(position));
+        Integer index = midsList.get(position);
+        viewholder.threadItem.setText(threadItemMap.get(index));
+        viewholder.meetingTime.setText(meetingTimeMap.get(index));
+        viewholder.departmentItem.setText(departmentItemMap.get(index));
+        viewholder.meetingRoomItem.setText(meetingRoomItemMap.get(index));
 
         viewholder.itemView.setTag(viewholder);
         viewholder.itemView.setOnClickListener(new View.OnClickListener()
@@ -76,7 +100,7 @@ public class RvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     @Override
     public int getItemCount()
     {
-        return mTitle == null ? 0 : mTitle.size();
+        return midsList == null ? 0 : midsList.size();
     }
 
     //define interface

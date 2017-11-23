@@ -7,33 +7,34 @@ package com.huizhou.receptionbooking.database.vo;
 public class UerInfoRecord
 {
     private int id;
-
     private String name;
-
     private String phone;
-
     private String pwd;
-
     private int parentId;
-
-    private String parentName;
-
     private String sex;
-
-    private String idCard;
-
-    private String role;
-
+    private String idcard;
     private String remark;
+    private String role;
+    private int type;
 
-    public String getParentName()
+    public String getIdcard()
     {
-        return parentName;
+        return idcard;
     }
 
-    public void setParentName(String parentName)
+    public void setIdcard(String idcard)
     {
-        this.parentName = parentName;
+        this.idcard = idcard;
+    }
+
+    public int getType()
+    {
+        return type;
+    }
+
+    public void setType(int type)
+    {
+        this.type = type;
     }
 
     public int getId()
@@ -94,16 +95,6 @@ public class UerInfoRecord
     public void setSex(String sex)
     {
         this.sex = sex;
-    }
-
-    public String getIdCard()
-    {
-        return idCard;
-    }
-
-    public void setIdCard(String idCard)
-    {
-        this.idCard = idCard;
     }
 
     public String getRole()
