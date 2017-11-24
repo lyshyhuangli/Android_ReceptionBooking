@@ -102,6 +102,8 @@
         </activity>
         <activity android:name=".afterLogin.contactGroup.checkbox.ActivityGroupPersonCheckBox">
         </activity>
+        <activity android:name=".afterLogin.tab1.ViewAndConfirmMeetingActivity">
+        </activity>
     </application>
 
 </manifest>

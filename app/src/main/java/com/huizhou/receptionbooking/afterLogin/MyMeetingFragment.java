@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 
 import com.huizhou.receptionbooking.R;
 import com.huizhou.receptionbooking.afterLogin.tab1.FragmentAdapter;
-import com.huizhou.receptionbooking.afterLogin.tab3.TabFragment;
+import com.huizhou.receptionbooking.afterLogin.tab1.TabFragment;
 
 import java.util.ArrayList;
 import java.util.List;

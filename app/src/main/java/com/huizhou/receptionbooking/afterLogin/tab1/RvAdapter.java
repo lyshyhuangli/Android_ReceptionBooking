@@ -52,6 +52,7 @@ public class RvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         public TextView meetingTime;
         public TextView departmentItem;
         public TextView meetingRoomItem;
+        public TextView meetingId;
         public CardView mCardView;
 
         public NormalViewHolder(View itemView)
@@ -61,6 +62,7 @@ public class RvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             meetingTime = (TextView) itemView.findViewById(R.id.meetingTime);
             departmentItem = (TextView) itemView.findViewById(R.id.departmentItem);
             meetingRoomItem = (TextView) itemView.findViewById(R.id.meetingRoomItem);
+            meetingId = (TextView)   itemView.findViewById(R.id.meetingId);
             mCardView = (CardView) itemView.findViewById(R.id.cv_item);
         }
     }
@@ -83,6 +85,7 @@ public class RvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         viewholder.meetingTime.setText(meetingTimeMap.get(index));
         viewholder.departmentItem.setText(departmentItemMap.get(index));
         viewholder.meetingRoomItem.setText(meetingRoomItemMap.get(index));
+        viewholder.meetingId.setText(index.toString());
 
         viewholder.itemView.setTag(viewholder);
         viewholder.itemView.setOnClickListener(new View.OnClickListener()
