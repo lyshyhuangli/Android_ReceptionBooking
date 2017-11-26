@@ -50,7 +50,7 @@ public class MyMeetingFragment extends Fragment
         mTabLayout = (TabLayout) view.findViewById(R.id.tablayout);
 
         mTitles = new ArrayList<>();
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 2; i++)
         {
             mTitles.add(titles[i]);
         }
