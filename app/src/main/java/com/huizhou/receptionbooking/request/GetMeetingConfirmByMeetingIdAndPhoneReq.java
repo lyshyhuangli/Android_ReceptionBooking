@@ -3,19 +3,19 @@ package com.huizhou.receptionbooking.request;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
-public class GetMyBedMeetingReq extends CommonRequest
+public class GetMeetingConfirmByMeetingIdAndPhoneReq extends CommonRequest
 {
-    private String phone;
-    private int count;
+    int meetingId;
+    String phone;
 
-    public int getCount()
+    public int getMeetingId()
     {
-        return count;
+        return meetingId;
     }
 
-    public void setCount(int count)
+    public void setMeetingId(int meetingId)
     {
-        this.count = count;
+        this.meetingId = meetingId;
     }
 
     public String getPhone()
@@ -33,5 +33,6 @@ public class GetMyBedMeetingReq extends CommonRequest
         String str = ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
         return str;
     }
+
 
 }

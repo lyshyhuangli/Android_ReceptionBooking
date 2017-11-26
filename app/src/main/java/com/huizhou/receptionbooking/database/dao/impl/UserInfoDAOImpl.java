@@ -286,7 +286,7 @@ public class UserInfoDAOImpl implements UserInfoDAO
                 m.setPhone(rs.getString("phone"));
                 m.setSex(rs.getString("sex"));
                 m.setRole(rs.getString("role"));
-                m.setIdCard(rs.getString("idcard"));
+                m.setIdcard(rs.getString("idcard"));
             }
         }
         catch (Exception e)
@@ -341,7 +341,7 @@ public class UserInfoDAOImpl implements UserInfoDAO
             pstmt.setString(3, info.getRemark());
             pstmt.setString(4, info.getPhone());
             pstmt.setString(5, info.getSex());
-            pstmt.setString(6, info.getIdCard());
+            pstmt.setString(6, info.getIdcard());
             pstmt.setString(7, info.getRole());
             pstmt.setInt(8, info.getId());
 
@@ -396,7 +396,7 @@ public class UserInfoDAOImpl implements UserInfoDAO
             pstmt.setInt(4, 3);
             pstmt.setString(5, info.getPhone());
             pstmt.setString(6, info.getSex());
-            pstmt.setString(7, info.getIdCard());
+            pstmt.setString(7, info.getIdcard());
             pstmt.setString(8, info.getRole());
 
             return !pstmt.execute();

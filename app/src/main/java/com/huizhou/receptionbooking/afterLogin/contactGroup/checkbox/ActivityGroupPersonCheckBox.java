@@ -20,12 +20,13 @@ import com.huizhou.receptionbooking.utils.HttpClientClass;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ActivityGroupPersonCheckBox extends AppCompatActivity
 {
     private ListView mListView;
-    private List<Model> models;
+    private List<Model> models = new ArrayList<>();
     private CheckBox mMainCkb;
     private CheckboxAdapter checkboxAdapter;
 

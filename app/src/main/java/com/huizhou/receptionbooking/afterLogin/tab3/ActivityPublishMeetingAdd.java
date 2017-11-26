@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.huizhou.receptionbooking.R;
+import com.huizhou.receptionbooking.afterLogin.contactGroup.checkbox.ActivityGroupPersonCheckBox;
 import com.huizhou.receptionbooking.afterLogin.contactGroup.checkbox.Model;
 import com.huizhou.receptionbooking.afterLogin.contacts.ActivityCheckBoxContactList;
 import com.huizhou.receptionbooking.common.XTextView;
@@ -186,6 +187,12 @@ public class ActivityPublishMeetingAdd extends AppCompatActivity implements Time
     public void getFromContact(View view)
     {
         Intent it = new Intent(this, ActivityCheckBoxContactList.class);
+        startActivityForResult(it, 100);
+    }
+
+    public void getFromGroup(View view)
+    {
+        Intent it = new Intent(this, ActivityGroupPersonCheckBox.class);
         startActivityForResult(it, 100);
     }
 

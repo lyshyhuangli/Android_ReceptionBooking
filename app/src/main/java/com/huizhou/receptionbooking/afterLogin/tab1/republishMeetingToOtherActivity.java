@@ -12,47 +12,98 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.huizhou.receptionbooking.R;
-import com.huizhou.receptionbooking.database.vo.BookMeetingDbInfoRecord;
+import com.huizhou.receptionbooking.afterLogin.contactGroup.checkbox.ActivityGroupPersonCheckBox;
+import com.huizhou.receptionbooking.afterLogin.contacts.ActivityCheckBoxContactList;
+import com.huizhou.receptionbooking.common.XTextView;
 import com.huizhou.receptionbooking.request.GetMeetingConfirmByMeetingIdAndPhoneReq;
 import com.huizhou.receptionbooking.request.GetMeetingInfoByIdReq;
 import com.huizhou.receptionbooking.request.SaveMeetingConfirmReq;
 import com.huizhou.receptionbooking.request.UpdateMeetingConfirmByMeetingIdAndPhoneReq;
+import com.huizhou.receptionbooking.request.UpdateMeetingInfoByIdReq;
 import com.huizhou.receptionbooking.response.GetMeetingConfirmByMeetingIdAndPhoneResp;
 import com.huizhou.receptionbooking.response.GetMeetingInfoByIdResp;
 import com.huizhou.receptionbooking.response.SaveMeetingConfirmResp;
 import com.huizhou.receptionbooking.response.UpdateMeetingConfirmByMeetingIdAndPhoneResp;
+import com.huizhou.receptionbooking.response.UpdateMeetingInfoByIdResp;
 import com.huizhou.receptionbooking.utils.HttpClientClass;
 
 import org.apache.commons.lang3.StringUtils;
 
-public class ViewAndConfirmMeetingActivity extends AppCompatActivity
+public class republishMeetingToOtherActivity extends AppCompatActivity
 {
     private String id;
-    private String meetingRoom;
     private String userName;
+    private XTextView tv;
+
+    private TextView republishAttendPerson;
+    private TextView republishAttendPersonId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_and_confirm_meeting);
-
+        setContentView(R.layout.activity_republish_meeting_to_other);
         SharedPreferences userSettings = this.getSharedPreferences("userInfo", 0);
         userName = userSettings.getString("loginUserName", "default");
 
         Intent i = getIntent();
+        //会议ID
         id = i.getStringExtra("id");
-        meetingRoom = i.getStringExtra("meetingRoom");
 
-        MyShowTask showTask = new MyShowTask();
-        showTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        tv = (XTextView) this.findViewById(R.id.republishMeetingBack);
+        //回退页面
+        tv.setDrawableLeftListener(new XTextView.DrawableLeftListener()
+        {
+            @Override
+            public void onDrawableLeftClick(View view)
+            {
+                onBackPressed();
+            }
+        });
+
+        republishAttendPerson = (TextView) findViewById(R.id.republishAttendPerson);
+        republishAttendPersonId = (TextView) findViewById(R.id.republishAttendPersonId);
+    }
+
+    public void republishFromContact(View view)
+    {
+        Intent it = new Intent(this, ActivityCheckBoxContactList.class);
+        startActivityForResult(it, 100);
+    }
+
+    public void republishFromPersonGroup(View view)
+    {
+        Intent it = new Intent(this, ActivityGroupPersonCheckBox.class);
+        startActivityForResult(it, 100);
     }
 
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK)
+        {
+            String id = data.getStringExtra("id");
+            String name = data.getStringExtra("name");
+            republishAttendPerson.setText(name);
+            republishAttendPersonId.setText(id);
+        }
+    }
+
+    public void republishAttendBt(View view)
+    {
+        String personIds = republishAttendPersonId.getText().toString();
+        String personName = republishAttendPerson.getText().toString();
+        MyRepublishMeetingTask myRepublishMeetingTask = new MyRepublishMeetingTask();
+        myRepublishMeetingTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, personIds, personName);
+
+    }
+
     /**
-     * 待开会议
+     * 会议转发
      */
-    private class MyShowTask extends AsyncTask<String, Integer, BookMeetingDbInfoRecord>
+    private class MyRepublishMeetingTask extends AsyncTask<String, Integer, String>
     {
         //onPreExecute方法用于在执行后台任务前做一些UI操作
         @Override
@@ -63,137 +114,57 @@ public class ViewAndConfirmMeetingActivity extends AppCompatActivity
 
         //doInBackground方法内部执行后台任务,不可在此方法内修改UI
         @Override
-        protected BookMeetingDbInfoRecord doInBackground(String... params)
+        protected String doInBackground(String... params)
         {
+
             GetMeetingInfoByIdReq
-                    req = new GetMeetingInfoByIdReq();
-            req.setOperatorId(userName);
-            req.setId(Integer.parseInt(id));
+                    req1 = new GetMeetingInfoByIdReq();
+            req1.setOperatorId(userName);
+            req1.setId(Integer.parseInt(id));
 
-            String result = HttpClientClass.httpPost(req, "getMeetingInfoById");
+            String result1 = HttpClientClass.httpPost(req1, "getMeetingInfoById");
 
-            if (StringUtils.isBlank(result))
+            if (StringUtils.isBlank(result1))
             {
                 return null;
             }
 
-            Gson gson = new Gson();
-            GetMeetingInfoByIdResp info = gson.fromJson(result, GetMeetingInfoByIdResp.class);
-            if (null != info)
+            Gson gson1 = new Gson();
+            GetMeetingInfoByIdResp info1 = gson1.fromJson(result1, GetMeetingInfoByIdResp.class);
+            if (null != info1)
             {
-                if (0 == info.getResultCode())
+                if (0 == info1.getResultCode())
                 {
-                    return info.getInfo();
+                    String personId = info1.getInfo().getPerson();
+                    String personName = info1.getInfo().getPersonName();
+
+                    UpdateMeetingInfoByIdReq
+                            req2 = new UpdateMeetingInfoByIdReq();
+                    req2.setOperatorId(userName);
+                    req2.setId(Integer.parseInt(id));
+                    req2.setPerson(params[0] + "," + personId);
+                    req2.setPersonName(params[1] + "," + personName);
+                    String result2 = HttpClientClass.httpPost(req2, "updateMeetingInfoById");
+
+                    if (StringUtils.isBlank(result2))
+                    {
+                        return null;
+                    }
+
+                    Gson gson2 = new Gson();
+                    UpdateMeetingInfoByIdResp info2 = gson2.fromJson(result2, UpdateMeetingInfoByIdResp.class);
+                    if (null != info2)
+                    {
+                        if (0 == info2.getResultCode())
+                        {
+                            //return "OK";
+                        }
+                    }
+
                 }
             }
 
-            return null;
-        }
 
-        //onProgressUpdate方法用于更新进度信息
-        @Override
-        protected void onProgressUpdate(Integer... progresses)
-        {
-
-        }
-
-        //onPostExecute方法用于在执行完后台任务后更新UI,显示结果
-        @Override
-        protected void onPostExecute(BookMeetingDbInfoRecord result)
-        {
-            if (null == result)
-            {
-                Toast tos = Toast.makeText(ViewAndConfirmMeetingActivity.this, "查询会议信息失败，请检查网络或重试。", Toast.LENGTH_LONG);
-                tos.setGravity(Gravity.CENTER, 0, 0);
-                tos.show();
-            }
-
-            TextView viewAndConfirmThread = (TextView) findViewById(R.id.viewAndConfirmThread);
-            viewAndConfirmThread.setText(result.getThreaf());
-
-            TextView meetingTime = (TextView) findViewById(R.id.meetingTime);
-            meetingTime.setText(result.getMeetingDate() + " " + result.getStartTime() + "-" + result.getEndTime());
-
-            TextView viewMeetingContent = (TextView) findViewById(R.id.viewMeetingContent);
-            viewMeetingContent.setText(result.getContent());
-
-            TextView viewMeetingRoom = (TextView) findViewById(R.id.viewMeetingRoom);
-            viewMeetingRoom.setText(meetingRoom);
-
-            TextView viewMeetingDiscipline = (TextView) findViewById(R.id.viewMeetingDiscipline);
-            viewMeetingDiscipline.setText(result.getMeetingDiscipline());
-
-            TextView viewMeetingConnectPerson = (TextView) findViewById(R.id.viewMeetingConnectPerson);
-            viewMeetingConnectPerson.setText(result.getConnectPerson());
-
-            TextView viewMeetingConnectPhone = (TextView) findViewById(R.id.viewMeetingConnectPhone);
-            viewMeetingConnectPhone.setText(result.getConnectPhone());
-
-            TextView viewMeetingRemark = (TextView) findViewById(R.id.viewMeetingRemark);
-            viewMeetingRemark.setText(result.getRemark());
-        }
-
-        //onCancelled方法用于在取消执行中的任务时更改UI
-        @Override
-        protected void onCancelled()
-        {
-
-        }
-    }
-
-    /**
-     * 确认参加
-     *
-     * @param view
-     */
-    public void confirmMeeting(View view)
-    {
-        MyAttendMeetingTask myTask = new MyAttendMeetingTask();
-        myTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-    }
-
-    /**
-     * 转发会议
-     *
-     * @param view
-     */
-    public void republishMeeting(View view)
-    {
-        //跳转到转发会议页面
-        Intent it = new Intent(this, republishMeetingToOtherActivity.class);
-        it.putExtra("id", id);
-        startActivity(it);
-    }
-
-    /**
-     * 请假
-     *
-     * @param view
-     */
-    public void leaveMeeting(View view)
-    {
-        //跳转到请假页面
-        Intent it = new Intent(this, LeaveMeetingActivity.class);
-        it.putExtra("id", id);
-        startActivity(it);
-    }
-
-    /**
-     * 确认参加会议
-     */
-    private class MyAttendMeetingTask extends AsyncTask<Integer, Integer, String>
-    {
-        //onPreExecute方法用于在执行后台任务前做一些UI操作
-        @Override
-        protected void onPreExecute()
-        {
-
-        }
-
-        //doInBackground方法内部执行后台任务,不可在此方法内修改UI
-        @Override
-        protected String doInBackground(Integer... params)
-        {
             GetMeetingConfirmByMeetingIdAndPhoneReq
                     req = new GetMeetingConfirmByMeetingIdAndPhoneReq();
             req.setOperatorId(userName);
@@ -221,7 +192,7 @@ public class ViewAndConfirmMeetingActivity extends AppCompatActivity
                         req2.setOperatorId(userName);
                         req2.setMeetingId(Integer.parseInt(id));
                         req2.setPhone(userName);
-                        req2.setAttendType(1);
+                        req2.setAttendType(3);
                         String result2 = HttpClientClass.httpPost(req, "updateMeetingConfirmByMeetingIdAndPhone");
 
                         if (StringUtils.isBlank(result2))
@@ -250,7 +221,7 @@ public class ViewAndConfirmMeetingActivity extends AppCompatActivity
                         req2.setOperatorId(userName);
                         req2.setMeetingId(Integer.parseInt(id));
                         req2.setPhone(userName);
-                        req2.setAttendType(1);
+                        req2.setAttendType(3);
                         String result2 = HttpClientClass.httpPost(req, "saveMeetingConfirm");
 
                         if (StringUtils.isBlank(result2))
@@ -287,17 +258,16 @@ public class ViewAndConfirmMeetingActivity extends AppCompatActivity
         {
             if (!"OK".equals(result))
             {
-                Toast tos = Toast.makeText(ViewAndConfirmMeetingActivity.this, "保存数据失败，请检查网络或重试。", Toast.LENGTH_LONG);
+                Toast tos = Toast.makeText(republishMeetingToOtherActivity.this, "保存数据失败，请检查网络或重试。", Toast.LENGTH_LONG);
                 tos.setGravity(Gravity.CENTER, 0, 0);
                 tos.show();
             }
             else
             {
-                Toast tos = Toast.makeText(ViewAndConfirmMeetingActivity.this, "确认成功，请准时参加!", Toast.LENGTH_LONG);
+                Toast tos = Toast.makeText(republishMeetingToOtherActivity.this, "转发成功!", Toast.LENGTH_LONG);
                 tos.setGravity(Gravity.CENTER, 0, 0);
                 tos.show();
             }
-
         }
 
         //onCancelled方法用于在取消执行中的任务时更改UI

@@ -18,14 +18,17 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.huizhou.receptionbooking.R;
+import com.huizhou.receptionbooking.afterLogin.contactGroup.checkbox.ActivityGroupPersonCheckBox;
 import com.huizhou.receptionbooking.afterLogin.contacts.ActivityCheckBoxContactList;
 import com.huizhou.receptionbooking.common.XTextView;
 import com.huizhou.receptionbooking.database.vo.BookMeetingDbInfoRecord;
 import com.huizhou.receptionbooking.database.vo.BookingMeetingRecord;
 import com.huizhou.receptionbooking.request.GetMeetingInfoByIdReq;
 import com.huizhou.receptionbooking.request.InsertPublishMeetingReq;
+import com.huizhou.receptionbooking.request.UpdateMeetingInfoByIdReq;
 import com.huizhou.receptionbooking.response.GetMeetingInfoByIdResp;
 import com.huizhou.receptionbooking.response.InsertPublishMeetingResp;
+import com.huizhou.receptionbooking.response.UpdateMeetingInfoByIdResp;
 import com.huizhou.receptionbooking.utils.HttpClientClass;
 
 import org.apache.commons.lang3.StringUtils;
@@ -54,7 +57,6 @@ public class ActivityPublishMeetingEdit extends AppCompatActivity implements Tim
     private TextView endTime;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -71,7 +73,7 @@ public class ActivityPublishMeetingEdit extends AppCompatActivity implements Tim
         meetingRoom = i.getStringExtra("meetingRoom");
         publishRoomIdPm = i.getStringExtra("publishRoomIdPm");
         publishRoomIdAm = i.getStringExtra("publishRoomIdAm");
-        if("am".equals(type))
+        if ("am".equals(type))
         {
             id = Integer.parseInt(publishRoomIdPm);
         }
@@ -194,11 +196,18 @@ public class ActivityPublishMeetingEdit extends AppCompatActivity implements Tim
         dialog2.show();
     }
 
-    public void getFromContact(View view)
+    public void getFromContactEdit(View view)
     {
         Intent it = new Intent(this, ActivityCheckBoxContactList.class);
         startActivityForResult(it, 100);
     }
+
+    public void getFromGroupEdit(View view)
+    {
+        Intent it = new Intent(this, ActivityGroupPersonCheckBox.class);
+        startActivityForResult(it, 100);
+    }
+
 
     /**
      * 清空与会人
@@ -287,7 +296,7 @@ public class ActivityPublishMeetingEdit extends AppCompatActivity implements Tim
         EditText meetingRemark = (EditText) findViewById(R.id.meetingRemark);
         info.setRemark(meetingRemark.getText().toString());
 
-       MyTask m = new MyTask();
+        MyTask m = new MyTask();
         m.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, info);
 
 
@@ -306,8 +315,8 @@ public class ActivityPublishMeetingEdit extends AppCompatActivity implements Tim
         @Override
         protected Integer doInBackground(BookMeetingDbInfoRecord... params)
         {
-            InsertPublishMeetingReq
-                    req = new InsertPublishMeetingReq();
+            UpdateMeetingInfoByIdReq
+                    req = new UpdateMeetingInfoByIdReq();
             req.setOperatorId(userName);
 
             req.setAmOrPm(params[0].getAmOrPm());
@@ -329,7 +338,7 @@ public class ActivityPublishMeetingEdit extends AppCompatActivity implements Tim
             req.setThreaf(params[0].getThreaf());
             req.setWakeType(params[0].getWakeType());
 
-            String result = HttpClientClass.httpPost(req, "insertPublishMeeting");
+            String result = HttpClientClass.httpPost(req, "updateMeetingInfoById");
 
             if (StringUtils.isBlank(result))
             {
@@ -337,7 +346,7 @@ public class ActivityPublishMeetingEdit extends AppCompatActivity implements Tim
             }
 
             Gson gson = new Gson();
-            InsertPublishMeetingResp info = gson.fromJson(result, InsertPublishMeetingResp.class);
+            UpdateMeetingInfoByIdResp info = gson.fromJson(result, UpdateMeetingInfoByIdResp.class);
             if (null != info)
             {
                 if (0 == info.getResultCode())
@@ -433,7 +442,7 @@ public class ActivityPublishMeetingEdit extends AppCompatActivity implements Tim
         protected void onPostExecute(BookMeetingDbInfoRecord result)
         {
 
-            if (null == result )
+            if (null == result)
             {
                 Toast tos = Toast.makeText(getApplicationContext(), "查询会议信息失败", Toast.LENGTH_LONG);
                 tos.setGravity(Gravity.CENTER, 0, 0);

@@ -163,7 +163,7 @@ public class ActivityContactAdd extends AppCompatActivity
             d.setRemark(params[2]);
             d.setPhone(params[3]);
             d.setSex(params[4]);
-            d.setIdCard(params[5]);
+            d.setIdcard(params[5]);
             d.setRole(params[6]);
             try
             {

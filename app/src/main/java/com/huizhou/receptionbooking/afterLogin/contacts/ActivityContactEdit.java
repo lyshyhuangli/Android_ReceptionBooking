@@ -223,7 +223,7 @@ public class ActivityContactEdit extends AppCompatActivity
                 }
 
                 EditText contactIdcardEt = (EditText) findViewById(R.id.contactIdcardEt);
-                contactIdcardEt.setText(d.getIdCard());
+                contactIdcardEt.setText(d.getIdcard());
 
                 Spinner contactRoleSpinner = (Spinner) findViewById(R.id.contactRoleSpinner);
                 SpinnerAdapter roleAdapter = contactRoleSpinner.getAdapter(); //得到SpinnerAdapter对象
@@ -272,7 +272,7 @@ public class ActivityContactEdit extends AppCompatActivity
             d.setId(Integer.valueOf(id));
             d.setPhone(params[3]);
             d.setSex(params[4]);
-            d.setIdCard(params[5]);
+            d.setIdcard(params[5]);
             d.setRole(params[6]);
             try
             {

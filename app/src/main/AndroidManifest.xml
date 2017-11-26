@@ -104,6 +104,10 @@
         </activity>
         <activity android:name=".afterLogin.tab1.ViewAndConfirmMeetingActivity">
         </activity>
+        <activity android:name=".afterLogin.tab1.LeaveMeetingActivity">
+        </activity>
+        <activity android:name=".afterLogin.tab1.republishMeetingToOtherActivity">
+        </activity>
     </application>
 
 </manifest>
