@@ -24,7 +24,9 @@ public class PublishMeetingFragment extends Fragment
 {
     private View view;
 
-    private String[] titles = new String[]{};
+    private String[] titles = new String[]{"推荐", "娱乐", "科技", "军事", "奥运会", "视频", "情感", "图片", "时尚", "教育"};
+
+    //private String[] titles = new String[]{};
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
     private FragmentAdapter adapter;
@@ -57,6 +59,11 @@ public class PublishMeetingFragment extends Fragment
         mTitles.add(getSpecifiedDayAfter(1));
         mTitles.add(getSpecifiedDayAfter(2));
 
+//        mTitles = new ArrayList<>();
+//        for (int i = 0; i < 4; i++) {
+//            mTitles.add(titles[i]);
+//        }
+
         mFragments = new ArrayList<>();
         for (int i = 0; i < mTitles.size(); i++)
         {
@@ -65,7 +72,6 @@ public class PublishMeetingFragment extends Fragment
 
         FragmentManager childFragmentManager = getChildFragmentManager();
         adapter = new FragmentAdapter(childFragmentManager, mFragments, mTitles);
-        adapter.notifyDataSetChanged();
 
         mViewPager.setAdapter(adapter);//给ViewPager设置适配器s
         mTabLayout.setupWithViewPager(mViewPager);//将TabLayout和ViewPager关联起来

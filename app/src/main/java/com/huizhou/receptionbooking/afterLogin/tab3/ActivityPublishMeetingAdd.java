@@ -68,7 +68,7 @@ public class ActivityPublishMeetingAdd extends AppCompatActivity implements Time
         userName = userSettings.getString("loginUserName", "default");
 
         Intent i = getIntent();
-        meetingDate = i.getStringExtra("date");
+        meetingDate = i.getStringExtra("meetingDate");
         type = i.getStringExtra("anOrPmType");
         meetingRoomId = i.getStringExtra("meetingRoomId");
         meetingRoom = i.getStringExtra("meetingRoom");
@@ -248,6 +248,7 @@ public class ActivityPublishMeetingAdd extends AppCompatActivity implements Time
         info.setMeetingDate(meetingDate);
         info.setAmOrPm(type);
         info.setMeetingroom(meetingRoomId);
+        info.setBookUser(userName);
 
         EditText threadEt = (EditText) findViewById(R.id.threadEt);
         info.setThreaf(threadEt.getText().toString());

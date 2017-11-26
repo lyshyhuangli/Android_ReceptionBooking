@@ -67,7 +67,7 @@ public class ActivityPublishMeetingEdit extends AppCompatActivity implements Tim
         userName = userSettings.getString("loginUserName", "default");
 
         Intent i = getIntent();
-        meetingDate = i.getStringExtra("date");
+        meetingDate = i.getStringExtra("meetingDate");
         type = i.getStringExtra("anOrPmType");
         meetingRoomId = i.getStringExtra("meetingRoomId");
         meetingRoom = i.getStringExtra("meetingRoom");
@@ -75,11 +75,11 @@ public class ActivityPublishMeetingEdit extends AppCompatActivity implements Tim
         publishRoomIdAm = i.getStringExtra("publishRoomIdAm");
         if ("am".equals(type))
         {
-            id = Integer.parseInt(publishRoomIdPm);
+            id = Integer.parseInt(publishRoomIdAm);
         }
         else
         {
-            id = Integer.parseInt(publishRoomIdAm);
+            id = Integer.parseInt(publishRoomIdPm);
         }
 
         time = new StringBuffer();
@@ -263,8 +263,8 @@ public class ActivityPublishMeetingEdit extends AppCompatActivity implements Tim
         info.setAmOrPm(type);
         info.setMeetingroom(meetingRoomId);
 
-        EditText threadEt = (EditText) findViewById(R.id.threadEt);
-        info.setThreaf(threadEt.getText().toString());
+        EditText threadEtEdit = (EditText) findViewById(R.id.threadEtEdit);
+        info.setThreaf(threadEtEdit.getText().toString());
 
         TextView meetingBeginTime = (TextView) findViewById(R.id.meetingBeginTimeEdit);
         info.setStartTime(meetingBeginTime.getText().toString());
@@ -293,8 +293,8 @@ public class ActivityPublishMeetingEdit extends AppCompatActivity implements Tim
         EditText meetingConnectPhone = (EditText) findViewById(R.id.meetingConnectPhoneEdit);
         info.setConnectPhone(meetingConnectPhone.getText().toString());
 
-        EditText meetingRemark = (EditText) findViewById(R.id.meetingRemark);
-        info.setRemark(meetingRemark.getText().toString());
+        EditText meetingRemarkEdit = (EditText) findViewById(R.id.meetingRemarkEdit);
+        info.setRemark(meetingRemarkEdit.getText().toString());
 
         MyTask m = new MyTask();
         m.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, info);
@@ -319,6 +319,7 @@ public class ActivityPublishMeetingEdit extends AppCompatActivity implements Tim
                     req = new UpdateMeetingInfoByIdReq();
             req.setOperatorId(userName);
 
+            req.setId(id);
             req.setAmOrPm(params[0].getAmOrPm());
             req.setBookUser(params[0].getBookUser());
             req.setClothes(params[0].getClothes());
@@ -332,6 +333,7 @@ public class ActivityPublishMeetingEdit extends AppCompatActivity implements Tim
             req.setMeetingDiscipline(params[0].getMeetingDiscipline());
             req.setMeetingroom(params[0].getMeetingroom());
             req.setPerson(params[0].getPerson());
+            req.setPersonName(params[0].getPersonName());
             req.setQRcode(params[0].getQRcode());
             req.setRemark(params[0].getRemark());
             req.setStartTime(params[0].getStartTime());
@@ -449,9 +451,8 @@ public class ActivityPublishMeetingEdit extends AppCompatActivity implements Tim
                 tos.show();
             }
 
-
-            EditText threadEt = (EditText) findViewById(R.id.threadEt);
-            threadEt.setText(result.getThreaf());
+            EditText threadEtEdit = (EditText) findViewById(R.id.threadEtEdit);
+            threadEtEdit.setText(result.getThreaf());
 
             TextView meetingBeginTime = (TextView) findViewById(R.id.meetingBeginTimeEdit);
             meetingBeginTime.setText(result.getStartTime());
@@ -480,8 +481,8 @@ public class ActivityPublishMeetingEdit extends AppCompatActivity implements Tim
             EditText meetingConnectPhone = (EditText) findViewById(R.id.meetingConnectPhoneEdit);
             meetingConnectPhone.setText(result.getConnectPhone());
 
-            EditText meetingRemark = (EditText) findViewById(R.id.meetingRemark);
-            meetingRemark.setText(result.getRemark());
+            EditText meetingRemarkEdit = (EditText) findViewById(R.id.meetingRemarkEdit);
+            meetingRemarkEdit.setText(result.getRemark());
 
             //如果不是自己发布的会议，则隐藏保存按钮，只查看信息
             String bookerUser = result.getBookUser();

@@ -34,15 +34,13 @@ public class ContacePersonFragment extends Fragment
 {
 
     private View view;
+    private TextView searchContact;
+    private TextView groupTv;
 
     private List<BaseTreeBean> mDatas = new ArrayList<BaseTreeBean>();
     private ListView mLvTree;
     private SimpleTreeAdapter mAdapter;
     private MyTask mTask;
-
-    private Spinner spinner;
-    private List<String> data_list;
-    private ArrayAdapter<String> arr_adapter;
 
     @Override
     public View onCreateView(
@@ -53,6 +51,8 @@ public class ContacePersonFragment extends Fragment
         view = inflater.inflate(R.layout.tab02, null);
 
         mLvTree = (ListView) view.findViewById(R.id.listviewContacts);
+       searchContact = (TextView) view.findViewById(R.id.searchContact);
+        groupTv = (TextView) view.findViewById(R.id.groupTv);
 
         mTask = new MyTask();
         mTask.execute();
@@ -158,30 +158,38 @@ public class ContacePersonFragment extends Fragment
          *跳转到搜索页面
          * @param view
          */
-        TextView searchContact = (TextView) getActivity().findViewById(R.id.searchContact);
-        searchContact.setOnClickListener(new View.OnClickListener()
+         //TextView searchContact = (TextView) getActivity().findViewById(R.id.searchContact);
+        if (null != searchContact)
         {
-            @Override
-            public void onClick(View v)
+            searchContact.setOnClickListener(new View.OnClickListener()
             {
-                Intent intent = new Intent(getActivity(), ActivitySearchContact.class);
-                startActivity(intent);
-            }
-        });
+                @Override
+                public void onClick(View v)
+                {
+                    Intent intent = new Intent(getActivity(), ActivitySearchContact.class);
+                    startActivity(intent);
+                }
+            });
+        }
+
 
         /**
          *跳转到群组
          * @param view
          */
-        TextView groupTv = (TextView) getActivity().findViewById(R.id.groupTv);
-        groupTv.setOnClickListener(new View.OnClickListener()
+        //TextView groupTv = (TextView) getActivity().findViewById(R.id.groupTv);
+        if (null != groupTv)
         {
-            @Override
-            public void onClick(View v)
+            groupTv.setOnClickListener(new View.OnClickListener()
             {
-                Intent intent = new Intent(getActivity(), ActivityGroupList.class);
-                startActivity(intent);
-            }
-        });
+                @Override
+                public void onClick(View v)
+                {
+                    Intent intent = new Intent(getActivity(), ActivityGroupList.class);
+                    startActivity(intent);
+                }
+            });
+        }
+
     }
 }

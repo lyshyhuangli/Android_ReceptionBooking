@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.huizhou.receptionbooking.R;
@@ -47,6 +48,10 @@ public class Tab3Fragment extends Fragment implements AbsListView.OnScrollListen
 
     private String date;
 
+    private TextView textView;
+
+
+
     public static Tab3Fragment newInstance(String date)
     {
         Bundle bundle = new Bundle();
@@ -54,6 +59,8 @@ public class Tab3Fragment extends Fragment implements AbsListView.OnScrollListen
         Tab3Fragment fragment = new Tab3Fragment();
         fragment.setArguments(bundle);
         return fragment;
+
+
     }
 
     @Override
@@ -70,7 +77,15 @@ public class Tab3Fragment extends Fragment implements AbsListView.OnScrollListen
 
         loadFirstTime(date);
 
+
+//        View view = inflater.inflate(R.layout.tab_fragment, null);
+//        textView = (TextView) view.findViewById(R.id.text22);
+//        textView.setText("A");
+
+
         return view;
+
+
     }
 
     /**
@@ -253,6 +268,7 @@ public class Tab3Fragment extends Fragment implements AbsListView.OnScrollListen
 
             adapter = new ListViewAdapterTab3(getActivity(), result);
             listView.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
 
             //ListView item的点击事件
             listView.setOnItemClickListener(new Tab3Fragment.ItemClickListener());

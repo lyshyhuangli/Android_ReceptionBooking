@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import com.huizhou.receptionbooking.R;
 import com.huizhou.receptionbooking.afterLogin.tab1.FragmentAdapter;
 import com.huizhou.receptionbooking.afterLogin.tab1.TabFragment;
+import com.huizhou.receptionbooking.afterLogin.tab3.Tab3Fragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,7 +66,6 @@ public class MyMeetingFragment extends Fragment
         adapter = new FragmentAdapter(childFragmentManager, mFragments, mTitles);
         adapter.notifyDataSetChanged();
 
-        //mViewPager.removeAllViews();
         mViewPager.setAdapter(adapter);//给ViewPager设置适配器
         mTabLayout.setupWithViewPager(mViewPager);//将TabLayout和ViewPager关联起来
 
