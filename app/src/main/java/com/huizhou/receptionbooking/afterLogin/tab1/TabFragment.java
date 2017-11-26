@@ -205,6 +205,12 @@ public class TabFragment extends Fragment
                         }
                         else
                         {
+                            idsList.clear();
+                            threadItem.clear();
+                            meetingTime.clear();
+                            departmentItem.clear();
+                            meetingRoomItem.clear();
+
                             count++;
                             MyBedMeetingTask myTask = new MyBedMeetingTask();
                             myTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
