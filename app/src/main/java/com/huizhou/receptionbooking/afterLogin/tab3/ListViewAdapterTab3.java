@@ -135,20 +135,22 @@ public class ListViewAdapterTab3 extends BaseAdapter
             });
 
 
-            holder.pm.setTag(holder);
-            holder.pm.setOnClickListener(new View.OnClickListener()
-            {
-                @Override
-                public void onClick(View v)
-                {
-                    mOnItemTextViewListener.onTextViewClick(v, position,"pm");
-                }
-            });
+//            holder.pm.setTag(holder);
+//            holder.pm.setOnClickListener(new View.OnClickListener()
+//            {
+//                @Override
+//                public void onClick(View v)
+//                {
+//                    mOnItemTextViewListener.onTextViewClick(v, position,"pm");
+//                }
+//            });
 
 
         }
         catch (Exception e)
         {
+            System.out.println("4444444444444444444444444");
+            System.out.println(e.getMessage());
             e.printStackTrace();
         }
 

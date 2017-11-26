@@ -11,7 +11,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.huizhou.receptionbooking.R;
+import com.huizhou.receptionbooking.common.XTextView;
 import com.huizhou.receptionbooking.database.vo.BookMeetingDbInfoRecord;
 import com.huizhou.receptionbooking.request.GetMeetingConfirmByMeetingIdAndPhoneReq;
 import com.huizhou.receptionbooking.request.GetMeetingInfoByIdReq;
@@ -30,6 +32,8 @@ public class ViewAndConfirmMeetingActivity extends AppCompatActivity
     private String id;
     private String meetingRoom;
     private String userName;
+    private String loginShowName;
+    private XTextView tv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -39,6 +43,20 @@ public class ViewAndConfirmMeetingActivity extends AppCompatActivity
 
         SharedPreferences userSettings = this.getSharedPreferences("userInfo", 0);
         userName = userSettings.getString("loginUserName", "default");
+        loginShowName = userSettings.getString("loginShowName", "default");
+
+        tv = (XTextView) this.findViewById(R.id.viewAndConfirmBack);
+
+        //回退页面
+        tv.setDrawableLeftListener(new XTextView.DrawableLeftListener()
+        {
+            @Override
+            public void onDrawableLeftClick(View view)
+            {
+                onBackPressed();
+            }
+        });
+
 
         Intent i = getIntent();
         id = i.getStringExtra("id");
@@ -77,7 +95,8 @@ public class ViewAndConfirmMeetingActivity extends AppCompatActivity
                 return null;
             }
 
-            Gson gson = new Gson();
+             Gson gson = new Gson();
+            //Gson gson=  new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
             GetMeetingInfoByIdResp info = gson.fromJson(result, GetMeetingInfoByIdResp.class);
             if (null != info)
             {
@@ -222,7 +241,7 @@ public class ViewAndConfirmMeetingActivity extends AppCompatActivity
                         req2.setMeetingId(Integer.parseInt(id));
                         req2.setPhone(userName);
                         req2.setAttendType(1);
-                        String result2 = HttpClientClass.httpPost(req, "updateMeetingConfirmByMeetingIdAndPhone");
+                        String result2 = HttpClientClass.httpPost(req2, "updateMeetingConfirmByMeetingIdAndPhone");
 
                         if (StringUtils.isBlank(result2))
                         {
@@ -250,8 +269,9 @@ public class ViewAndConfirmMeetingActivity extends AppCompatActivity
                         req2.setOperatorId(userName);
                         req2.setMeetingId(Integer.parseInt(id));
                         req2.setPhone(userName);
+                        req2.setUserName(loginShowName);
                         req2.setAttendType(1);
-                        String result2 = HttpClientClass.httpPost(req, "saveMeetingConfirm");
+                        String result2 = HttpClientClass.httpPost(req2, "saveMeetingConfirm");
 
                         if (StringUtils.isBlank(result2))
                         {

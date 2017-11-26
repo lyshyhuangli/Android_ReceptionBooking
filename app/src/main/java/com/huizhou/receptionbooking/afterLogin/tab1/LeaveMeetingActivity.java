@@ -117,7 +117,7 @@ public class LeaveMeetingActivity extends AppCompatActivity
                         req2.setPhone(userName);
                         req2.setAttendType(2);
                         req2.setReason(params[0]);
-                        String result2 = HttpClientClass.httpPost(req, "updateMeetingConfirmByMeetingIdAndPhone");
+                        String result2 = HttpClientClass.httpPost(req2, "updateMeetingConfirmByMeetingIdAndPhone");
 
                         if (StringUtils.isBlank(result2))
                         {
@@ -147,7 +147,7 @@ public class LeaveMeetingActivity extends AppCompatActivity
                         req2.setPhone(userName);
                         req2.setAttendType(2);
                         req2.setReason(params[0]);
-                        String result2 = HttpClientClass.httpPost(req, "saveMeetingConfirm");
+                        String result2 = HttpClientClass.httpPost(req2, "saveMeetingConfirm");
 
                         if (StringUtils.isBlank(result2))
                         {

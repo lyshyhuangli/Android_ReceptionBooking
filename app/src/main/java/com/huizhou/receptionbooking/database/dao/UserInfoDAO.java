@@ -18,7 +18,7 @@ public interface UserInfoDAO
      * @param pwd
      * @return
      */
-      boolean checkUserByUserAndPwd(String userName,String pwd,List<String> errorList);
+      boolean checkUserByUserAndPwd(String userName,String pwd,List<String> errorList,List<String> loginShowName);
 
     /**
      * 修改用户密码

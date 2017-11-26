@@ -6,10 +6,10 @@ import org.apache.commons.lang.builder.ToStringStyle;
 public class SaveMeetingConfirmReq extends CommonRequest
 {
     private int meetingId;
-    String phone;
-    String userName;
-    int attendType;
-    String reason;
+    private String phone;
+    private String userName;
+    private int attendType;
+    private String reason;
 
     public int getMeetingId()
     {

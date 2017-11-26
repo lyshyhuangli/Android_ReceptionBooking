@@ -25,7 +25,7 @@ public class InsertPublishMeetingReq extends CommonRequest
     private String connectPhone;
     private String files;
     private byte[] QRcode;
-    private Date createTime;
+    private String createTime;
     private String remark;
 
     public String getPersonName()
@@ -208,12 +208,12 @@ public class InsertPublishMeetingReq extends CommonRequest
         this.QRcode = QRcode;
     }
 
-    public Date getCreateTime()
+    public String getCreateTime()
     {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime)
+    public void setCreateTime(String createTime)
     {
         this.createTime = createTime;
     }

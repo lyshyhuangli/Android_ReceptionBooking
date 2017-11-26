@@ -30,7 +30,7 @@ public class UserInfoDAOImpl implements UserInfoDAO
      * @param pwd
      * @return
      */
-    public boolean checkUserByUserAndPwd(String userName, String pwd, List<String> errorList)
+    public boolean checkUserByUserAndPwd(String userName, String pwd, List<String> errorList,List<String> loginShowName)
     {
         Connection conn = DbConnect.getConnection(errorList);
 
@@ -52,6 +52,7 @@ public class UserInfoDAOImpl implements UserInfoDAO
 
             if (rs.next())
             {
+                loginShowName.add(rs.getString("name"));
                 return true;
             }
         }
@@ -439,11 +440,11 @@ public class UserInfoDAOImpl implements UserInfoDAO
         }
 
         StringBuilder strsql = new StringBuilder();
-        strsql.append("select * from tb_user_dep_meeting where 1=1 ");
+        strsql.append("select * from tb_user_dep_meeting where 1=1 and  type =3 ");
 
         if (StringUtils.isNotBlank(param))
         {
-            strsql.append(" and type =3 and name like '%" + param + "%'");
+            strsql.append("  and name like '%" + param + "%'");
         }
 
         strsql.append(" order by name DESC LIMIT " + count * 20);
@@ -458,7 +459,7 @@ public class UserInfoDAOImpl implements UserInfoDAO
             pstmt = conn.prepareStatement(strsql.toString());
             rs = pstmt.executeQuery();
 
-            if (rs.next())
+            while (rs.next())
             {
                 UerInfoRecord u = new UerInfoRecord();
                 u.setId(rs.getInt("id"));

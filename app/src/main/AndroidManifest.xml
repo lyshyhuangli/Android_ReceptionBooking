@@ -100,13 +100,17 @@
             android:name=".afterLogin.tab3.ActivityPublishMeetingEdit"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
-        <activity android:name=".afterLogin.contactGroup.checkbox.ActivityGroupPersonCheckBox">
+        <activity android:name=".afterLogin.contactGroup.checkbox.ActivityGroupPersonCheckBox"
+                  android:theme="@style/AppTheme.NoActionBar">
         </activity>
-        <activity android:name=".afterLogin.tab1.ViewAndConfirmMeetingActivity">
+        <activity android:name=".afterLogin.tab1.ViewAndConfirmMeetingActivity"
+                  android:theme="@style/AppTheme.NoActionBar">
         </activity>
-        <activity android:name=".afterLogin.tab1.LeaveMeetingActivity">
+        <activity android:name=".afterLogin.tab1.LeaveMeetingActivity"
+                  android:theme="@style/AppTheme.NoActionBar">
         </activity>
-        <activity android:name=".afterLogin.tab1.republishMeetingToOtherActivity">
+        <activity android:name=".afterLogin.tab1.republishMeetingToOtherActivity"
+                  android:theme="@style/AppTheme.NoActionBar">
         </activity>
     </application>
 

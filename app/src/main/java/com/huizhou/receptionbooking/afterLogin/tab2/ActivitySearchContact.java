@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.huizhou.receptionbooking.R;
 import com.huizhou.receptionbooking.afterLogin.contacts.ActivityContactEdit;
+import com.huizhou.receptionbooking.common.XTextView;
 import com.huizhou.receptionbooking.database.dao.UserInfoDAO;
 import com.huizhou.receptionbooking.database.dao.impl.UserInfoDAOImpl;
 import com.huizhou.receptionbooking.database.vo.UerInfoRecord;
@@ -41,6 +42,7 @@ public class ActivitySearchContact extends AppCompatActivity implements AbsListV
     private SearchView searchContact;
 
     private MyTask myTask;
+    private XTextView tv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -77,6 +79,18 @@ public class ActivitySearchContact extends AppCompatActivity implements AbsListV
                 }
 
                 return false;
+            }
+        });
+
+
+        tv = (XTextView) this.findViewById(R.id.searchBack);
+        //回退页面
+        tv.setDrawableLeftListener(new XTextView.DrawableLeftListener()
+        {
+            @Override
+            public void onDrawableLeftClick(View view)
+            {
+                onBackPressed();
             }
         });
 
@@ -119,8 +133,6 @@ public class ActivitySearchContact extends AppCompatActivity implements AbsListV
             startActivity(it);
         }
     }
-
-
 
 
     @Override

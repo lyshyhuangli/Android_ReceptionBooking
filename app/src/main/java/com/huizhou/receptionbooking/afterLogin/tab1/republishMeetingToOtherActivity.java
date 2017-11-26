@@ -98,6 +98,8 @@ public class republishMeetingToOtherActivity extends AppCompatActivity
         MyRepublishMeetingTask myRepublishMeetingTask = new MyRepublishMeetingTask();
         myRepublishMeetingTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, personIds, personName);
 
+        onBackPressed();
+
     }
 
     /**
@@ -138,6 +140,7 @@ public class republishMeetingToOtherActivity extends AppCompatActivity
                     String personId = info1.getInfo().getPerson();
                     String personName = info1.getInfo().getPersonName();
 
+                    //更新会议室的参与人
                     UpdateMeetingInfoByIdReq
                             req2 = new UpdateMeetingInfoByIdReq();
                     req2.setOperatorId(userName);
@@ -193,7 +196,7 @@ public class republishMeetingToOtherActivity extends AppCompatActivity
                         req2.setMeetingId(Integer.parseInt(id));
                         req2.setPhone(userName);
                         req2.setAttendType(3);
-                        String result2 = HttpClientClass.httpPost(req, "updateMeetingConfirmByMeetingIdAndPhone");
+                        String result2 = HttpClientClass.httpPost(req2, "updateMeetingConfirmByMeetingIdAndPhone");
 
                         if (StringUtils.isBlank(result2))
                         {
@@ -222,7 +225,7 @@ public class republishMeetingToOtherActivity extends AppCompatActivity
                         req2.setMeetingId(Integer.parseInt(id));
                         req2.setPhone(userName);
                         req2.setAttendType(3);
-                        String result2 = HttpClientClass.httpPost(req, "saveMeetingConfirm");
+                        String result2 = HttpClientClass.httpPost(req2, "saveMeetingConfirm");
 
                         if (StringUtils.isBlank(result2))
                         {

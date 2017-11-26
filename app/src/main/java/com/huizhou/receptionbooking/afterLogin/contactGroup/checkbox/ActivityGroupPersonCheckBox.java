@@ -13,6 +13,7 @@ import android.widget.ListView;
 import com.google.gson.Gson;
 import com.huizhou.receptionbooking.R;
 import com.huizhou.receptionbooking.afterLogin.tab3.ActivityPublishMeetingAdd;
+import com.huizhou.receptionbooking.common.XTextView;
 import com.huizhou.receptionbooking.database.vo.GroupPersonInfoRecord;
 import com.huizhou.receptionbooking.request.GetAllGroupPersonByUserPhoneReq;
 import com.huizhou.receptionbooking.response.GetAllGroupPersonByUserPhoneResp;
@@ -34,6 +35,7 @@ public class ActivityGroupPersonCheckBox extends AppCompatActivity
     public boolean mIsFromItem = false;
 
     private String userName;
+    private XTextView tv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -44,10 +46,20 @@ public class ActivityGroupPersonCheckBox extends AppCompatActivity
         SharedPreferences userSettings = this.getSharedPreferences("userInfo", 0);
         userName = userSettings.getString("loginUserName", "default");
 
+        tv = (XTextView) this.findViewById(R.id.chooseGroupBack);
+        //回退页面
+        tv.setDrawableLeftListener(new XTextView.DrawableLeftListener()
+        {
+            @Override
+            public void onDrawableLeftClick(View view)
+            {
+                onBackPressed();
+            }
+        });
+
         initView();
         initData();
         initViewOper();
-
     }
 
     /**
@@ -77,8 +89,8 @@ public class ActivityGroupPersonCheckBox extends AppCompatActivity
         String idTemp = ids.toString();
         String nameTemp = name.toString();
         Intent intent = new Intent(ActivityGroupPersonCheckBox.this, ActivityPublishMeetingAdd.class);
-        intent.putExtra("id",idTemp.substring(0,idTemp.lastIndexOf(",")));
-        intent.putExtra("name",nameTemp.substring(0,nameTemp.lastIndexOf(",")));
+        intent.putExtra("id", idTemp.substring(0, idTemp.lastIndexOf(",")));
+        intent.putExtra("name", nameTemp.substring(0, nameTemp.lastIndexOf(",")));
         setResult(RESULT_OK, intent);
         onBackPressed();
     }
@@ -90,7 +102,7 @@ public class ActivityGroupPersonCheckBox extends AppCompatActivity
     {
         MyTask myTask = new MyTask();
         myTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-       // myTask.execute();
+        // myTask.execute();
     }
 
     /**
@@ -98,52 +110,7 @@ public class ActivityGroupPersonCheckBox extends AppCompatActivity
      */
     private void initViewOper()
     {
-        checkboxAdapter = new CheckboxAdapter(models, this, new ActivityGroupPersonCheckBox.AllCheckListener()
-        {
 
-            @Override
-            public void onCheckedChanged(boolean b)
-            {
-                //根据不同的情况对maincheckbox做处理
-                if (!b && !mMainCkb.isChecked())
-                {
-                    return;
-                }
-                else if (!b && mMainCkb.isChecked())
-                {
-                    mIsFromItem = true;
-                    mMainCkb.setChecked(false);
-                }
-                else if (b)
-                {
-                    mIsFromItem = true;
-                    mMainCkb.setChecked(true);
-                }
-            }
-        });
-        mListView.setAdapter(checkboxAdapter);
-        //全选的点击监听
-        mMainCkb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
-        {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b)
-            {
-                //当监听来源为点击item改变maincbk状态时不在监听改变，防止死循环
-                if (mIsFromItem)
-                {
-                    mIsFromItem = false;
-                    return;
-                }
-
-                //改变数据
-                for (Model model : models)
-                {
-                    model.setIscheck(b);
-                }
-                //刷新listview
-                checkboxAdapter.notifyDataSetChanged();
-            }
-        });
 
     }
 
@@ -216,6 +183,53 @@ public class ActivityGroupPersonCheckBox extends AppCompatActivity
                 model.setIscheck(false);
                 models.add(model);
             }
+
+            checkboxAdapter = new CheckboxAdapter(models, ActivityGroupPersonCheckBox.this, new ActivityGroupPersonCheckBox.AllCheckListener()
+            {
+                @Override
+                public void onCheckedChanged(boolean b)
+                {
+                    //根据不同的情况对maincheckbox做处理
+                    if (!b && !mMainCkb.isChecked())
+                    {
+                        return;
+                    }
+                    else if (!b && mMainCkb.isChecked())
+                    {
+                        mIsFromItem = true;
+                        mMainCkb.setChecked(false);
+                    }
+                    else if (b)
+                    {
+                        mIsFromItem = true;
+                        mMainCkb.setChecked(true);
+                    }
+                }
+            });
+
+            mListView.setAdapter(checkboxAdapter);
+            //全选的点击监听
+            mMainCkb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+            {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean b)
+                {
+                    //当监听来源为点击item改变maincbk状态时不在监听改变，防止死循环
+                    if (mIsFromItem)
+                    {
+                        mIsFromItem = false;
+                        return;
+                    }
+
+                    //改变数据
+                    for (Model model : models)
+                    {
+                        model.setIscheck(b);
+                    }
+                    //刷新listview
+                    checkboxAdapter.notifyDataSetChanged();
+                }
+            });
 
         }
 

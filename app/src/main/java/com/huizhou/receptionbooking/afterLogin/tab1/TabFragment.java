@@ -44,7 +44,7 @@ import java.util.Map;
 public class TabFragment extends Fragment
 {
     private String type;
-    private int count = 0;
+    private int count = 1;
     private String userName;
 
     private RecyclerView mRecyclerView;
@@ -57,6 +57,7 @@ public class TabFragment extends Fragment
     private Map<Integer, String> departmentItem = new HashMap<>();
     private Map<Integer, String> meetingRoomItem = new HashMap<>();
 
+    private int refleshType = 0;
 
     //RecyclerView自定义Adapter
     private RvAdapter adapter;
@@ -141,6 +142,8 @@ public class TabFragment extends Fragment
                 meetingTime.clear();
                 departmentItem.clear();
                 meetingRoomItem.clear();
+
+                refleshType =0;
 //模拟数据
 //                for (int i = 0; i <= 5; i++)
 //                {
@@ -154,7 +157,7 @@ public class TabFragment extends Fragment
                 }
                 else
                 {
-                    count =0;
+                    count =1;
                     MyBedMeetingTask myTask = new MyBedMeetingTask();
                     myTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                 }
@@ -163,9 +166,9 @@ public class TabFragment extends Fragment
                 {
                     public void run()
                     {
-                        mAdapter.notifyDataSetChanged();
-                        mPtrFrame.refreshComplete();
-                        mPtrFrame.setLoadMoreEnable(true);
+                        //mAdapter.notifyDataSetChanged();
+                        //mPtrFrame.refreshComplete();
+                       // mPtrFrame.setLoadMoreEnable(true);
                     }
                 }, 0);
             }
@@ -188,8 +191,15 @@ public class TabFragment extends Fragment
 //                            idsList.add(String.valueOf(i));
 //                        }
 
+                        refleshType =1;
                         if ("待开会议".equals(type))
                         {
+                            idsList.clear();
+                            threadItem.clear();
+                            meetingTime.clear();
+                            departmentItem.clear();
+                            meetingRoomItem.clear();
+
                             MyBingMeetingTask myTask = new MyBingMeetingTask();
                             myTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                         }
@@ -200,10 +210,10 @@ public class TabFragment extends Fragment
                             myTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                         }
 
-                        mAdapter.notifyDataSetChanged();
-                        mPtrFrame.loadMoreComplete(true);
-                        Toast.makeText(getActivity(), "load more complete", Toast.LENGTH_SHORT)
-                                .show();
+                        //mAdapter.notifyDataSetChanged();
+                        //mPtrFrame.loadMoreComplete(true);
+//                        Toast.makeText(getActivity(), "load more complete", Toast.LENGTH_SHORT)
+//                                .show();
                     }
                 }, 0);
             }
@@ -285,6 +295,18 @@ public class TabFragment extends Fragment
                 tos.setGravity(Gravity.CENTER, 0, 0);
                 tos.show();
             }
+
+            if(refleshType==0)
+            {
+                mAdapter.notifyDataSetChanged();
+                mPtrFrame.refreshComplete();
+                mPtrFrame.setLoadMoreEnable(true);
+            }
+            else
+            {
+                mAdapter.notifyDataSetChanged();
+                mPtrFrame.loadMoreComplete(true);
+            }
         }
 
         //onCancelled方法用于在取消执行中的任务时更改UI
@@ -320,7 +342,7 @@ public class TabFragment extends Fragment
 
             try
             {
-                String result = HttpClientClass.httpPost(req, "getMyBingMeeting");
+                String result = HttpClientClass.httpPost(req, "getMyBedMeeting");
 
                 if (StringUtils.isBlank(result))
                 {
@@ -372,6 +394,18 @@ public class TabFragment extends Fragment
                 Toast tos = Toast.makeText(getActivity(), "查询会议信息失败，请检查网络或重试。", Toast.LENGTH_LONG);
                 tos.setGravity(Gravity.CENTER, 0, 0);
                 tos.show();
+            }
+
+            if(refleshType==0)
+            {
+                mAdapter.notifyDataSetChanged();
+                mPtrFrame.refreshComplete();
+                mPtrFrame.setLoadMoreEnable(true);
+            }
+            else
+            {
+                mAdapter.notifyDataSetChanged();
+                mPtrFrame.loadMoreComplete(true);
             }
         }
 

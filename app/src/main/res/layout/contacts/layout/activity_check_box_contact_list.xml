@@ -22,7 +22,7 @@
             android:gravity="center"
             android:paddingLeft="10dip"
             android:paddingRight="10dip"
-            android:text="选择群组联系人"
+            android:text="选择联系人"
             android:textColor="@color/white"
             android:textSize="22dp"/>
 

@@ -132,11 +132,12 @@ public class LoginActivity extends AppCompatActivity
         protected Boolean doInBackground(String... params)
         {
             List<String> errorList = new ArrayList<>();
+            List<String>  loginShowName= new ArrayList<>();
             boolean result = false;
             try
             {
                 UserInfoDAO u = new UserInfoDAOImpl();
-                result = u.checkUserByUserAndPwd(userName,password,errorList);
+                result = u.checkUserByUserAndPwd(userName,password,errorList,loginShowName);
                 if(!result && !errorList.isEmpty())
                 {
                     Toast tos = Toast.makeText(getApplicationContext(),errorList.get(0), Toast.LENGTH_LONG);
@@ -144,6 +145,14 @@ public class LoginActivity extends AppCompatActivity
                     tos.show();
                     return false;
                 }
+
+                //保存登录用户信息
+                SharedPreferences userSettings = getSharedPreferences("userInfo", 0);
+                SharedPreferences.Editor editor = userSettings.edit();
+                editor.putString("loginUserName", userName);
+                editor.putString("loginShowName", loginShowName.get(0));
+                editor.commit();
+
             }
             catch (Exception e)
             {
@@ -175,11 +184,6 @@ public class LoginActivity extends AppCompatActivity
             else
             {
                 progressBar.setVisibility(View.GONE);
-                //保存登录用户信息
-                SharedPreferences userSettings = getSharedPreferences("userInfo", 0);
-                SharedPreferences.Editor editor = userSettings.edit();
-                editor.putString("loginUserName", userName);
-                editor.commit();
 
                 //登录后台展示
                 enterAfterLoginActivity();

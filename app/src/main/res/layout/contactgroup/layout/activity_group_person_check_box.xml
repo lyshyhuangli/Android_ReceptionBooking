@@ -5,7 +5,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.huizhou.receptionbooking.afterLogin.contactGroup.checkbox.ActivityGroupPersonCheckBox">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal">
+
+        <com.huizhou.receptionbooking.common.XTextView
+            android:id="@+id/chooseGroupBack"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.8"
+            android:background="#1D82EA"
+            android:drawableLeft="@mipmap/back"
+            android:gravity="center"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:text="选择群组"
+            android:textColor="@color/white"
+            android:textSize="22dp"/>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,17 +38,17 @@
             android:layout_width="130dp"
             android:layout_height="40dp"
             android:padding="10dp"
-            android:theme="@style/MyCheckBox"
-            android:text="全选"/>
+            android:text="全选"
+            android:theme="@style/MyCheckBox"/>
 
         <Button
             android:id="@+id/groupPerson_bt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="getAllGroupPerson"
-            android:textColor="@color/txtcolor"
             android:background="#F1F2F6"
-            android:text="确认"/>
+            android:onClick="getAllGroupPerson"
+            android:text="确认"
+            android:textColor="@color/txtcolor"/>
 
     </LinearLayout>
 

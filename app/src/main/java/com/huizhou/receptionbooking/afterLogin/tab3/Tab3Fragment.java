@@ -304,7 +304,6 @@ public class Tab3Fragment extends Fragment implements AbsListView.OnScrollListen
                     it.putExtra("meetingRoom", meetingRoom);
                     it.putExtra("anOrPmType", type);
                     startActivity(it);
-                    //.notifyDataSetChanged();
                 }
             });
 
