@@ -5,6 +5,8 @@
               android:background="@color/setting"
               android:orientation="vertical">
 
+    <include layout="@layout/top"/>
+
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="35dp"
@@ -13,24 +15,17 @@
         android:orientation="horizontal">
 
         <Button
-            android:layout_width="200dp"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical|left"
-            android:text="用户名"
-            android:paddingLeft="10dip"
-            android:background="@color/settingbtn"
-            android:textColor="@color/buttontxt"
-            android:textSize="15sp"
-             />
-
-        <Button
             android:id="@+id/nameShow"
             android:layout_width="fill_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical|right"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawablePadding="10dip"
             android:paddingRight="10dip"
+            android:gravity="center_vertical|left"
             android:background="@color/settingbtn"
             android:textColor="@color/buttontxt"
+            android:paddingLeft="10dip"
+            android:drawableLeft="@mipmap/user"
             android:textSize="15sp"/>
     </LinearLayout>
 
@@ -53,10 +48,12 @@
             android:textColor="@color/buttontxt"
             android:text="修改密码"
             android:paddingLeft="10dip"
+            android:drawableLeft="@mipmap/modifyp"
             android:textSize="15sp"/>
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/meetingRoomManagerLl"
         android:layout_width="fill_parent"
         android:layout_height="40dp"
         android:orientation="horizontal">
@@ -75,10 +72,12 @@
             android:textColor="@color/buttontxt"
             android:text="会议室管理"
             android:paddingLeft="10dip"
+            android:drawableLeft="@mipmap/meetingmanager"
             android:textSize="15sp"/>
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/addressBookManagerLl"
         android:layout_width="fill_parent"
         android:layout_height="40dp"
         android:orientation="horizontal">
@@ -97,16 +96,42 @@
             android:textColor="@color/buttontxt"
             android:text="通讯录管理"
             android:paddingLeft="10dip"
+            android:drawableLeft="@mipmap/teladdress"
             android:textSize="15sp"/>
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/departmentManagerLl"
         android:layout_width="fill_parent"
         android:layout_height="40dp"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/departmentManager"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_weight="1"
+            android:background="@color/settingbtn"
+            android:drawableLeft="@mipmap/department"
+            android:drawablePadding="10dip"
+            android:drawableRight="@mipmap/toforward"
+            android:gravity="center_vertical|left"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:text="部门管理"
+            android:textColor="@color/buttontxt"
+            android:textSize="15sp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/diningManagerLl"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/diningManager"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -117,14 +142,63 @@
             android:layout_marginTop="5dp"
             android:background="@color/settingbtn"
             android:textColor="@color/buttontxt"
-            android:text="部门管理"
+            android:text="菜谱增加"
             android:paddingLeft="10dip"
+            android:drawableLeft="@mipmap/menus"
+            android:textSize="15sp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/diningRoomManagerLl"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/diningRoomManager"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawablePadding="10dip"
+            android:drawableRight="@mipmap/toforward"
+            android:paddingRight="10dip"
+            android:gravity="center_vertical|left"
+            android:layout_marginTop="5dp"
+            android:background="@color/settingbtn"
+            android:textColor="@color/buttontxt"
+            android:text="包间预定"
+            android:paddingLeft="10dip"
+            android:drawableLeft="@mipmap/baojian2"
             android:textSize="15sp"/>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="40dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/startScan"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawablePadding="10dip"
+            android:drawableRight="@mipmap/toforward"
+            android:paddingRight="10dip"
+            android:gravity="center_vertical|left"
+            android:layout_marginTop="5dp"
+            android:background="@color/settingbtn"
+            android:textColor="@color/buttontxt"
+            android:text="扫一扫"
+            android:paddingLeft="10dip"
+            android:drawableLeft="@mipmap/scan2"
+            android:textSize="15sp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:visibility="gone"
         android:orientation="horizontal">
 
         <Button
@@ -140,6 +214,7 @@
             android:text="关于"
             android:paddingLeft="10dip"
             android:textSize="15sp"
+            android:visibility="gone"
             />
 
     </LinearLayout>
@@ -156,11 +231,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:background="@color/settingbtn"
-            android:gravity="center_vertical|left"
-            android:drawableRight="@mipmap/toforward"
             android:paddingRight="10dip"
-            android:text="退出"
+            android:text="退出登录"
             android:paddingLeft="10dip"
+            android:gravity="center"
             android:textColor="@color/red"
             android:textSize="15sp"/>
     </LinearLayout>

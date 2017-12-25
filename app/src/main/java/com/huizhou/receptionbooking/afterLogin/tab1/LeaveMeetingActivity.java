@@ -5,8 +5,10 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Display;
 import android.view.Gravity;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -30,8 +32,7 @@ public class LeaveMeetingActivity extends AppCompatActivity
 {
     private String id;
     private String userName;
-    private XTextView tv;
-
+    private String showName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -39,28 +40,40 @@ public class LeaveMeetingActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leave_meeting);
 
+        WindowManager m = getWindowManager();
+        Display d = m.getDefaultDisplay();  //为获取屏幕宽、高
+        WindowManager.LayoutParams p = getWindow().getAttributes();  //获取对话框当前的参数值
+        p.height = (int) (d.getHeight() * 0.28);   //高度设置为屏幕的1.0
+        p.width = (int) (d.getWidth() * 0.8);    //宽度设置为屏幕的0.8
+        p.alpha = 1.0f;      //设置本身透明度
+        p.dimAmount = 0.0f;      //设置黑暗度
+        getWindow().setAttributes(p);     //设置生效
+        getWindow().setGravity(Gravity.CENTER);       //设置靠右对齐
+
         SharedPreferences userSettings = this.getSharedPreferences("userInfo", 0);
         userName = userSettings.getString("loginUserName", "default");
+        showName= userSettings.getString("loginShowName", "default");
 
         Intent i = getIntent();
         id = i.getStringExtra("id");
-        tv = (XTextView) this.findViewById(R.id.leaveMeetingBack);
-        //回退页面
-        tv.setDrawableLeftListener(new XTextView.DrawableLeftListener()
-        {
-            @Override
-            public void onDrawableLeftClick(View view)
-            {
-                onBackPressed();
-            }
-        });
+    }
 
-
+    public void leaveMeetingBack(View view)
+    {
+        onBackPressed();
     }
 
     public void leaveMeetingSave(View view)
     {
         EditText reson = (EditText) findViewById(R.id.leaveMeetingReason);
+
+        if(StringUtils.isBlank(reson.getText().toString()))
+        {
+            Toast tos = Toast.makeText(LeaveMeetingActivity.this, "请输入请假原因！", Toast.LENGTH_SHORT);
+            tos.setGravity(Gravity.CENTER, 0, 0);
+            tos.show();
+            return;
+        }
 
         String temp = "";
         if (null != reson.getText())
@@ -147,6 +160,7 @@ public class LeaveMeetingActivity extends AppCompatActivity
                         req2.setPhone(userName);
                         req2.setAttendType(2);
                         req2.setReason(params[0]);
+                        req2.setUserName(showName);
                         String result2 = HttpClientClass.httpPost(req2, "saveMeetingConfirm");
 
                         if (StringUtils.isBlank(result2))
@@ -192,6 +206,7 @@ public class LeaveMeetingActivity extends AppCompatActivity
                 Toast tos = Toast.makeText(LeaveMeetingActivity.this, "请假成功!", Toast.LENGTH_LONG);
                 tos.setGravity(Gravity.CENTER, 0, 0);
                 tos.show();
+               onBackPressed();
             }
 
         }

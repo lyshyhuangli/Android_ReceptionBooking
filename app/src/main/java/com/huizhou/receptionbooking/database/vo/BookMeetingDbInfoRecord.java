@@ -13,6 +13,7 @@ public class BookMeetingDbInfoRecord
 {
     private int id;
     private String bookUser;
+    private String departmentName;
     private String meetingDate;
     private String amOrPm;
     private String startTime;
@@ -31,6 +32,16 @@ public class BookMeetingDbInfoRecord
     private byte[] QRcode;
     private String createTime;
     private String remark;
+
+    public String getDepartmentName()
+    {
+        return departmentName;
+    }
+
+    public void setDepartmentName(String departmentName)
+    {
+        this.departmentName = departmentName;
+    }
 
     public String getPersonName()
     {

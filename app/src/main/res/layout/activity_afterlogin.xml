@@ -6,6 +6,7 @@
     >
 
     <!--<include layout="@layout/top"/>-->
+
     <FrameLayout
         android:id="@+id/id_content"
         android:layout_weight="1"

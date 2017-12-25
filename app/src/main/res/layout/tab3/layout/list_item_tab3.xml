@@ -4,61 +4,82 @@
               android:layout_height="fill_parent"
               android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/meetingPlace"
+    <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="0.4"
-         />
+        android:gravity="center_horizontal"
+        android:layout_gravity="center">
 
-    <TextView
-        android:id="@+id/am"
+        <TextView
+            android:id="@+id/meetingPlace"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:drawableLeft="@mipmap/meetingmanager"
+            android:layout_gravity="center"
+            android:gravity="center"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="0.3"
-        android:hint="上午"
-        />
+        android:layout_weight="0.6"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/pm"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.3"
-        android:hint="下午"
-         />
+        <TextView
+            android:id="@+id/am"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@mipmap/am"
+            android:hint="上午"
+            />
+
+        <TextView
+            android:id="@+id/pm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@mipmap/pm"
+            android:hint="下午"
+            />
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/meetingRoomId"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:textSize="22sp"/>
+        android:textSize="22sp"
+        android:visibility="gone"/>
 
     <TextView
         android:id="@+id/publishRoomIdAm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:textSize="22sp"/>
+        android:textSize="22sp"
+        android:visibility="gone"/>
 
     <TextView
         android:id="@+id/publishRoomIdPm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:textSize="22sp"/>
+        android:textSize="22sp"
+        android:visibility="gone"/>
 
     <TextView
         android:id="@+id/bookUserIdAm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:textSize="22sp"/>
+        android:textSize="22sp"
+        android:visibility="gone"/>
+
     <TextView
         android:id="@+id/bookUserIdPm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:textSize="22sp"/>
+        android:textSize="22sp"
+        android:visibility="gone"/>
 
 </LinearLayout>

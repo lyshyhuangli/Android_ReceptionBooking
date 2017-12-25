@@ -14,18 +14,15 @@
         android:orientation="horizontal">
 
         <com.huizhou.receptionbooking.common.XTextView
-            android:id="@+id/leaveMeetingBack"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.8"
             android:background="#1D82EA"
-            android:drawableLeft="@mipmap/back"
             android:gravity="center"
             android:paddingLeft="10dip"
             android:paddingRight="10dip"
             android:text="请假"
             android:textColor="@color/white"
-            android:textSize="22dp"/>
+            android:textSize="@dimen/top_size"/>
     </LinearLayout>
 
     <LinearLayout
@@ -38,6 +35,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="请假原因"
+            android:textSize="@dimen/text_size"
+            android:textColorHint="@color/txtcolor"
+            android:textColor="@color/txtcolor"
             />
     </LinearLayout>
 
@@ -48,10 +48,19 @@
 
         <Button
             android:id="@+id/leaveMeetingBt"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="0.5"
             android:layout_height="wrap_content"
             android:onClick="leaveMeetingSave"
             android:text="确认"
+            />
+        <Button
+            android:id="@+id/leaveMeetingBack"
+            android:layout_width="0dp"
+            android:layout_weight="0.5"
+            android:layout_height="wrap_content"
+            android:onClick="leaveMeetingBack"
+            android:text="取消"
             />
     </LinearLayout>
 

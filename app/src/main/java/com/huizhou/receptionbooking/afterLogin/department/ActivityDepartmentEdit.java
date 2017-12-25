@@ -16,6 +16,8 @@ import com.huizhou.receptionbooking.database.dao.DepartmentDAO;
 import com.huizhou.receptionbooking.database.dao.impl.DepartmentDAOImpl;
 import com.huizhou.receptionbooking.database.vo.DepartmentInfoRecord;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,10 +60,32 @@ public class ActivityDepartmentEdit extends AppCompatActivity
         TextView depatmentEditMr = (TextView) findViewById(R.id.depatmentEditMr);
 
         TextView depatmentEditMrId = (TextView) findViewById(R.id.depatmentEditMrId);
-        int parentId = Integer.valueOf((String) depatmentEditMrId.getText());
+        int parentId = 0;
+        if (StringUtils.isBlank(depatmentEditMrId.getText().toString()))
+        {
+            Toast tos = Toast.makeText(getApplicationContext(), "请选择上级部门", Toast.LENGTH_SHORT);
+            tos.setGravity(Gravity.CENTER, 0, 0);
+            tos.show();
+            return;
+        }
+        else
+        {
+            parentId = Integer.valueOf((String) depatmentEditMrId.getText());
+        }
 
         EditText depatmentNameEt = (EditText) findViewById(R.id.depatmentNameEt);
-        String departmentName = depatmentNameEt.getText().toString();
+        String departmentName = null;
+        if (StringUtils.isBlank(depatmentNameEt.getText().toString()))
+        {
+            Toast tos = Toast.makeText(getApplicationContext(), "请填写部门", Toast.LENGTH_SHORT);
+            tos.setGravity(Gravity.CENTER, 0, 0);
+            tos.show();
+            return;
+        }
+        else
+        {
+            departmentName = depatmentNameEt.getText().toString();
+        }
 
         EditText remarkDepartmentEt = (EditText) findViewById(R.id.remarkDepartmentEt);
         String remark = remarkDepartmentEt.getText().toString();

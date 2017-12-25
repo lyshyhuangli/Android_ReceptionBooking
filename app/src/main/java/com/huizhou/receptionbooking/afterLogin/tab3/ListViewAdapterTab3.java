@@ -107,13 +107,13 @@ public class ListViewAdapterTab3 extends BaseAdapter
         {
             if ("am".equals(e.getAmOrPm()))
             {
-                holder.am.setText(e.getStartTime() + "-" + e.getEndTime() + " " + e.getThreaf());
+                holder.am.setText(e.getStartTime() + "-" + e.getEndTime() + " \n" + e.getThreaf());
                 holder.publishRoomIdAm.setText(String.valueOf(e.getMid()));
                 holder.bookUserIdAm.setText(e.getBookUser());
             }
             else if ("pm".equals(e.getAmOrPm()))
             {
-                holder.pm.setText(e.getStartTime() + "-" + e.getEndTime() + " " + e.getThreaf());
+                holder.pm.setText(e.getStartTime() + "-" + e.getEndTime() + " \n" + e.getThreaf());
                 holder.publishRoomIdPm.setText(String.valueOf(e.getMid()));
                 holder.bookUserIdPm.setText(e.getBookUser());
             }

@@ -15,7 +15,7 @@ public interface GroupPersonDAO
      *
      * @return
      */
-    List<GroupPersonInfoRecord> getAllGroup(List<String> errorList, int count, String userCode);
+    List<GroupPersonInfoRecord> getAllGroup(List<String> errorList, int count, String userCode,String param);
 
     /**
      * 保存群组信息

@@ -20,6 +20,8 @@ import com.huizhou.receptionbooking.database.dao.DepartmentDAO;
 import com.huizhou.receptionbooking.database.dao.impl.DepartmentDAOImpl;
 import com.huizhou.receptionbooking.database.vo.DepartmentInfoRecord;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,10 +54,32 @@ public class ActivityDepartmentAdd extends AppCompatActivity
         TextView depatmentAddMr = (TextView) findViewById(R.id.depatmentAddMr);
 
         TextView depatmentAddMrId = (TextView) findViewById(R.id.depatmentAddMrId);
-        int parentId = Integer.valueOf((String) depatmentAddMrId.getText());
+        int parentId = 0;
+        if (StringUtils.isBlank(depatmentAddMrId.getText().toString()))
+        {
+            Toast tos = Toast.makeText(getApplicationContext(), "请选择上级部门", Toast.LENGTH_SHORT);
+            tos.setGravity(Gravity.CENTER, 0, 0);
+            tos.show();
+            return;
+        }
+        else
+        {
+            parentId = Integer.valueOf((String) depatmentAddMrId.getText());
+        }
 
         EditText depatmentNameAdd = (EditText) findViewById(R.id.depatmentNameAdd);
-        String departmentName = depatmentNameAdd.getText().toString();
+        String departmentName = null;
+        if (StringUtils.isBlank(depatmentNameAdd.getText().toString()))
+        {
+            Toast tos = Toast.makeText(getApplicationContext(), "请填写部门", Toast.LENGTH_SHORT);
+            tos.setGravity(Gravity.CENTER, 0, 0);
+            tos.show();
+            return;
+        }
+        else
+        {
+            departmentName = depatmentNameAdd.getText().toString();
+        }
 
         EditText remarkDepartmentAdd = (EditText) findViewById(R.id.remarkDepartmentAdd);
         String remark = remarkDepartmentAdd.getText().toString();
@@ -141,7 +165,7 @@ public class ActivityDepartmentAdd extends AppCompatActivity
             }
             else
             {
-                Toast tos = Toast.makeText(getApplicationContext(),"保存成功", Toast.LENGTH_LONG);
+                Toast tos = Toast.makeText(getApplicationContext(), "保存成功", Toast.LENGTH_LONG);
                 tos.setGravity(Gravity.CENTER, 0, 0);
                 tos.show();
                 onBackPressed();

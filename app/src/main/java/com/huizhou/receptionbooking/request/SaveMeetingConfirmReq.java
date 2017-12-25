@@ -10,6 +10,17 @@ public class SaveMeetingConfirmReq extends CommonRequest
     private String userName;
     private int attendType;
     private String reason;
+    private int isSign;
+
+    public int getIsSign()
+    {
+        return isSign;
+    }
+
+    public void setIsSign(int isSign)
+    {
+        this.isSign = isSign;
+    }
 
     public int getMeetingId()
     {

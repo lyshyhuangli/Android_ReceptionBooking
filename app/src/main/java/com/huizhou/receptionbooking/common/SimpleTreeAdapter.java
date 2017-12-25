@@ -54,7 +54,6 @@ public class SimpleTreeAdapter<T> extends TreeListAdapter<T>
             convertView.setTag(viewHolder);
             viewHolder.next = (ImageView) convertView
                     .findViewById(R.id.id_treenode_next);
-
         }
         else
         {
@@ -64,21 +63,36 @@ public class SimpleTreeAdapter<T> extends TreeListAdapter<T>
         if (node.getIcon() == -1)
         {
             viewHolder.icon.setVisibility(View.INVISIBLE);
-            if (node.getLevel() == 3)
-            {
-                viewHolder.next.setVisibility(View.VISIBLE);
-            }
-            else
-            {
-                viewHolder.next.setVisibility(View.INVISIBLE);
-            }
+
+//            if (node.getLevel() == 3)
+//            {
+//                viewHolder.next.setVisibility(View.VISIBLE);
+//            }
+//            else
+//            {
+//                viewHolder.next.setVisibility(View.INVISIBLE);
+//            }
         }
         else
         {
-            viewHolder.next.setVisibility(View.INVISIBLE);
+            //viewHolder.next.setVisibility(View.INVISIBLE);
             viewHolder.icon.setVisibility(View.VISIBLE);
             viewHolder.icon.setImageResource(node.getIcon());
         }
+
+        if("1".equals(node.getType()))
+        {
+            viewHolder.next.setImageResource(R.mipmap.department);
+        }
+        else if("2".equals(node.getType()))
+        {
+            viewHolder.next.setImageResource(R.mipmap.meetingmanager);
+        }
+        else
+        {
+            viewHolder.next.setImageResource(R.mipmap.user2);
+        }
+
         viewHolder.label.setText(node.getName());
 
         viewHolder.icon

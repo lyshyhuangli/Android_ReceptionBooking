@@ -53,8 +53,8 @@ public class LoginActivity extends AppCompatActivity
 
         userName = usernameWrapper.getEditText().getText().toString();
         password = passwordWrapper.getEditText().getText().toString();
-        userName= "demo";
-        password = "demo";
+        //userName= "demo";
+        //password = "demo";
         if (!validateUserName(userName))
         {
             usernameWrapper.setError("请填写用户名");
@@ -132,12 +132,12 @@ public class LoginActivity extends AppCompatActivity
         protected Boolean doInBackground(String... params)
         {
             List<String> errorList = new ArrayList<>();
-            List<String>  loginShowName= new ArrayList<>();
+            List<String>  loginInfo= new ArrayList<>();
             boolean result = false;
             try
             {
                 UserInfoDAO u = new UserInfoDAOImpl();
-                result = u.checkUserByUserAndPwd(userName,password,errorList,loginShowName);
+                result = u.checkUserByUserAndPwd(userName,password,errorList,loginInfo);
                 if(!result && !errorList.isEmpty())
                 {
                     Toast tos = Toast.makeText(getApplicationContext(),errorList.get(0), Toast.LENGTH_LONG);
@@ -150,9 +150,11 @@ public class LoginActivity extends AppCompatActivity
                 SharedPreferences userSettings = getSharedPreferences("userInfo", 0);
                 SharedPreferences.Editor editor = userSettings.edit();
                 editor.putString("loginUserName", userName);
-                editor.putString("loginShowName", loginShowName.get(0));
+                editor.putString("loginShowName", loginInfo.get(0));
+                editor.putString("department", loginInfo.get(1));
+                editor.putString("departmentId", loginInfo.get(2));
+                editor.putString("role",loginInfo.get(3));
                 editor.commit();
-
             }
             catch (Exception e)
             {

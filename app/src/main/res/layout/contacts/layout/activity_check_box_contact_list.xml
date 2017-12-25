@@ -11,6 +11,7 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="40dp"
+        android:id="@+id/ll_chooseContact"
         android:orientation="horizontal">
 
         <com.huizhou.receptionbooking.common.XTextView
@@ -22,25 +23,29 @@
             android:gravity="center"
             android:paddingLeft="10dip"
             android:paddingRight="10dip"
-            android:text="选择联系人"
+            android:text="联系人"
             android:textColor="@color/white"
-            android:textSize="22dp"/>
+            android:textSize="@dimen/top_size"/>
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:orientation="horizontal">
 
         <TextView
             android:layout_width="230dp"
             android:layout_height="40dp"
             android:padding="10dp"
+            android:textColor="@color/txtcolor"
+            android:textSize="@dimen/text_size"
             android:text="请选择联系人"/>
 
         <Button
-            android:id="@+id/alarmCompany_bt"
+            android:id="@+id/getContact_bt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#F1F2F6"
@@ -54,8 +59,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:cacheColorHint="@android:color/transparent"
-        android:divider="#FF4081"
-        android:dividerHeight="1px"/>
+        android:dividerHeight="1px"
+        android:layout_marginLeft="10dp"/>
 
 
 </LinearLayout>

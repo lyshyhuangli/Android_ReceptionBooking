@@ -17,7 +17,6 @@
             android:id="@+id/viewAndConfirmBack"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.8"
             android:background="#1D82EA"
             android:drawableLeft="@mipmap/back"
             android:gravity="center"
@@ -25,7 +24,7 @@
             android:paddingRight="10dip"
             android:text="会议信息"
             android:textColor="@color/white"
-            android:textSize="22dp"/>
+            android:textSize="@dimen/top_size"/>
     </LinearLayout>
 
 
@@ -46,16 +45,35 @@
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.1"
-                    android:text="主题:"/>
+                    android:text="主      题:"
+                    android:layout_height="@dimen/textview_size"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="0.3"
+                    android:background="@color/settingbtn"
+                    android:drawableLeft="@mipmap/threaf"
+                    android:gravity="center_vertical|left"
+                    android:paddingLeft="10dip"
+                    android:drawablePadding="5dip"
+                    android:textColor="@color/txtcolor"
+                    android:textSize="@dimen/text_size"/>
 
                 <TextView
-                    android:id="@+id/viewAndConfirmThread"
+                    android:id="@+id/viewAndConfirmThreaf"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.9"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="0.6"
+                    android:paddingLeft="5dip"
+                    android:paddingRight="5dip"
+                    android:textColor="@color/txtcolor"
+                    android:textSize="@dimen/text_size"
                     />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.1"/>
             </LinearLayout>
 
             <LinearLayout
@@ -65,21 +83,35 @@
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.1"
-                    android:hint="时间:"
-                    android:onClick="getStartTime"
+                    android:text="时      间:"
+                    android:layout_height="@dimen/textview_size"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="0.3"
+                    android:background="@color/settingbtn"
+                    android:drawableLeft="@mipmap/time"
+                    android:gravity="center_vertical|left"
+                    android:paddingLeft="10dip"
+                    android:drawablePadding="5dip"
                     android:textColor="@color/txtcolor"
-                    />
+                    android:textSize="@dimen/text_size"/>
 
                 <TextView
                     android:id="@+id/meetingTime"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.9"
+                    android:layout_height="@dimen/textview_size"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="0.6"
+                    android:paddingLeft="5dip"
+                    android:paddingRight="5dip"
                     android:textColor="@color/txtcolor"
+                    android:textSize="@dimen/text_size"
                     />
 
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.1"/>
             </LinearLayout>
 
             <LinearLayout
@@ -88,17 +120,38 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:text="内     容:"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.1"
-                    android:text="内容:"/>
+                    android:layout_height="@dimen/textview_size"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="0.3"
+                    android:background="@color/settingbtn"
+                    android:drawableLeft="@mipmap/content"
+                    android:drawablePadding="10dip"
+                    android:gravity="center_vertical|left"
+                    android:paddingLeft="10dip"
+                    android:paddingRight="10dip"
+                    android:textColor="@color/txtcolor"
+                    android:textSize="@dimen/text_size"/>
 
                 <TextView
                     android:id="@+id/viewMeetingContent"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.9"
+                    android:paddingBottom="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="0.6"
+                    android:paddingLeft="5dip"
+                    android:paddingRight="5dip"
+                    android:textColor="@color/txtcolor"
+                    android:textSize="@dimen/text_size"
                     />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.1"/>
             </LinearLayout>
 
             <LinearLayout
@@ -107,19 +160,39 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:text="会议室:"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.2"
-                    android:text="会议室:"/>
+                    android:layout_height="@dimen/textview_size"
+                    android:layout_weight="0.3"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/settingbtn"
+                    android:drawableLeft="@mipmap/meetingmanager"
+                    android:drawablePadding="10dip"
+                    android:gravity="center_vertical|left"
+                    android:onClick="chooseMeetingRoom"
+                    android:paddingLeft="10dip"
+                    android:paddingRight="10dip"
+                    android:textColor="@color/txtcolor"
+                    android:textSize="@dimen/text_size"/>
 
                 <TextView
                     android:id="@+id/viewMeetingRoom"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.8"
+                    android:layout_height="@dimen/textview_size"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="0.6"
+                    android:paddingLeft="5dip"
+                    android:paddingRight="5dip"
+                    android:textColor="@color/txtcolor"
+                    android:textSize="@dimen/text_size"
                     />
-            </LinearLayout>
 
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.1"/>
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="fill_parent"
@@ -127,17 +200,77 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:text="着装要求:"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.1"
-                    android:text="纪律要求:"/>
+                    android:paddingBottom="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="0.3"
+                    android:background="@color/settingbtn"
+                    android:drawableLeft="@mipmap/cloth"
+                    android:drawablePadding="10dip"
+                    android:gravity="center_vertical|left"
+                    android:paddingLeft="10dip"
+                    android:textColor="@color/txtcolor"
+                    android:textSize="@dimen/text_size"/>
+
+                <TextView
+                    android:id="@+id/viewMeetingClothes"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="0.6"
+                    android:paddingLeft="2dip"
+                    android:paddingRight="5dip"
+                    android:textColor="@color/txtcolor"
+                    android:textSize="@dimen/text_size"
+                    />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.1"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:text="纪律要求:"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/textview_size"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="0.3"
+                    android:background="@color/settingbtn"
+                    android:drawableLeft="@mipmap/discipline"
+                    android:drawablePadding="10dip"
+                    android:gravity="center_vertical|left"
+                    android:paddingLeft="10dip"
+                    android:textColor="@color/txtcolor"
+                    android:textSize="@dimen/text_size"/>
 
                 <TextView
                     android:id="@+id/viewMeetingDiscipline"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.9"
+                    android:paddingBottom="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="0.6"
+                    android:paddingLeft="5dip"
+                    android:paddingRight="5dip"
+                    android:textColor="@color/txtcolor"
+                    android:textSize="@dimen/text_size"
                     />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.1"/>
             </LinearLayout>
 
             <LinearLayout
@@ -146,17 +279,37 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:text="联系人:"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.1"
-                    android:text="会议联系人:"/>
+                    android:layout_height="@dimen/textview_size"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="0.3"
+                    android:background="@color/settingbtn"
+                    android:drawableLeft="@mipmap/contact"
+                    android:drawablePadding="10dip"
+                    android:gravity="center_vertical|left"
+                    android:paddingLeft="10dip"
+                    android:paddingRight="5dip"
+                    android:textColor="@color/txtcolor"
+                    android:textSize="@dimen/text_size"/>
 
                 <TextView
                     android:id="@+id/viewMeetingConnectPerson"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.9"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/textview_size"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="0.6"
+                    android:paddingLeft="5dip"
+                    android:paddingRight="5dip"
+                    android:textColor="@color/txtcolor"
+                    android:textSize="@dimen/text_size"
                     />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.1"/>
             </LinearLayout>
 
             <LinearLayout
@@ -165,17 +318,37 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:text="联系电话:"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.2"
-                    android:text="联系人电话:"/>
+                    android:layout_height="@dimen/textview_size"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="0.3"
+                    android:background="@color/settingbtn"
+                    android:drawableLeft="@mipmap/moble"
+                    android:drawablePadding="10dip"
+                    android:gravity="center_vertical|left"
+                    android:paddingLeft="10dip"
+                    android:paddingRight="10dip"
+                    android:textColor="@color/txtcolor"
+                    android:textSize="@dimen/text_size"/>
 
                 <TextView
                     android:id="@+id/viewMeetingConnectPhone"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.8"
+                    android:layout_height="@dimen/textview_size"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="0.5"
+                    android:paddingLeft="5dip"
+                    android:paddingRight="5dip"
+                    android:textColor="@color/txtcolor"
+                    android:textSize="@dimen/text_size"
                     />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.1"/>
             </LinearLayout>
 
             <LinearLayout
@@ -185,58 +358,135 @@
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.1"
-                    android:text="备注:"/>
+                    android:layout_height="@dimen/textview_size"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="0.3"
+                    android:background="@color/settingbtn"
+                    android:drawableLeft="@mipmap/dep"
+                    android:drawablePadding="10dip"
+                    android:gravity="center_vertical|left"
+                    android:paddingLeft="10dip"
+                    android:text="组织部门:"
+                    android:textColor="@color/txtcolor"
+                    android:textSize="@dimen/text_size"/>
 
                 <TextView
-                    android:id="@+id/viewMeetingRemark"
-                    android:layout_weight="0.9"
+                    android:id="@+id/viewMeetingzuzhiDep"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/textview_size"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="0.5"
+                    android:paddingLeft="2dip"
+                    android:paddingRight="5dip"
+                    android:textColor="@color/txtcolor"
+                    android:textSize="@dimen/text_size"
                     />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.1"/>
             </LinearLayout>
 
             <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:text="备      注:"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/textview_size"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="0.3"
+                    android:background="@color/settingbtn"
+                    android:drawableLeft="@mipmap/remark"
+                    android:drawablePadding="10dip"
+                    android:gravity="center_vertical|left"
+                    android:paddingLeft="10dip"
+                    android:textColor="@color/txtcolor"
+                    android:textSize="@dimen/text_size"/>
+
+                <TextView
+                    android:id="@+id/viewMeetingRemark"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="0.6"
+                    android:paddingLeft="2dip"
+                    android:paddingRight="5dip"
+                    android:textColor="@color/txtcolor"
+                    android:textSize="@dimen/text_size"
+                    />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.1"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/viewUserMeetingLl"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <Button
                     android:id="@+id/viewPublishMeetingSave"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
                     android:onClick="confirmMeeting"
                     android:text="参会"
                     />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
 
                 <Button
                     android:id="@+id/leaveMeeting"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
                     android:onClick="leaveMeeting"
                     android:text="请假"
                     />
+
+                <Button
+                    android:id="@+id/viewRepublishMeeting"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.4"
+                    android:onClick="republishMeeting"
+                    android:text="转发会议"
+                    />
+
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/viewAdminMeetingLl"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/viewRepublishMeeting"
-                    android:layout_width="match_parent"
+                    android:id="@+id/makeQRCode"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:onClick="republishMeeting"
-                    android:text="转发会议"
+                    android:layout_weight="0.6"
+                    android:onClick="makeQRCode"
+                    android:text="生成二维码图片"
                     />
+
+                <Button
+                    android:id="@+id/viewMeetingConfirmInfo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.4"
+                    android:onClick="viewMeetingConfirmInfo"
+                    android:text="参会情况"
+                    />
+
             </LinearLayout>
 
         </LinearLayout>

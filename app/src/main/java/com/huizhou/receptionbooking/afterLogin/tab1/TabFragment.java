@@ -12,6 +12,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.chanven.lib.cptr.PtrClassicFrameLayout;
@@ -104,6 +105,7 @@ public class TabFragment extends Fragment
                 Intent it = new Intent(getActivity(), ViewAndConfirmMeetingActivity.class);
                 it.putExtra("id", vh.meetingId.getText().toString());
                 it.putExtra("meetingRoom",vh.meetingRoomItem.getText().toString());
+                it.putExtra("departmentItem",vh.departmentItem.getText().toString());
                 startActivity(it);
 
                 //Toast.makeText(getActivity(), vh.mTextView.getText().toString(), Toast.LENGTH_LONG).show();

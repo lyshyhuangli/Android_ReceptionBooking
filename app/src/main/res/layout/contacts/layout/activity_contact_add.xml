@@ -18,15 +18,14 @@
             android:id="@+id/contactAddBack"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.8"
             android:background="#1D82EA"
             android:drawableLeft="@mipmap/back"
             android:gravity="center"
             android:paddingLeft="10dip"
             android:paddingRight="10dip"
-            android:text="编辑通讯录"
+            android:text="增加通讯录"
             android:textColor="@color/white"
-            android:textSize="22dp"/>
+            android:textSize="@dimen/top_size"/>
 
     </LinearLayout>
 
@@ -46,25 +45,45 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="130dp"
-                    android:layout_height="wrap_content"
-                    android:text="部门名称"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/textview_size"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="0.4"
+                    android:background="@color/settingbtn"
+                    android:drawableLeft="@mipmap/department"
+                    android:drawablePadding="10dip"
+                    android:gravity="center_vertical|left"
+                    android:paddingLeft="10dip"
+                    android:paddingRight="10dip"
+                    android:text="部门名称:"
                     android:textColor="@color/txtcolor"
-                    />
+                    android:textSize="@dimen/text_size"/>
 
                 <TextView
                     android:id="@+id/contactDepatmentMrAdd"
-                    android:layout_width="match_parent"
-                    android:hint="请选择所属部门"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/textview_size"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="0.5"
+                    android:background="@color/settingbtn"
+                    android:gravity="center_vertical|left"
                     android:onClick="getParentDepartmentAddForContact"
-                    android:layout_height="wrap_content"
+                    android:paddingRight="5dip"
+                    android:hint="请选择所属部门"
+                    android:textColor="@color/txtcolor"
+                    android:textSize="@dimen/text_size"
                     />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.1"/>
 
                 <TextView
                     android:id="@+id/contactDepatmentAddMrId"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="invisible"
+                    android:visibility="gone"
                     />
             </LinearLayout>
 
@@ -74,18 +93,36 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="130dp"
-                    android:layout_height="wrap_content"
-                    android:text="名字"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/textview_size"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="0.4"
+                    android:background="@color/settingbtn"
+                    android:drawableLeft="@mipmap/user2"
+                    android:drawablePadding="10dip"
+                    android:gravity="center_vertical|left"
+                    android:paddingLeft="10dip"
+                    android:paddingRight="10dip"
+                    android:text="姓        名:"
                     android:textColor="@color/txtcolor"
-                    />
+                    android:textSize="@dimen/text_size"/>
 
                 <EditText
                     android:id="@+id/contactNameAdd"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/textview_size"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="0.5"
                     android:background="@drawable/bg_edittext_selector"
+                    android:paddingLeft="5dip"
+                    android:paddingRight="5dip"
+                    android:textColor="@color/txtcolor"
+                    android:textSize="@dimen/text_size"
                     />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.1"/>
             </LinearLayout>
 
             <LinearLayout
@@ -94,18 +131,36 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="130dp"
-                    android:layout_height="wrap_content"
-                    android:text="手机号码"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/textview_size"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="0.4"
+                    android:background="@color/settingbtn"
+                    android:drawableLeft="@mipmap/moble"
+                    android:drawablePadding="10dip"
+                    android:gravity="center_vertical|left"
+                    android:paddingLeft="10dip"
+                    android:paddingRight="10dip"
+                    android:text="手机号码:"
                     android:textColor="@color/txtcolor"
-                    />
+                    android:textSize="@dimen/text_size"/>
 
                 <EditText
                     android:id="@+id/contactPhoneAdd"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/textview_size"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="0.5"
                     android:background="@drawable/bg_edittext_selector"
+                    android:paddingLeft="5dip"
+                    android:paddingRight="5dip"
+                    android:textColor="@color/txtcolor"
+                    android:textSize="@dimen/text_size"
                     />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.1"/>
             </LinearLayout>
 
             <LinearLayout
@@ -114,17 +169,43 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="130dp"
-                    android:layout_height="wrap_content"
-                    android:text="性别"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/textview_size"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="0.4"
+                    android:background="@color/settingbtn"
+                    android:drawableLeft="@mipmap/sex"
+                    android:drawablePadding="10dip"
+                    android:gravity="center_vertical|left"
+                    android:paddingLeft="10dip"
+                    android:paddingRight="10dip"
+                    android:text="性        别:"
                     android:textColor="@color/txtcolor"
-                    />
+                    android:textSize="@dimen/text_size"/>
+
+                <!--<Spinner-->
+                    <!--android:id="@+id/contactSexSpinnerAdd"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--/>-->
 
                 <Spinner
                     android:id="@+id/contactSexSpinnerAdd"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/textview_size"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="0.5"
+                    android:paddingLeft="5dip"
+                    android:paddingRight="5dip"
+                    android:background="@color/settingbtn"
+                    android:textColor="@color/txtcolor"
+                    android:textSize="@dimen/text_size"
                     />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.1"/>
 
             </LinearLayout>
 
@@ -134,18 +215,36 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="130dp"
-                    android:layout_height="wrap_content"
-                    android:text="身份证号"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/textview_size"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="0.4"
+                    android:background="@color/settingbtn"
+                    android:drawableLeft="@mipmap/idno"
+                    android:drawablePadding="10dip"
+                    android:gravity="center_vertical|left"
+                    android:paddingLeft="10dip"
+                    android:paddingRight="10dip"
+                    android:text="身份证号:"
                     android:textColor="@color/txtcolor"
-                    />
+                    android:textSize="@dimen/text_size"/>
 
                 <EditText
                     android:id="@+id/contactIdcardAdd"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/textview_size"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="0.5"
                     android:background="@drawable/bg_edittext_selector"
+                    android:paddingLeft="5dip"
+                    android:paddingRight="5dip"
+                    android:textColor="@color/txtcolor"
+                    android:textSize="@dimen/text_size"
                     />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.1"/>
             </LinearLayout>
 
             <LinearLayout
@@ -154,17 +253,41 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="130dp"
-                    android:layout_height="wrap_content"
-                    android:text="角色"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/textview_size"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="0.4"
+                    android:background="@color/settingbtn"
+                    android:drawableLeft="@mipmap/role"
+                    android:drawablePadding="10dip"
+                    android:gravity="center_vertical|left"
+                    android:paddingLeft="10dip"
+                    android:paddingRight="10dip"
+                    android:text="角        色:"
                     android:textColor="@color/txtcolor"
-                    />
+                    android:textSize="@dimen/text_size"/>
+
+                <!--<Spinner-->
+                    <!--android:id="@+id/contactRoleSpinnerAdd"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--/>-->
 
                 <Spinner
                     android:id="@+id/contactRoleSpinnerAdd"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/textview_size"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="0.5"
+                    android:background="@color/settingbtn"
+                    android:textColor="@color/txtcolor"
+                    android:textSize="@dimen/text_size"
                     />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.1"/>
 
             </LinearLayout>
 
@@ -174,18 +297,36 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="130dp"
-                    android:layout_height="wrap_content"
-                    android:text="备注"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/textview_size"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="0.4"
+                    android:background="@color/settingbtn"
+                    android:drawableLeft="@mipmap/remark"
+                    android:drawablePadding="10dip"
+                    android:gravity="center_vertical|left"
+                    android:paddingLeft="10dip"
+                    android:paddingRight="10dip"
+                    android:text="备        注:"
                     android:textColor="@color/txtcolor"
-                    />
+                    android:textSize="@dimen/text_size"/>
 
                 <EditText
                     android:id="@+id/contactRemarkAdd"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/textview_size"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="0.5"
                     android:background="@drawable/bg_edittext_selector"
+                    android:paddingLeft="5dip"
+                    android:paddingRight="5dip"
+                    android:textColor="@color/txtcolor"
+                    android:textSize="@dimen/text_size"
                     />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.1"/>
             </LinearLayout>
 
             <LinearLayout

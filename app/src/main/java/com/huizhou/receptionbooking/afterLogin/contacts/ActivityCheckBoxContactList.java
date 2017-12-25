@@ -53,10 +53,7 @@ public class ActivityCheckBoxContactList extends AppCompatActivity
             }
         });
 
-
         initDatas();
-
-
     }
 
     /**
@@ -79,7 +76,6 @@ public class ActivityCheckBoxContactList extends AppCompatActivity
         String strNodesId = sbId.toString();
         if (!TextUtils.isEmpty(strNodesName))
         {
-            // Toast.makeText(this, strNodesName.substring(0, strNodesName.length() - 1), Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(ActivityCheckBoxContactList.this, ActivityGroupAdd.class);
             intent.putExtra("id", strNodesId.substring(0, strNodesId.length() - 1));
             intent.putExtra("name", strNodesName.substring(0, strNodesName.length() - 1));

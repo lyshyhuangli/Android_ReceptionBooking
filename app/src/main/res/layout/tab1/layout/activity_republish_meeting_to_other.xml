@@ -18,7 +18,6 @@
             android:id="@+id/republishMeetingBack"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.8"
             android:background="#1D82EA"
             android:drawableLeft="@mipmap/back"
             android:gravity="center"
@@ -26,7 +25,7 @@
             android:paddingRight="10dip"
             android:text="转发会议"
             android:textColor="@color/white"
-            android:textSize="22dp"/>
+            android:textSize="@dimen/top_size"/>
     </LinearLayout>
 
     <LinearLayout
@@ -34,25 +33,73 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/republishFromContact"
-            android:onClick="republishFromContact"
-            android:text="从通讯录选择"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="@dimen/textview_size"
+            android:layout_marginTop="5dp"
+            android:layout_weight="0.3"
+            android:background="@color/settingbtn"
+            android:drawableLeft="@mipmap/attend"
+            android:drawablePadding="10dip"
+            android:gravity="center_vertical|left"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:text="参会人:"
+            android:textColor="@color/txtcolor"
+            android:textSize="@dimen/text_size"/>
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="从群组选择"
+        <TextView
+            android:id="@+id/republishFromContact"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/textview_size"
+            android:layout_marginTop="5dp"
+            android:layout_weight="0.3"
+            android:background="@color/settingbtn"
+            android:drawablePadding="10dip"
+            android:gravity="center_vertical|left"
+            android:hint="通讯录选择"
+            android:onClick="republishFromContact"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:textColor="@color/txtcolor"
+            android:textSize="@dimen/text_size"/>
+
+        <TextView
+            android:id="@+id/republishFromPersonGroup"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/textview_size"
+            android:layout_marginTop="5dp"
+            android:layout_weight="0.25"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@color/settingbtn"
+            android:drawablePadding="10dip"
+            android:gravity="center_vertical|left"
+            android:hint="群组选择"
             android:onClick="republishFromPersonGroup"
-            android:id="@+id/republishFromPersonGroup"/>
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:textColor="@color/txtcolor"
+            android:textSize="@dimen/text_size"/>
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/republishAttendPerson"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="选择与会人"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:hint="与会人"
             />
 
         <TextView
@@ -60,6 +107,25 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:visibility="gone"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/republishAttendReason"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/textview_size"
+            android:hint="转发原因"
+            android:textSize="@dimen/text_size"
+            android:background="@drawable/bg_edittext_selector"
+            android:textColor="@color/txtcolor"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
             />
     </LinearLayout>
 

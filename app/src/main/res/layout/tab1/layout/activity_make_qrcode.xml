@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.huizhou.receptionbooking.afterLogin.tab1.MakeQRCodeActivity">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.1"
+        android:orientation="horizontal">
+
+        <com.huizhou.receptionbooking.common.XTextView
+            android:id="@+id/makeQRCodeBack"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#1D82EA"
+            android:drawableLeft="@mipmap/back"
+            android:gravity="center"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:text="会议签到二维码"
+            android:textColor="@color/white"
+            android:textSize="@dimen/top_size"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.2"
+        android:layout_marginTop="1dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/qrcodeTheaf"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="0.5"
+            android:layout_marginTop="5dp"
+            android:drawableLeft="@mipmap/threaf"
+            android:drawablePadding="10dip"
+            android:gravity="center_vertical|left"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:textColor="@color/txtcolor"
+            android:textSize="@dimen/text_size"/>
+
+        <TextView
+            android:id="@+id/qrcodeDep"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="0.5"
+            android:layout_marginTop="5dp"
+            android:drawableLeft="@mipmap/dep"
+            android:drawablePadding="10dip"
+            android:gravity="center_vertical|left"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:textColor="@color/txtcolor"
+            android:textSize="@dimen/text_size"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.6"
+        android:gravity="center_horizontal"
+        android:layout_gravity="center"
+        >
+
+        <ImageView
+            android:id="@+id/img_shouw"
+            android:layout_width="wrap_content"
+            android:background="@mipmap/ic_launcher"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.1"
+        android:gravity="center_horizontal"
+        android:layout_gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="请核对后扫码签到!"
+            android:textColor="@color/red"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:id="@+id/remindText"/>
+    </LinearLayout>
+
+
+</LinearLayout>

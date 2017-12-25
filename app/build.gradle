@@ -26,6 +26,10 @@ android {
         main {
             res.srcDirs =
                     [
+                            'src/main/res/layout/bookdining',
+                            'src/main/res/layout/diningmenu',
+                            'src/main/res/layout/tab4',
+                            'src/main/res/layout/definepublishmeeting',
                             'src/main/res/layout/tab1',
                             'src/main/res/layout/tab3',
                             'src/main/res/layout/contactgroup',
@@ -45,8 +49,9 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-
     // RecyclerView和CardView
+    compile files('libs/zxing.jar')
+    compile files('libs/mysql-connector-java-3.1.14-bin.jar')
     compile 'com.google.code.gson:gson:2.8.0'
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'

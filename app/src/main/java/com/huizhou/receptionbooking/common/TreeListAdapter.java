@@ -20,6 +20,7 @@ public abstract class TreeListAdapter<T> extends BaseAdapter
 	 * 存储所有可见的Node
 	 */
 	protected List<Node> mNodes;
+	
 	protected LayoutInflater mInflater;
 	/**
 	 * 存储所有的Node

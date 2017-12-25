@@ -66,6 +66,10 @@ public class ActivityPublishMeetingAdd extends AppCompatActivity implements Time
         context = this;
         SharedPreferences userSettings = this.getSharedPreferences("userInfo", 0);
         userName = userSettings.getString("loginUserName", "default");
+        String department = userSettings.getString("department", "default");
+
+        EditText zuzhiDep = (EditText) findViewById(R.id.zuzhiDep);
+        zuzhiDep.setText(department);
 
         Intent i = getIntent();
         meetingDate = i.getStringExtra("meetingDate");
@@ -76,8 +80,12 @@ public class ActivityPublishMeetingAdd extends AppCompatActivity implements Time
         startTime = (TextView) findViewById(R.id.meetingBeginTime);
         endTime = (TextView) findViewById(R.id.meetingEndTime);
 
-        time = new StringBuffer();
+        TextView meetingRoomEtAdd = (TextView) findViewById(R.id.meetingRoomEtAdd);
+        meetingRoomEtAdd.setText("会议室：" + meetingRoom);
+        TextView dateEtAdd = (TextView) findViewById(R.id.dateEtAdd);
+        dateEtAdd.setText("日     期：" + meetingDate);
 
+        time = new StringBuffer();
 
         tv = (XTextView) this.findViewById(R.id.publishMeetingBack);
         //回退页面
@@ -219,26 +227,10 @@ public class ActivityPublishMeetingAdd extends AppCompatActivity implements Time
             String name = data.getStringExtra("name");
 
             TextView meetingPersonName = (TextView) findViewById(R.id.meetingPersonName);
-            String tempName = meetingPersonName.getText().toString();
-            if (StringUtils.isNotBlank(tempName))
-            {
-                meetingPersonName.setText(tempName + "," + name);
-            }
-            else
-            {
-                meetingPersonName.setText(name);
-            }
+            meetingPersonName.setText(name);
 
             TextView meetingPersonId = (TextView) findViewById(R.id.meetingPersonId);
-            String tempId = meetingPersonId.getText().toString();
-            if (StringUtils.isNotBlank(tempId))
-            {
-                meetingPersonId.setText(tempId + "," + id);
-            }
-            else
-            {
-                meetingPersonId.setText(id);
-            }
+            meetingPersonId.setText(id);
         }
     }
 
@@ -250,20 +242,61 @@ public class ActivityPublishMeetingAdd extends AppCompatActivity implements Time
         info.setMeetingroom(meetingRoomId);
         info.setBookUser(userName);
 
-        EditText threadEt = (EditText) findViewById(R.id.threadEt);
-        info.setThreaf(threadEt.getText().toString());
-
         TextView meetingBeginTime = (TextView) findViewById(R.id.meetingBeginTime);
-        info.setStartTime(meetingBeginTime.getText().toString());
+        if (StringUtils.isBlank(meetingBeginTime.getText().toString()))
+        {
+            Toast tos = Toast.makeText(getApplicationContext(), "请选择开始时间", Toast.LENGTH_SHORT);
+            tos.setGravity(Gravity.CENTER, 0, 0);
+            tos.show();
+            return;
+        }
+        else
+        {
+            info.setStartTime(meetingBeginTime.getText().toString());
+        }
 
         TextView meetingEndTime = (TextView) findViewById(R.id.meetingEndTime);
-        info.setEndTime(meetingEndTime.getText().toString());
+        if (StringUtils.isBlank(meetingEndTime.getText().toString()))
+        {
+            Toast tos = Toast.makeText(getApplicationContext(), "请选择结束时间", Toast.LENGTH_SHORT);
+            tos.setGravity(Gravity.CENTER, 0, 0);
+            tos.show();
+            return;
+        }
+        else
+        {
+            info.setEndTime(meetingEndTime.getText().toString());
+        }
+
+        EditText threadEt = (EditText) findViewById(R.id.threadEt);
+        if (StringUtils.isBlank(threadEt.getText().toString()))
+        {
+            Toast tos = Toast.makeText(getApplicationContext(), "请填写主题", Toast.LENGTH_SHORT);
+            tos.setGravity(Gravity.CENTER, 0, 0);
+            tos.show();
+            return;
+        }
+        else
+        {
+            info.setThreaf(threadEt.getText().toString());
+        }
+
 
         EditText meetingContent = (EditText) findViewById(R.id.meetingContent);
         info.setContent(meetingContent.getText().toString());
 
         TextView meetingPersonId = (TextView) findViewById(R.id.meetingPersonId);
-        info.setPerson(meetingPersonId.getText().toString());
+        if (StringUtils.isBlank(meetingPersonId.getText().toString()))
+        {
+            Toast tos = Toast.makeText(getApplicationContext(), "请选择参会人", Toast.LENGTH_SHORT);
+            tos.setGravity(Gravity.CENTER, 0, 0);
+            tos.show();
+            return;
+        }
+        else
+        {
+            info.setPerson(meetingPersonId.getText().toString());
+        }
 
         TextView meetingPersonName = (TextView) findViewById(R.id.meetingPersonName);
         info.setPersonName(meetingPersonName.getText().toString());
@@ -279,6 +312,19 @@ public class ActivityPublishMeetingAdd extends AppCompatActivity implements Time
 
         EditText meetingConnectPhone = (EditText) findViewById(R.id.meetingConnectPhone);
         info.setConnectPhone(meetingConnectPhone.getText().toString());
+
+        EditText zuzhiDep = (EditText) findViewById(R.id.zuzhiDep);
+        if (StringUtils.isBlank(zuzhiDep.getText().toString()))
+        {
+            Toast tos = Toast.makeText(getApplicationContext(), "请填写组织部门", Toast.LENGTH_SHORT);
+            tos.setGravity(Gravity.CENTER, 0, 0);
+            tos.show();
+            return;
+        }
+        else
+        {
+            info.setDepartmentName(zuzhiDep.getText().toString());
+        }
 
         EditText meetingRemark = (EditText) findViewById(R.id.meetingRemark);
         info.setRemark(meetingRemark.getText().toString());
@@ -325,6 +371,7 @@ public class ActivityPublishMeetingAdd extends AppCompatActivity implements Time
             req.setStartTime(params[0].getStartTime());
             req.setThreaf(params[0].getThreaf());
             req.setWakeType(params[0].getWakeType());
+            req.setDepartmentName(params[0].getDepartmentName());
 
             String result = HttpClientClass.httpPost(req, "insertPublishMeeting");
 
@@ -337,10 +384,7 @@ public class ActivityPublishMeetingAdd extends AppCompatActivity implements Time
             InsertPublishMeetingResp info = gson.fromJson(result, InsertPublishMeetingResp.class);
             if (null != info)
             {
-                if (0 == info.getResultCode())
-                {
-                    return info.getResult();
-                }
+                return info.getResult();
             }
 
             return null;
@@ -364,11 +408,18 @@ public class ActivityPublishMeetingAdd extends AppCompatActivity implements Time
                 tos.setGravity(Gravity.CENTER, 0, 0);
                 tos.show();
             }
+            else if (10004 == result)
+            {
+                Toast tos = Toast.makeText(getApplicationContext(), "会议室已被预定，请重新预定", Toast.LENGTH_LONG);
+                tos.setGravity(Gravity.CENTER, 0, 0);
+                tos.show();
+            }
             else
             {
                 Toast tos = Toast.makeText(getApplicationContext(), "保存成功", Toast.LENGTH_LONG);
                 tos.setGravity(Gravity.CENTER, 0, 0);
                 tos.show();
+                onBackPressed();
             }
         }
 

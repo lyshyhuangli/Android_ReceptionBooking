@@ -8,6 +8,13 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.GET_TASKS"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+
+    <uses-feature android:name="android.hardware.camera"/>
+    <uses-feature android:name="android.hardware.camera.autofocus"/>
+
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.FLASHLIGHT"/>
 
     <application
         android:allowBackup="true"
@@ -17,7 +24,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".LoginActivity"
+            android:name=".startApp.StartAppActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -27,14 +34,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".startApp.WelcomeGuideActivity"
-            android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen"/>
-        <!-- <activity -->
-        <!-- android:name=".LoginActivity" -->
-        <!-- android:theme="@style/AppTheme.NoActionBar"/> -->
-        <activity
             android:name=".afterLogin.AfterLogin"
-            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".afterLogin.meetingRoom.ActivityMeetingRoomList"
@@ -100,17 +100,84 @@
             android:name=".afterLogin.tab3.ActivityPublishMeetingEdit"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
-        <activity android:name=".afterLogin.contactGroup.checkbox.ActivityGroupPersonCheckBox"
-                  android:theme="@style/AppTheme.NoActionBar">
+        <activity
+            android:name=".afterLogin.contactGroup.checkbox.ActivityGroupPersonCheckBox"
+            android:theme="@style/AppTheme.NoActionBar">
         </activity>
-        <activity android:name=".afterLogin.tab1.ViewAndConfirmMeetingActivity"
-                  android:theme="@style/AppTheme.NoActionBar">
+        <activity
+            android:name=".afterLogin.tab1.ViewAndConfirmMeetingActivity"
+            android:theme="@style/AppTheme.NoActionBar">
         </activity>
-        <activity android:name=".afterLogin.tab1.LeaveMeetingActivity"
-                  android:theme="@style/AppTheme.NoActionBar">
+        <activity
+            android:name=".afterLogin.tab1.LeaveMeetingActivity"
+            android:theme="@style/Theme.Transparent">
         </activity>
-        <activity android:name=".afterLogin.tab1.republishMeetingToOtherActivity"
-                  android:theme="@style/AppTheme.NoActionBar">
+        <activity
+            android:name=".afterLogin.tab1.republishMeetingToOtherActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name="com.xys.libzxing.zxing.activity.CaptureActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".afterLogin.tab1.MakeQRCodeActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".afterLogin.tab1.ViewMeetingConfirmInfoActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".afterLogin.CommonMenuActitity"
+            android:theme="@style/Theme.Transparent">
+        </activity>
+        <activity
+            android:name=".afterLogin.definePublishMeeting.DefinePublishMeetingActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".afterLogin.definePublishMeeting.DefineMeetingViewActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".utils.ActivityCalendarPickerView"
+            android:theme="@style/Theme.Transparent.float">
+        </activity>
+        <activity
+            android:name=".afterLogin.tab4.ActivityModifyPwd"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".afterLogin.dinningMenu.AddCookBookActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".afterLogin.dinningMenu.CookBookListActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".afterLogin.dinningMenu.EditCookBookActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".afterLogin.bookDining.AddBookDiningActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".afterLogin.bookDining.EditBookDiningActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".afterLogin.bookDining.BookDiningListActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".LoginActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity android:name=".startApp.FloatingActionButtonAtivity"
+                  android:theme="@style/Theme.Transparent">
         </activity>
     </application>
 

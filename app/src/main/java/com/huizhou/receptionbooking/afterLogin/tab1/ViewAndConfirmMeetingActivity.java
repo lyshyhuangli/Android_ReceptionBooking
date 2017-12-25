@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +32,8 @@ import org.apache.commons.lang3.StringUtils;
 public class ViewAndConfirmMeetingActivity extends AppCompatActivity
 {
     private String id;
+    private String departmentItem;
+    private String threaf;
     private String meetingRoom;
     private String userName;
     private String loginShowName;
@@ -61,6 +65,7 @@ public class ViewAndConfirmMeetingActivity extends AppCompatActivity
         Intent i = getIntent();
         id = i.getStringExtra("id");
         meetingRoom = i.getStringExtra("meetingRoom");
+        departmentItem = i.getStringExtra("departmentItem");
 
         MyShowTask showTask = new MyShowTask();
         showTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -95,8 +100,7 @@ public class ViewAndConfirmMeetingActivity extends AppCompatActivity
                 return null;
             }
 
-             Gson gson = new Gson();
-            //Gson gson=  new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+            Gson gson = new Gson();
             GetMeetingInfoByIdResp info = gson.fromJson(result, GetMeetingInfoByIdResp.class);
             if (null != info)
             {
@@ -127,8 +131,15 @@ public class ViewAndConfirmMeetingActivity extends AppCompatActivity
                 tos.show();
             }
 
-            TextView viewAndConfirmThread = (TextView) findViewById(R.id.viewAndConfirmThread);
-            viewAndConfirmThread.setText(result.getThreaf());
+            if(!userName.equals(result.getBookUser()))
+            {
+                LinearLayout ll  = (LinearLayout) findViewById(R.id.viewAdminMeetingLl) ;
+                ll.setVisibility(View.GONE);
+            }
+
+            TextView viewAndConfirmThreaf = (TextView) findViewById(R.id.viewAndConfirmThreaf);
+            viewAndConfirmThreaf.setText(result.getThreaf());
+            threaf = result.getThreaf().toString();
 
             TextView meetingTime = (TextView) findViewById(R.id.meetingTime);
             meetingTime.setText(result.getMeetingDate() + " " + result.getStartTime() + "-" + result.getEndTime());
@@ -139,6 +150,9 @@ public class ViewAndConfirmMeetingActivity extends AppCompatActivity
             TextView viewMeetingRoom = (TextView) findViewById(R.id.viewMeetingRoom);
             viewMeetingRoom.setText(meetingRoom);
 
+            TextView viewMeetingClothes = (TextView)findViewById(R.id.viewMeetingClothes);
+            viewMeetingClothes.setText(result.getClothes());
+
             TextView viewMeetingDiscipline = (TextView) findViewById(R.id.viewMeetingDiscipline);
             viewMeetingDiscipline.setText(result.getMeetingDiscipline());
 
@@ -147,6 +161,9 @@ public class ViewAndConfirmMeetingActivity extends AppCompatActivity
 
             TextView viewMeetingConnectPhone = (TextView) findViewById(R.id.viewMeetingConnectPhone);
             viewMeetingConnectPhone.setText(result.getConnectPhone());
+
+            TextView viewMeetingzuzhiDep = (TextView) findViewById(R.id.viewMeetingzuzhiDep);
+            viewMeetingzuzhiDep.setText(result.getDepartmentName());
 
             TextView viewMeetingRemark = (TextView) findViewById(R.id.viewMeetingRemark);
             viewMeetingRemark.setText(result.getRemark());
@@ -180,6 +197,26 @@ public class ViewAndConfirmMeetingActivity extends AppCompatActivity
     {
         //跳转到转发会议页面
         Intent it = new Intent(this, republishMeetingToOtherActivity.class);
+        it.putExtra("id", id);
+        startActivity(it);
+    }
+
+    /**
+     * 生成二维码
+     */
+    public void makeQRCode(View view)
+    {
+        Intent it = new Intent(this, MakeQRCodeActivity.class);
+        it.putExtra("id", id);
+        it.putExtra("thread",threaf);
+        it.putExtra("department",departmentItem);
+        startActivity(it);
+
+    }
+
+    public void viewMeetingConfirmInfo(View view)
+    {
+        Intent it = new Intent(this, ViewMeetingConfirmInfoActivity.class);
         it.putExtra("id", id);
         startActivity(it);
     }
@@ -241,6 +278,7 @@ public class ViewAndConfirmMeetingActivity extends AppCompatActivity
                         req2.setMeetingId(Integer.parseInt(id));
                         req2.setPhone(userName);
                         req2.setAttendType(1);
+                        req2.setReason("");
                         String result2 = HttpClientClass.httpPost(req2, "updateMeetingConfirmByMeetingIdAndPhone");
 
                         if (StringUtils.isBlank(result2))

@@ -23,9 +23,11 @@ import com.huizhou.receptionbooking.afterLogin.contacts.ActivityCheckBoxContactL
 import com.huizhou.receptionbooking.common.XTextView;
 import com.huizhou.receptionbooking.database.vo.BookMeetingDbInfoRecord;
 import com.huizhou.receptionbooking.database.vo.BookingMeetingRecord;
+import com.huizhou.receptionbooking.request.DelMeetingInfoByIdReq;
 import com.huizhou.receptionbooking.request.GetMeetingInfoByIdReq;
 import com.huizhou.receptionbooking.request.InsertPublishMeetingReq;
 import com.huizhou.receptionbooking.request.UpdateMeetingInfoByIdReq;
+import com.huizhou.receptionbooking.response.DelMeetingInfoByIdResp;
 import com.huizhou.receptionbooking.response.GetMeetingInfoByIdResp;
 import com.huizhou.receptionbooking.response.InsertPublishMeetingResp;
 import com.huizhou.receptionbooking.response.UpdateMeetingInfoByIdResp;
@@ -62,7 +64,7 @@ public class ActivityPublishMeetingEdit extends AppCompatActivity implements Tim
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_publish_meeting_edit);
-
+        context = this;
         SharedPreferences userSettings = this.getSharedPreferences("userInfo", 0);
         userName = userSettings.getString("loginUserName", "default");
 
@@ -87,6 +89,11 @@ public class ActivityPublishMeetingEdit extends AppCompatActivity implements Tim
         startTime = (TextView) findViewById(R.id.meetingBeginTimeEdit);
         endTime = (TextView) findViewById(R.id.meetingEndTimeEdit);
 
+        TextView meetingRoomEtAdd = (TextView) findViewById(R.id.meetingRoomEtEdit);
+        meetingRoomEtAdd.setText("会议室：" + meetingRoom);
+        TextView dateEtAdd = (TextView) findViewById(R.id.dateEtEdit);
+        dateEtAdd.setText("日      期：" + meetingDate);
+
         tv = (XTextView) this.findViewById(R.id.publishMeetingBackEdit);
         //回退页面
         tv.setDrawableLeftListener(new XTextView.DrawableLeftListener()
@@ -104,7 +111,7 @@ public class ActivityPublishMeetingEdit extends AppCompatActivity implements Tim
     }
 
 
-    public void getStartTime(View view)
+    public void getStartTimeEdit(View view)
     {
         houre = 00;
         minute = 00;
@@ -157,7 +164,7 @@ public class ActivityPublishMeetingEdit extends AppCompatActivity implements Tim
         this.minute = minute;
     }
 
-    public void getEndTime(View view)
+    public void getEndTimeEdit(View view)
     {
         houre = 00;
         minute = 00;
@@ -263,20 +270,61 @@ public class ActivityPublishMeetingEdit extends AppCompatActivity implements Tim
         info.setAmOrPm(type);
         info.setMeetingroom(meetingRoomId);
 
-        EditText threadEtEdit = (EditText) findViewById(R.id.threadEtEdit);
-        info.setThreaf(threadEtEdit.getText().toString());
-
         TextView meetingBeginTime = (TextView) findViewById(R.id.meetingBeginTimeEdit);
-        info.setStartTime(meetingBeginTime.getText().toString());
+        if (StringUtils.isBlank(meetingBeginTime.getText().toString()))
+        {
+            Toast tos = Toast.makeText(getApplicationContext(), "请选择开始时间", Toast.LENGTH_SHORT);
+            tos.setGravity(Gravity.CENTER, 0, 0);
+            tos.show();
+            return;
+        }
+        else
+        {
+            info.setStartTime(meetingBeginTime.getText().toString());
+        }
 
         TextView meetingEndTime = (TextView) findViewById(R.id.meetingEndTimeEdit);
-        info.setEndTime(meetingEndTime.getText().toString());
+        if (StringUtils.isBlank(meetingEndTime.getText().toString()))
+        {
+            Toast tos = Toast.makeText(getApplicationContext(), "请选择结束时间", Toast.LENGTH_SHORT);
+            tos.setGravity(Gravity.CENTER, 0, 0);
+            tos.show();
+            return;
+        }
+        else
+        {
+            info.setEndTime(meetingEndTime.getText().toString());
+        }
+
+        EditText threadEtEdit = (EditText) findViewById(R.id.threadEtEdit);
+        if (StringUtils.isBlank(threadEtEdit.getText().toString()))
+        {
+            Toast tos = Toast.makeText(getApplicationContext(), "请填写主题", Toast.LENGTH_SHORT);
+            tos.setGravity(Gravity.CENTER, 0, 0);
+            tos.show();
+            return;
+        }
+        else
+        {
+            info.setThreaf(threadEtEdit.getText().toString());
+        }
+
 
         EditText meetingContent = (EditText) findViewById(R.id.meetingContentEdit);
         info.setContent(meetingContent.getText().toString());
 
         TextView meetingPersonId = (TextView) findViewById(R.id.meetingPersonIdEdit);
-        info.setPerson(meetingPersonId.getText().toString());
+        if (StringUtils.isBlank(meetingPersonId.getText().toString()))
+        {
+            Toast tos = Toast.makeText(getApplicationContext(), "请选择参会人", Toast.LENGTH_SHORT);
+            tos.setGravity(Gravity.CENTER, 0, 0);
+            tos.show();
+            return;
+        }
+        else
+        {
+            info.setPerson(meetingPersonId.getText().toString());
+        }
 
         TextView meetingPersonNameEdit = (TextView) findViewById(R.id.meetingPersonNameEdit);
         info.setPersonName(meetingPersonNameEdit.getText().toString());
@@ -296,10 +344,28 @@ public class ActivityPublishMeetingEdit extends AppCompatActivity implements Tim
         EditText meetingRemarkEdit = (EditText) findViewById(R.id.meetingRemarkEdit);
         info.setRemark(meetingRemarkEdit.getText().toString());
 
+        EditText zuzhiDepEdit = (EditText) findViewById(R.id.zuzhiDepEdit);
+        if (StringUtils.isBlank(zuzhiDepEdit.getText().toString()))
+        {
+            Toast tos = Toast.makeText(getApplicationContext(), "请填写组织部门", Toast.LENGTH_SHORT);
+            tos.setGravity(Gravity.CENTER, 0, 0);
+            tos.show();
+            return;
+        }
+        else
+        {
+            info.setDepartmentName(zuzhiDepEdit.getText().toString());
+        }
+
         MyTask m = new MyTask();
         m.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, info);
 
+    }
 
+    public void publishMeetingDelEdit(View view)
+    {
+        DelMyTask m = new DelMyTask();
+        m.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     private class MyTask extends AsyncTask<BookMeetingDbInfoRecord, Integer, Integer>
@@ -339,6 +405,7 @@ public class ActivityPublishMeetingEdit extends AppCompatActivity implements Tim
             req.setStartTime(params[0].getStartTime());
             req.setThreaf(params[0].getThreaf());
             req.setWakeType(params[0].getWakeType());
+            req.setDepartmentName(params[0].getDepartmentName());
 
             String result = HttpClientClass.httpPost(req, "updateMeetingInfoById");
 
@@ -383,6 +450,7 @@ public class ActivityPublishMeetingEdit extends AppCompatActivity implements Tim
                 Toast tos = Toast.makeText(getApplicationContext(), "保存成功", Toast.LENGTH_LONG);
                 tos.setGravity(Gravity.CENTER, 0, 0);
                 tos.show();
+                onBackPressed();
             }
         }
 
@@ -484,12 +552,27 @@ public class ActivityPublishMeetingEdit extends AppCompatActivity implements Tim
             EditText meetingRemarkEdit = (EditText) findViewById(R.id.meetingRemarkEdit);
             meetingRemarkEdit.setText(result.getRemark());
 
+            EditText zuzhiDep = (EditText) findViewById(R.id.zuzhiDepEdit);
+            zuzhiDep.setText(result.getDepartmentName());
+
             //如果不是自己发布的会议，则隐藏保存按钮，只查看信息
             String bookerUser = result.getBookUser();
             if (!bookerUser.equals(userName))
             {
                 Button publishMeetingSaveEdit = (Button) findViewById(R.id.publishMeetingSaveEdit);
                 publishMeetingSaveEdit.setVisibility(View.GONE);
+
+                Button publishMeetingDelEdit = (Button) findViewById(R.id.publishMeetingDelEdit);
+                publishMeetingDelEdit.setVisibility(View.GONE);
+
+                TextView getFromContactEdit = (TextView) findViewById(R.id.getFromContactEdit);
+                getFromContactEdit.setVisibility(View.GONE);
+
+                TextView getFromGroupEdit = (TextView) findViewById(R.id.getFromGroupEdit);
+                getFromGroupEdit.setVisibility(View.GONE);
+
+                Button clearPersonEdit = (Button) findViewById(R.id.clearPersonEdit);
+                clearPersonEdit.setVisibility(View.GONE);
             }
 
         }
@@ -502,5 +585,79 @@ public class ActivityPublishMeetingEdit extends AppCompatActivity implements Tim
         }
     }
 
+    /**
+     * 取消会议
+     */
+    private class DelMyTask extends AsyncTask<String, Integer, Integer>
+    {
+        //onPreExecute方法用于在执行后台任务前做一些UI操作
+        @Override
+        protected void onPreExecute()
+        {
+
+        }
+
+        //doInBackground方法内部执行后台任务,不可在此方法内修改UI
+        @Override
+        protected Integer doInBackground(String... params)
+        {
+            DelMeetingInfoByIdReq
+                    req = new DelMeetingInfoByIdReq();
+            req.setOperatorId(userName);
+            req.setId(id);
+
+            String result = HttpClientClass.httpPost(req, "delMeetingInfoById");
+
+            if (StringUtils.isBlank(result))
+            {
+                return null;
+            }
+
+            Gson gson = new Gson();
+            DelMeetingInfoByIdResp info = gson.fromJson(result, DelMeetingInfoByIdResp.class);
+            if (null != info)
+            {
+                if (0 == info.getResultCode())
+                {
+                    return info.getResult();
+                }
+            }
+
+            return null;
+        }
+
+        //onProgressUpdate方法用于更新进度信息
+        @Override
+        protected void onProgressUpdate(Integer... progresses)
+        {
+
+        }
+
+        //onPostExecute方法用于在执行完后台任务后更新UI,显示结果
+        @Override
+        protected void onPostExecute(Integer result)
+        {
+            if (1 == result)
+            {
+                Toast tos = Toast.makeText(getApplicationContext(), "取消成功", Toast.LENGTH_LONG);
+                tos.setGravity(Gravity.CENTER, 0, 0);
+                tos.show();
+                onBackPressed();
+            }
+            else
+            {
+                Toast tos = Toast.makeText(getApplicationContext(), "取消失败", Toast.LENGTH_LONG);
+                tos.setGravity(Gravity.CENTER, 0, 0);
+                tos.show();
+            }
+        }
+
+        //onCancelled方法用于在取消执行中的任务时更改UI
+        @Override
+        protected void onCancelled()
+        {
+
+        }
+    }
 
 }

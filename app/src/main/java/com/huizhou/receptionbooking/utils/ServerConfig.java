@@ -6,13 +6,14 @@ package com.huizhou.receptionbooking.utils;
 
 public interface ServerConfig
 {
-    public final  static String  SERVER_IP = "192.168.1.3";
+    public final  static String  SERVER_IP = "192.168.1.6";
 
     public final  static String  SERVER_PORT = "8080";
 
-    public final static String  RESTFUL_API_IP = "192.168.1.6";
+    public final static String  RESTFUL_API_IP = "202.96.142.210";
 
-    public final static String  RESTFUL_API_PORT = "8081";
+    public final static String  RESTFUL_API_PORT = "8091";
 
     public final static String FILE_SAVE_PATH ="sdcard/Download/huidongpolice/";
 }
+

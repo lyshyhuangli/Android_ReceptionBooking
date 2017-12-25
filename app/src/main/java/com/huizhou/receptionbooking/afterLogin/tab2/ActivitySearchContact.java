@@ -56,6 +56,14 @@ public class ActivitySearchContact extends AppCompatActivity implements AbsListV
         searchContact = (SearchView) findViewById(R.id.searchContactEt);
         searchContact.setFocusable(true);
         searchContact.setFocusableInTouchMode(true);
+
+        if (null != searchContact)
+        {
+            int id = searchContact.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
+            TextView textView = (TextView) searchContact.findViewById(id);
+            textView.setTextSize(15);//字体、提示字体大小
+        }
+
         // 设置搜索文本监听
         searchContact.setOnQueryTextListener(new SearchView.OnQueryTextListener()
         {

@@ -7,15 +7,28 @@
     <LinearLayout
         android:id="@+id/resultSearch"
         android:layout_width="fill_parent"
-        android:layout_height="25dp"
+        android:layout_height="@dimen/textview_size"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
         android:orientation="horizontal">
 
         <TextView
+            android:layout_width="0dp"
+            android:layout_height="@dimen/textview_size"
+            android:layout_weight="0.1"
+            android:layout_marginLeft="15dp"
+            android:drawableLeft="@mipmap/user2"
+            />
+
+
+        <TextView
             android:id="@+id/personName"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/textview_size"
+            android:layout_weight="0.9"
+            android:paddingLeft="5dip"
+            android:layout_marginRight="15dp"
             />
 
     </LinearLayout>
@@ -26,4 +39,5 @@
         android:layout_height="10dp"
         android:visibility="gone"
         />
+
 </LinearLayout>

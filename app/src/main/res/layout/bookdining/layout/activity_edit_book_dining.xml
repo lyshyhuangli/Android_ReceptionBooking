@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.huizhou.receptionbooking.afterLogin.bookDining.EditBookDiningActivity">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal">
+        <com.huizhou.receptionbooking.common.XTextView
+            android:id="@+id/bookDiningEditBack"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#1D82EA"
+            android:gravity="center"
+            android:text="包间预定"
+            android:drawableLeft="@mipmap/back"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:textColor="@color/white"
+            android:textSize="@dimen/top_size"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="@dimen/textview_size"
+            android:layout_marginTop="5dp"
+            android:layout_weight="0.4"
+            android:background="@color/settingbtn"
+            android:drawableLeft="@mipmap/time"
+            android:drawablePadding="10dip"
+            android:gravity="center_vertical|left"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:text="日        期:"
+            android:textColor="@color/txtcolor"
+            android:textSize="@dimen/text_size"/>
+
+        <TextView
+            android:id="@+id/diningDateEdit"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/textview_size"
+            android:layout_marginTop="5dp"
+            android:layout_weight="0.5"
+            android:background="@color/settingbtn"
+            android:gravity="center_vertical|left"
+            android:onClick="getDateEdit"
+            android:paddingRight="5dip"
+            android:textColor="@color/txtcolor"
+            android:textSize="@dimen/text_size"
+            />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.1"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="@dimen/textview_size"
+            android:layout_marginTop="5dp"
+            android:layout_weight="0.4"
+            android:background="@color/settingbtn"
+            android:drawableLeft="@mipmap/baojian2"
+            android:drawablePadding="10dip"
+            android:gravity="center_vertical|left"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:text="包间名称:"
+            android:textColor="@color/txtcolor"
+            android:textSize="@dimen/text_size"/>
+
+        <EditText
+            android:id="@+id/diningRoomEdit"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/textview_size"
+            android:layout_marginTop="5dp"
+            android:layout_weight="0.5"
+            android:background="@drawable/bg_edittext_selector"
+            android:paddingLeft="5dip"
+            android:paddingRight="5dip"
+            android:textColor="@color/txtcolor"
+            android:textSize="@dimen/text_size"
+            />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.1"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="@dimen/textview_size"
+            android:layout_marginTop="5dp"
+            android:layout_weight="0.4"
+            android:background="@color/settingbtn"
+            android:drawableLeft="@mipmap/menutype"
+            android:drawablePadding="10dip"
+            android:gravity="center_vertical|left"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:text="类        型:"
+            android:textColor="@color/txtcolor"
+            android:textSize="@dimen/text_size"/>
+
+        <!--<Spinner-->
+            <!--android:id="@+id/diningTypeEdit"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--/>-->
+
+
+        <Spinner
+            android:id="@+id/diningTypeEdit"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/textview_size"
+            android:layout_marginTop="5dp"
+            android:layout_weight="0.5"
+            android:background="@color/settingbtn"
+            android:textColor="@color/txtcolor"
+            android:textSize="@dimen/text_size"
+            />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.1"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="@dimen/textview_size"
+            android:layout_marginTop="5dp"
+            android:layout_weight="0.4"
+            android:background="@color/settingbtn"
+            android:drawableLeft="@mipmap/content"
+            android:drawablePadding="10dip"
+            android:gravity="center_vertical|left"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:text="内       容:"
+            android:textColor="@color/txtcolor"
+            android:textSize="@dimen/text_size"/>
+
+        <EditText
+            android:id="@+id/ContentEdit"
+            android:inputType="text|textMultiLine"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_weight="0.5"
+            android:background="@drawable/bg_edittext_selector"
+            android:textColor="@color/txtcolor"
+            android:textSize="@dimen/text_size"
+            android:minLines="8"
+            android:enabled="true"
+            android:maxLines="10"
+            android:scrollbars="vertical"
+            />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.1"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="20dip">
+
+        <Button
+            android:id="@+id/bookDiingEditSaveDefine"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="bookDiningEditSaveDefine"
+            android:text="确定"
+            />
+    </LinearLayout>
+
+</LinearLayout>

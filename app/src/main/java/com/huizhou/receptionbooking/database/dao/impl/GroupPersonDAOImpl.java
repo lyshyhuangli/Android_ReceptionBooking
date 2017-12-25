@@ -5,6 +5,8 @@ import com.huizhou.receptionbooking.database.dao.GroupPersonDAO;
 import com.huizhou.receptionbooking.database.vo.DepartmentInfoRecord;
 import com.huizhou.receptionbooking.database.vo.GroupPersonInfoRecord;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,7 +24,7 @@ public class GroupPersonDAOImpl implements GroupPersonDAO
      *
      * @return
      */
-    public List<GroupPersonInfoRecord> getAllGroup(List<String> errorList, int count, String userCode)
+    public List<GroupPersonInfoRecord> getAllGroup(List<String> errorList, int count, String userCode, String param)
     {
         Connection conn = DbConnect.getConnection(errorList);
 
@@ -32,7 +34,15 @@ public class GroupPersonDAOImpl implements GroupPersonDAO
         }
 
         //type=1代表部门
-        String strSql = "select * from tb_groupperson where userPhone ='" + userCode + "' order by groupName DESC LIMIT " + count *20;
+        String strSql = null;
+        if (StringUtils.isNotBlank(param))
+        {
+            strSql = "select * from tb_groupperson where userPhone ='" + userCode + "' and groupName like '%" + param + "%' order by groupName DESC LIMIT " + count * 20;
+        }
+        else
+        {
+            strSql = "select * from tb_groupperson where userPhone ='" + userCode + "' order by groupName DESC LIMIT " + count * 20;
+        }
         PreparedStatement pstmt = null;
         ResultSet rs = null;
         List<GroupPersonInfoRecord> list = new LinkedList<>();

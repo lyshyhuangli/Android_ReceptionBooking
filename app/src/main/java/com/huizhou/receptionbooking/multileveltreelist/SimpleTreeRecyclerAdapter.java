@@ -70,8 +70,6 @@ public class SimpleTreeRecyclerAdapter extends TreeRecyclerAdapter
         }
 
         viewHolder.label.setText(node.getName());
-
-
     }
 
     class MyHoder extends RecyclerView.ViewHolder

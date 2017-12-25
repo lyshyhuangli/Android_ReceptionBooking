@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/buttontxt"
+    tools:context="com.huizhou.receptionbooking.afterLogin.CommonMenuActitity">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="30dp"
+        android:orientation="horizontal"
+        android:background="@color/buttontxt"
+        android:paddingTop="5dp">
+
+        <TextView
+            android:id="@+id/toScanTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@mipmap/scan"
+            android:gravity="center"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:background="@color/buttontxt"
+            android:text="扫一扫"
+            android:onClick="scan"
+            android:textColor="@color/white"
+            android:textSize="15dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="30dp"
+        android:orientation="horizontal"
+        android:background="@color/buttontxt"
+        android:paddingTop="5dp">
+
+        <TextView
+            android:id="@+id/toDefineMeeting"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@mipmap/publishmeeting"
+            android:gravity="center"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:background="@color/buttontxt"
+            android:text="发布会议"
+            android:textColor="@color/white"
+            android:onClick="definePublishMeeting"
+            android:textSize="15dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="30dp"
+        android:orientation="horizontal"
+        android:background="@color/buttontxt"
+        android:paddingTop="5dp">
+
+        <TextView
+            android:id="@+id/toCookbook"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@mipmap/menud"
+            android:gravity="center"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:background="@color/buttontxt"
+            android:text="今日菜谱"
+            android:textColor="@color/white"
+            android:onClick="defineCookbook"
+            android:textSize="15dp"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="30dp"
+        android:orientation="horizontal"
+        android:background="@color/buttontxt"
+        android:paddingTop="5dp">
+
+        <TextView
+            android:id="@+id/toBookDining"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@mipmap/baojian"
+            android:gravity="center"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:background="@color/buttontxt"
+            android:text="今日包间"
+            android:textColor="@color/white"
+            android:onClick="defineBookDining"
+            android:textSize="15dp"/>
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

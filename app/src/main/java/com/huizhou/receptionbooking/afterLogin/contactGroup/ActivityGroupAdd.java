@@ -64,9 +64,10 @@ public class ActivityGroupAdd extends AppCompatActivity
         String groupUserName = groupAddMr.getText().toString();
         if(StringUtils.isBlank(groupUserName))
         {
-            Toast tos = Toast.makeText(this,"群组联系人不能为空", Toast.LENGTH_LONG);
+            Toast tos = Toast.makeText(this,"请选择群组联系人", Toast.LENGTH_LONG);
             tos.setGravity(Gravity.CENTER, 0, 0);
             tos.show();
+            return;
         }
 
         TextView groupAddMrId = (TextView) findViewById(R.id.groupAddMrId);
@@ -77,9 +78,10 @@ public class ActivityGroupAdd extends AppCompatActivity
 
         if(StringUtils.isBlank(grouptName))
         {
-            Toast tos = Toast.makeText(this,"群组名不能为空", Toast.LENGTH_LONG);
+            Toast tos = Toast.makeText(this,"请填写群组名", Toast.LENGTH_LONG);
             tos.setGravity(Gravity.CENTER, 0, 0);
             tos.show();
+            return;
         }
 
         mTask = new MyEditTask();

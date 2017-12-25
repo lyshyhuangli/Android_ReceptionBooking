@@ -49,6 +49,7 @@ public class DepartmentDAOImpl implements DepartmentDAO
                 b.setId(String.valueOf(rs.getInt("id")));
                 b.setName(rs.getString("name"));
                 b.setParentId(String.valueOf(rs.getInt("parentId")));
+                b.setType(String.valueOf(rs.getString("type")));
                 list.add(b);
             }
         }

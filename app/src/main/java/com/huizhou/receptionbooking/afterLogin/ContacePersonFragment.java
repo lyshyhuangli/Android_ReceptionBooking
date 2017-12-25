@@ -17,10 +17,12 @@ import android.widget.Toast;
 import com.huizhou.receptionbooking.R;
 import com.huizhou.receptionbooking.afterLogin.contacts.ActivityContactEdit;
 import com.huizhou.receptionbooking.afterLogin.contactGroup.ActivityGroupList;
+import com.huizhou.receptionbooking.afterLogin.department.ActivityDepartmentList;
 import com.huizhou.receptionbooking.afterLogin.tab2.ActivitySearchContact;
 import com.huizhou.receptionbooking.common.BaseTreeBean;
 import com.huizhou.receptionbooking.common.Node;
 import com.huizhou.receptionbooking.common.SimpleTreeAdapter;
+import com.huizhou.receptionbooking.common.XTextView;
 import com.huizhou.receptionbooking.database.dao.UserInfoDAO;
 import com.huizhou.receptionbooking.database.dao.impl.UserInfoDAOImpl;
 
@@ -41,6 +43,7 @@ public class ContacePersonFragment extends Fragment
     private ListView mLvTree;
     private SimpleTreeAdapter mAdapter;
     private MyTask mTask;
+    private XTextView tv;
 
     @Override
     public View onCreateView(
@@ -53,6 +56,19 @@ public class ContacePersonFragment extends Fragment
         mLvTree = (ListView) view.findViewById(R.id.listviewContacts);
        searchContact = (TextView) view.findViewById(R.id.searchContact);
         groupTv = (TextView) view.findViewById(R.id.groupTv);
+
+        tv = (XTextView) view.findViewById(R.id.topCommon);
+        tv.setText("通讯录");
+        //弹出menu菜单
+        tv.setDrawableRightListener(new XTextView.DrawableRightListener()
+        {
+            @Override
+            public void onDrawableRightClick(View view)
+            {
+                Intent intent = new Intent(getActivity(), CommonMenuActitity.class);
+                startActivityForResult(intent, 100);
+            }
+        });
 
         mTask = new MyTask();
         mTask.execute();
@@ -127,9 +143,13 @@ public class ContacePersonFragment extends Fragment
                     @Override
                     public void onClick(Node node, int position)
                     {
-                        Intent intent = new Intent(getActivity(), ActivityContactEdit.class);
-                        intent.putExtra("id", node.getId());
-                        startActivityForResult(intent, 100);
+                        String type = node.getType();
+                        if("3".equals(type))
+                        {
+                            Intent intent = new Intent(getActivity(), ActivityContactEdit.class);
+                            intent.putExtra("id", node.getId());
+                            startActivityForResult(intent, 100);
+                        }
                     }
                 });
             }
@@ -191,5 +211,18 @@ public class ContacePersonFragment extends Fragment
             });
         }
 
+    }
+
+    @Override
+    public void onResume()
+    {
+        //重新刷新数据
+        super.onResume();
+        if (null != mAdapter)
+        {
+            mDatas.clear();
+            mTask = new MyTask();
+            mTask.execute();
+        }
     }
 }

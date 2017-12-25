@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,10 +34,12 @@ public class republishMeetingToOtherActivity extends AppCompatActivity
 {
     private String id;
     private String userName;
+    private String showName;
     private XTextView tv;
 
     private TextView republishAttendPerson;
     private TextView republishAttendPersonId;
+    private EditText republishAttendReason;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -45,6 +48,7 @@ public class republishMeetingToOtherActivity extends AppCompatActivity
         setContentView(R.layout.activity_republish_meeting_to_other);
         SharedPreferences userSettings = this.getSharedPreferences("userInfo", 0);
         userName = userSettings.getString("loginUserName", "default");
+        showName= userSettings.getString("loginShowName", "default");
 
         Intent i = getIntent();
         //会议ID
@@ -63,6 +67,8 @@ public class republishMeetingToOtherActivity extends AppCompatActivity
 
         republishAttendPerson = (TextView) findViewById(R.id.republishAttendPerson);
         republishAttendPersonId = (TextView) findViewById(R.id.republishAttendPersonId);
+
+        republishAttendReason = (EditText) findViewById(R.id.republishAttendReason);
     }
 
     public void republishFromContact(View view)
@@ -95,11 +101,20 @@ public class republishMeetingToOtherActivity extends AppCompatActivity
     {
         String personIds = republishAttendPersonId.getText().toString();
         String personName = republishAttendPerson.getText().toString();
+        String reason = republishAttendReason.getText().toString();
+
+        if(StringUtils.isBlank(personIds))
+        {
+            Toast tos = Toast.makeText(republishMeetingToOtherActivity.this, "请选择与会人!", Toast.LENGTH_SHORT);
+            tos.setGravity(Gravity.CENTER, 0, 0);
+            tos.show();
+            return;
+        }
+
         MyRepublishMeetingTask myRepublishMeetingTask = new MyRepublishMeetingTask();
-        myRepublishMeetingTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, personIds, personName);
+        myRepublishMeetingTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, personIds, personName,reason);
 
         onBackPressed();
-
     }
 
     /**
@@ -196,6 +211,7 @@ public class republishMeetingToOtherActivity extends AppCompatActivity
                         req2.setMeetingId(Integer.parseInt(id));
                         req2.setPhone(userName);
                         req2.setAttendType(3);
+                        req2.setReason(params[2]);
                         String result2 = HttpClientClass.httpPost(req2, "updateMeetingConfirmByMeetingIdAndPhone");
 
                         if (StringUtils.isBlank(result2))
@@ -225,6 +241,8 @@ public class republishMeetingToOtherActivity extends AppCompatActivity
                         req2.setMeetingId(Integer.parseInt(id));
                         req2.setPhone(userName);
                         req2.setAttendType(3);
+                        req2.setReason(params[2]);
+                        req2.setUserName(showName);
                         String result2 = HttpClientClass.httpPost(req2, "saveMeetingConfirm");
 
                         if (StringUtils.isBlank(result2))

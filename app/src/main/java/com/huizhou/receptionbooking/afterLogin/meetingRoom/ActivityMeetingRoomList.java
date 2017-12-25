@@ -10,6 +10,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.huizhou.receptionbooking.R;
+import com.huizhou.receptionbooking.afterLogin.definePublishMeeting.DefineMeetingViewActivity;
 import com.huizhou.receptionbooking.afterLogin.department.ActivityDepartmentAdd;
 import com.huizhou.receptionbooking.afterLogin.department.ActivityDepartmentEdit;
 import com.huizhou.receptionbooking.afterLogin.department.ActivityDepartmentList;
@@ -21,6 +22,7 @@ import com.huizhou.receptionbooking.database.dao.DepartmentDAO;
 import com.huizhou.receptionbooking.database.dao.MeetingRoomDAO;
 import com.huizhou.receptionbooking.database.dao.impl.DepartmentDAOImpl;
 import com.huizhou.receptionbooking.database.dao.impl.MeetingRoomDAOImpl;
+import com.huizhou.receptionbooking.utils.ActivityCalendarPickerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +34,7 @@ public class ActivityMeetingRoomList extends AppCompatActivity
     private SimpleTreeAdapter mAdapter;
     private MyTask mTask;
     private XTextView tv;
+    private String flag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -39,9 +42,10 @@ public class ActivityMeetingRoomList extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meeting_room_list);
 
+        Intent inte = getIntent();
+        flag = inte.getStringExtra("flag");
+
         tv = (XTextView) this.findViewById(R.id.meetingRoomList);
-
-
         //进入增加页面
         tv.setDrawableRightListener(new XTextView.DrawableRightListener()
         {
@@ -135,9 +139,25 @@ public class ActivityMeetingRoomList extends AppCompatActivity
                     @Override
                     public void onClick(Node node, int position)
                     {
-                        Intent intent = new Intent(ActivityMeetingRoomList.this, ActivityMeetingRoomEdit.class);
-                        intent.putExtra("id", node.getId());
-                        startActivityForResult(intent, 100);
+                        String type = node.getType();
+                        if ("2".equals(type))
+                        {
+                            if ("setting".equals(flag))
+                            {
+                                Intent intent = new Intent(ActivityMeetingRoomList.this, ActivityMeetingRoomEdit.class);
+                                intent.putExtra("id", node.getId());
+                                startActivityForResult(intent, 100);
+                            }
+                            else if ("defineMeeting".equals(flag))
+                            {
+                                Intent intent = new Intent(ActivityMeetingRoomList.this, DefineMeetingViewActivity.class);
+                                intent.putExtra("id", node.getId());
+                                intent.putExtra("name", node.getName());
+                                setResult(RESULT_OK, intent);
+                                onBackPressed();
+                            }
+                        }
+
                     }
                 });
             }
@@ -154,6 +174,19 @@ public class ActivityMeetingRoomList extends AppCompatActivity
         protected void onCancelled()
         {
 
+        }
+    }
+
+    @Override
+    protected void onResume()
+    {
+        //重新刷新数据
+        super.onResume();
+        if (null != mAdapter)
+        {
+            mDatas.clear();
+            mTask = new MyTask();
+            mTask.execute();
         }
     }
 }

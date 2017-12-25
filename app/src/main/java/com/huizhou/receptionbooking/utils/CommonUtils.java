@@ -1,6 +1,10 @@
 package com.huizhou.receptionbooking.utils;
 
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 /**
  * Created by Administrator on 2017/9/1.
  */
@@ -21,4 +25,42 @@ public class CommonUtils
                 trace[0].getLineNumber()).append("]");
         return toStringBuffer.toString();
     }
+
+    /**
+     * 获得指定日期的后一天
+     *
+     * @param i
+     * @return
+     */
+    public static String getSpecifiedDayAfter(int i)
+    {
+        Calendar c = Calendar.getInstance();
+        c.setTime(new Date());
+        int day = c.get(Calendar.DATE);
+        c.set(Calendar.DATE, day + i);
+        String dayAfter = new SimpleDateFormat("yyyy-MM-dd").format(c.getTime());
+        return dayAfter;
+    }
+
+    /**
+     * 根据就餐情况返回数字
+     * @param str
+     * @return
+     */
+    public static int getMenuTypeNumber(String str)
+    {
+        if ("早餐".equals(str))
+        {
+            return 3;
+        }
+        else if ("中餐".equals(str))
+        {
+            return 2;
+        }
+        else
+        {
+            return 1;
+        }
+    }
+
 }

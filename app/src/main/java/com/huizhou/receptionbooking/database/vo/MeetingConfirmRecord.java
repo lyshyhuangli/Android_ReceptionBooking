@@ -11,7 +11,7 @@ public class MeetingConfirmRecord
     private String userName;
     private int attendType;
     private int isSign;
-    private String reason;
+    private String reason ="";
 
     public int getId()
     {

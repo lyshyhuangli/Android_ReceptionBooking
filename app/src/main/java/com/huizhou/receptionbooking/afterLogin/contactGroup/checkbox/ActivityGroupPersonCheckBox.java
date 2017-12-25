@@ -5,10 +5,12 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.huizhou.receptionbooking.R;
@@ -22,7 +24,10 @@ import com.huizhou.receptionbooking.utils.HttpClientClass;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 public class ActivityGroupPersonCheckBox extends AppCompatActivity
 {
@@ -75,15 +80,36 @@ public class ActivityGroupPersonCheckBox extends AppCompatActivity
     {
         StringBuilder ids = new StringBuilder();
         StringBuilder name = new StringBuilder();
+        Map<String,String> tempMap = new HashMap<String,String>();
+
         for (Model m : models)
         {
             if (m.ischeck())
             {
-                ids.append(m.getGroupUserId());
-                name.append(m.getGetGroupUserName());
-                ids.append(",");
-                name.append(",");
+                String[] idss = m.getGroupUserId().split(",");
+                String[] names = m.getGetGroupUserName().split(",");
+                for(int i =0;i<idss.length;i++)
+                {
+                    tempMap.put(idss[i],names[i]);
+                }
             }
+        }
+
+        if(tempMap.isEmpty())
+        {
+            Toast tos = Toast.makeText(ActivityGroupPersonCheckBox.this, "请选择与会人", Toast.LENGTH_LONG);
+            tos.setGravity(Gravity.CENTER, 0, 0);
+            tos.show();
+            return;
+        }
+
+        for(Iterator<String> ite = tempMap.keySet().iterator(); ite.hasNext();)
+        {
+            String i = ite.next();
+            ids.append(i);
+            name.append(tempMap.get(i));
+            ids.append(",");
+            name.append(",");
         }
 
         String idTemp = ids.toString();

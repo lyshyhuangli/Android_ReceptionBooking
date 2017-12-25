@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.huizhou.receptionbooking.R;
+import com.huizhou.receptionbooking.afterLogin.contactGroup.ActivityGroupList;
 import com.huizhou.receptionbooking.database.vo.BookingMeetingRecord;
 import com.huizhou.receptionbooking.request.GetMyMeetingRoomByPhoneReq;
 import com.huizhou.receptionbooking.response.GetMyMeetingRoomByPhoneResp;
@@ -59,8 +60,6 @@ public class Tab3Fragment extends Fragment implements AbsListView.OnScrollListen
         Tab3Fragment fragment = new Tab3Fragment();
         fragment.setArguments(bundle);
         return fragment;
-
-
     }
 
     @Override
@@ -76,16 +75,7 @@ public class Tab3Fragment extends Fragment implements AbsListView.OnScrollListen
         listView.setOnScrollListener(this);
 
         loadFirstTime(date);
-
-
-//        View view = inflater.inflate(R.layout.tab_fragment, null);
-//        textView = (TextView) view.findViewById(R.id.text22);
-//        textView.setText("A");
-
-
         return view;
-
-
     }
 
     /**
@@ -172,12 +162,7 @@ public class Tab3Fragment extends Fragment implements AbsListView.OnScrollListen
                 //获取更多数据
                 mapNames.clear();
                 listIds.clear();
-
                 myTask = new MyTask();
-                //myTask.execute(getDataNo);
-
-                //adapter.updateView(mapNames, listIds)
-
             }
 
             loadComplete();//刷新结束
@@ -330,6 +315,18 @@ public class Tab3Fragment extends Fragment implements AbsListView.OnScrollListen
         protected void onCancelled()
         {
 
+        }
+    }
+
+    @Override
+    public void onResume()
+    {
+        //重新刷新数据
+        super.onResume();
+        if (null != adapter)
+        {
+            myTask = new MyTask();
+            myTask.execute(date);
         }
     }
 

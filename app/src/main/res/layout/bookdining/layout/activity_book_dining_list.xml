@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.huizhou.receptionbooking.afterLogin.bookDining.BookDiningListActivity">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:background="@color/setting"
+        android:orientation="horizontal">
+
+        <com.huizhou.receptionbooking.common.XTextView
+            android:id="@+id/bookDiningListBack"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#1D82EA"
+            android:gravity="center"
+            android:text="包间"
+            android:drawableLeft="@mipmap/back"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:textColor="@color/white"
+            android:textSize="@dimen/top_size"/>
+
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/listviewBookdining"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        >
+    </ListView>
+
+</LinearLayout>

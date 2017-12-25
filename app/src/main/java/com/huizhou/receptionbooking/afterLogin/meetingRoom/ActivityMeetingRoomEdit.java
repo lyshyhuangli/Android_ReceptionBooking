@@ -21,6 +21,8 @@ import com.huizhou.receptionbooking.database.dao.impl.MeetingRoomDAOImpl;
 import com.huizhou.receptionbooking.database.vo.DepartmentInfoRecord;
 import com.huizhou.receptionbooking.database.vo.MeetingRoomInfoRecord;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,7 +69,18 @@ public class ActivityMeetingRoomEdit extends AppCompatActivity
         int parentId = Integer.valueOf((String) meetingRoomDepatmentEditMrId.getText());
 
         EditText meetingRoomNameEt = (EditText) findViewById(R.id.meetingRoomNameEt);
-        String meetingRoomName = meetingRoomNameEt.getText().toString();
+        String meetingRoomName = null;
+        if (StringUtils.isBlank(meetingRoomNameEt.getText().toString()))
+        {
+            Toast tos = Toast.makeText(getApplicationContext(), "请填写会议室", Toast.LENGTH_SHORT);
+            tos.setGravity(Gravity.CENTER, 0, 0);
+            tos.show();
+            return;
+        }
+        else
+        {
+            meetingRoomName = meetingRoomNameEt.getText().toString();
+        }
 
         EditText meetingRoomRemarkEt = (EditText) findViewById(R.id.meetingRoomRemarkEt);
         String remark = meetingRoomRemarkEt.getText().toString();

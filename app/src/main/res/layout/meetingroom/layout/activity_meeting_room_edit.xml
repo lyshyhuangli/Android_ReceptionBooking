@@ -17,15 +17,14 @@
             android:id="@+id/meettingRoomEditBack"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.8"
             android:background="#1D82EA"
-            android:gravity="center"
-            android:text="会议室修改"
             android:drawableLeft="@mipmap/back"
+            android:gravity="center"
             android:paddingLeft="10dip"
             android:paddingRight="10dip"
+            android:text="修改会议室"
             android:textColor="@color/white"
-            android:textSize="22dp"/>
+            android:textSize="@dimen/top_size"/>
 
     </LinearLayout>
 
@@ -45,46 +44,41 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="130dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/textview_size"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="0.4"
+                    android:background="@color/settingbtn"
+                    android:drawableLeft="@mipmap/department"
+                    android:drawablePadding="10dip"
+                    android:gravity="center_vertical|left"
+                    android:paddingLeft="10dip"
+                    android:paddingRight="10dip"
+                    android:text="所属部门:"
                     android:textColor="@color/txtcolor"
-                    android:text="部门名称"
-                    />
+                    android:textSize="15dp"/>
 
                 <TextView
                     android:id="@+id/meetingRoomDepatmentMr"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/textview_size"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="0.6"
+                    android:background="@color/settingbtn"
+                    android:gravity="center_vertical|left"
                     android:onClick="getDepartmentEditForMeetingRoom"
+                    android:paddingRight="5dip"
+                    android:textColor="@color/txtcolor"
+                    android:textSize="15dp"
                     />
 
                 <TextView
                     android:id="@+id/meetingRoomDepatmentEditMrId"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="invisible"
+                    android:visibility="gone"
                     />
             </LinearLayout>
-
-            <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="130dp"
-                android:layout_height="wrap_content"
-                android:textColor="@color/txtcolor"
-                android:text="会议室名称"
-                />
-
-            <EditText
-                android:id="@+id/meetingRoomNameEt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/bg_edittext_selector"
-                />
-        </LinearLayout>
 
             <LinearLayout
                 android:layout_width="fill_parent"
@@ -92,33 +86,93 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="130dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/textview_size"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="0.4"
+                    android:background="@color/settingbtn"
+                    android:drawableLeft="@mipmap/meetingmanager"
+                    android:drawablePadding="10dip"
+                    android:gravity="center_vertical|left"
+                    android:paddingLeft="10dip"
+                    android:paddingRight="10dip"
+                    android:text="会议室名:"
                     android:textColor="@color/txtcolor"
-                    android:text="备注"
-                    />
+                    android:textSize="15dp"/>
 
                 <EditText
-                    android:id="@+id/meetingRoomRemarkEt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:id="@+id/meetingRoomNameEt"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/textview_size"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="0.5"
                     android:background="@drawable/bg_edittext_selector"
+                    android:paddingLeft="5dip"
+                    android:paddingRight="5dip"
+                    android:textColor="@color/txtcolor"
+                    android:textSize="15dp"
                     />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.1"/>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="20dip"
+                android:layout_marginTop="5dp"
                 android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/textview_size"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="0.4"
+                    android:background="@color/settingbtn"
+                    android:drawableLeft="@mipmap/remark"
+                    android:drawablePadding="10dip"
+                    android:gravity="center_vertical|left"
+                    android:paddingLeft="10dip"
+                    android:paddingRight="10dip"
+                    android:text="备         注:"
+                    android:textColor="@color/txtcolor"
+                    android:textSize="15dp"/>
+
+                <EditText
+                    android:id="@+id/meetingRoomRemarkEt"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/textview_size"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="0.5"
+                    android:background="@drawable/bg_edittext_selector"
+                    android:gravity="center_vertical|left"
+                    android:paddingLeft="5dip"
+                    android:paddingRight="5dip"
+                    android:textColor="@color/txtcolor"
+                    />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.1"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="20dip">
 
                 <Button
                     android:id="@+id/editMeetingRoomConform"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/txtcolor"
                     android:onClick="saveMeetingRoomEdit"
                     android:text="确定"
+                    android:textColor="@color/txtcolor"
                     />
 
             </LinearLayout>

@@ -9,172 +9,187 @@ import java.util.List;
 public class Node
 {
 
-	private String id;
-	/**
-	 * 根节点pId为0
-	 */
-	private String pId = "0";
+    private String id;
+    /**
+     * 根节点pId为0
+     */
+    private String pId = "0";
 
-	private String name;
-	/**
-	 * 当前的级别
-	 */
-	private int level;
+    private String name;
 
-	/**
-	 * 是否展开
-	 */
-	private boolean isExpand = false;
+    private String type;//类型
 
-	private int icon;
+    /**
+     * 当前的级别
+     */
+    private int level;
 
-	/**
-	 * 下一级的子Node
-	 */
-	private List<Node> children = new ArrayList<Node>();
+    /**
+     * 是否展开
+     */
+    private boolean isExpand = false;
 
-	/**
-	 * 父Node
-	 */
-	private Node parent;
+    private int icon;
 
-	public Node()
-	{
-	}
+    /**
+     * 下一级的子Node
+     */
+    private List<Node> children = new ArrayList<Node>();
 
-	public Node(String id, String pId, String name)
-	{
-		super();
-		this.id = id;
-		this.pId = pId;
-		this.name = name;
-	}
-	public int getIcon()
-	{
-		return icon;
-	}
+    /**
+     * 父Node
+     */
+    private Node parent;
 
-	public void setIcon(int icon)
-	{
-		this.icon = icon;
-	}
+    public Node()
+    {
+    }
 
-	public String getId()
-	{
-		return id;
-	}
+    public Node(String id, String pId, String name,String type)
+    {
+        super();
+        this.id = id;
+        this.pId = pId;
+        this.name = name;
+        this.type=type;
+    }
 
-	public void setId(String id)
-	{
-		this.id = id;
-	}
+    public int getIcon()
+    {
+        return icon;
+    }
 
-	public String getpId()
-	{
-		return pId;
-	}
+    public void setIcon(int icon)
+    {
+        this.icon = icon;
+    }
 
-	public void setpId(String pId)
-	{
-		this.pId = pId;
-	}
+    public String getId()
+    {
+        return id;
+    }
 
-	public String getName()
-	{
-		return name;
-	}
+    public void setId(String id)
+    {
+        this.id = id;
+    }
 
-	public void setName(String name)
-	{
-		this.name = name;
-	}
+    public String getpId()
+    {
+        return pId;
+    }
 
-	public void setLevel(int level)
-	{
-		this.level = level;
-	}
+    public void setpId(String pId)
+    {
+        this.pId = pId;
+    }
 
-	public boolean isExpand()
-	{
-		return isExpand;
-	}
+    public String getName()
+    {
+        return name;
+    }
 
-	public List<Node> getChildren()
-	{
-		return children;
-	}
+    public void setName(String name)
+    {
+        this.name = name;
+    }
 
-	public void setChildren(List<Node> children)
-	{
-		this.children = children;
-	}
+    public void setLevel(int level)
+    {
+        this.level = level;
+    }
 
-	public Node getParent()
-	{
-		return parent;
-	}
+    public boolean isExpand()
+    {
+        return isExpand;
+    }
 
-	public void setParent(Node parent)
-	{
-		this.parent = parent;
-	}
+    public List<Node> getChildren()
+    {
+        return children;
+    }
 
-	/**
-	 * 是否为跟节点
-	 * 
-	 * @return
-	 */
-	public boolean isRoot()
-	{
-		return parent == null;
-	}
+    public String getType()
+    {
+        return type;
+    }
 
-	/**
-	 * 判断父节点是否展开
-	 * 
-	 * @return
-	 */
-	public boolean isParentExpand()
-	{
-		if (parent == null)
-			return false;
-		return parent.isExpand();
-	}
+    public void setType(String type)
+    {
+        this.type = type;
+    }
 
-	/**
-	 * 是否是叶子界点
-	 * 
-	 * @return
-	 */
-	public boolean isLeaf()
-	{
-		return children.size() == 0;
-	}
+    public void setChildren(List<Node> children)
+    {
+        this.children = children;
+    }
 
-	/**
-	 * 获取level
-	 */
-	public int getLevel()
-	{
-		return parent == null ? 0 : parent.getLevel() + 1;
-	}
+    public Node getParent()
+    {
+        return parent;
+    }
 
-	/**
-	 * 设置展开
-	 * 
-	 * @param isExpand
-	 */
-	public void setExpand(boolean isExpand)
-	{
-		this.isExpand = isExpand;
-		if (!isExpand)
-		{
+    public void setParent(Node parent)
+    {
+        this.parent = parent;
+    }
 
-			for (Node node : children)
-			{
-				node.setExpand(isExpand);
-			}
-		}
-	}
+    /**
+     * 是否为跟节点
+     *
+     * @return
+     */
+    public boolean isRoot()
+    {
+        return parent == null;
+    }
+
+    /**
+     * 判断父节点是否展开
+     *
+     * @return
+     */
+    public boolean isParentExpand()
+    {
+        if (parent == null)
+            return false;
+        return parent.isExpand();
+    }
+
+    /**
+     * 是否是叶子界点
+     *
+     * @return
+     */
+    public boolean isLeaf()
+    {
+        return children.size() == 0;
+    }
+
+    /**
+     * 获取level
+     */
+    public int getLevel()
+    {
+        return parent == null ? 0 : parent.getLevel() + 1;
+    }
+
+    /**
+     * 设置展开
+     *
+     * @param isExpand
+     */
+    public void setExpand(boolean isExpand)
+    {
+        this.isExpand = isExpand;
+        if (!isExpand)
+        {
+
+            for (Node node : children)
+            {
+                node.setExpand(isExpand);
+            }
+        }
+    }
 
 }

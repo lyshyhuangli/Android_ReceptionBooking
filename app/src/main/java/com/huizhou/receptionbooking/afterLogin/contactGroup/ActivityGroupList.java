@@ -9,12 +9,17 @@ import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.SearchView;
+import android.widget.TextView;
 
 import com.huizhou.receptionbooking.R;
+import com.huizhou.receptionbooking.afterLogin.department.ActivityDepartmentList;
 import com.huizhou.receptionbooking.common.XTextView;
 import com.huizhou.receptionbooking.database.dao.GroupPersonDAO;
 import com.huizhou.receptionbooking.database.dao.impl.GroupPersonDAOImpl;
 import com.huizhou.receptionbooking.database.vo.GroupPersonInfoRecord;
+
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,6 +44,8 @@ public class ActivityGroupList extends AppCompatActivity implements AbsListView.
     private String userName;
 
     private XTextView tv;
+    private SearchView searchContactGroup;
+    private String searchParams;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -75,6 +82,41 @@ public class ActivityGroupList extends AppCompatActivity implements AbsListView.
             }
         });
 
+        searchContactGroup = (SearchView) findViewById(R.id.searchContactGroupSv);
+        searchContactGroup.setFocusable(true);
+        searchContactGroup.setFocusableInTouchMode(true);
+        if (null != searchContactGroup)
+        {
+            int id = searchContactGroup.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
+            TextView textView = (TextView) searchContactGroup.findViewById(id);
+            textView.setTextSize(15);//字体、提示字体大小
+        }
+        // 设置搜索文本监听
+        searchContactGroup.setOnQueryTextListener(new SearchView.OnQueryTextListener()
+        {
+            // 当点击搜索按钮时触发该方法
+            @Override
+            public boolean onQueryTextSubmit(String query)
+            {
+                searchParams = query;
+                loadFirstTime();
+                return false;
+            }
+
+            // 当搜索内容改变时触发该方法
+            @Override
+            public boolean onQueryTextChange(String newText)
+            {
+                if (StringUtils.isBlank(newText))
+                {
+                    searchParams = newText;
+                    loadFirstTime();
+                }
+
+                return false;
+            }
+        });
+
         loadFirstTime();
 
     }
@@ -85,6 +127,7 @@ public class ActivityGroupList extends AppCompatActivity implements AbsListView.
     private void loadFirstTime()
     {
         listIds.clear();
+        mapNames.clear();
         getDataNo = 1;
         myTask = new MyTask();
         myTask.execute(getDataNo);
@@ -141,7 +184,6 @@ public class ActivityGroupList extends AppCompatActivity implements AbsListView.
         catch (Exception e)
         {
             e.printStackTrace();
-            //CommonUtils.sendLogsToServer(classInfo, "获取更多信息失败：" + e.getMessage(), userName);
         }
 
     }
@@ -217,7 +259,7 @@ public class ActivityGroupList extends AppCompatActivity implements AbsListView.
             try
             {
                 GroupPersonDAO m = new GroupPersonDAOImpl();
-                result = m.getAllGroup(errorList, params[0],userName);
+                result = m.getAllGroup(errorList, params[0],userName,searchParams);
                 if (null == result)
                 {
                     return false;
@@ -261,6 +303,23 @@ public class ActivityGroupList extends AppCompatActivity implements AbsListView.
         protected void onCancelled()
         {
 
+        }
+    }
+
+    @Override
+    protected void onResume()
+    {
+        //重新刷新数据
+        super.onResume();
+        if (null != adapter)
+        {
+            //获取更多数据
+            mapNames.clear();
+            listIds.clear();
+            getDataNo = 1;
+
+            myTask = new MyTask();
+            myTask.execute(getDataNo);
         }
     }
 

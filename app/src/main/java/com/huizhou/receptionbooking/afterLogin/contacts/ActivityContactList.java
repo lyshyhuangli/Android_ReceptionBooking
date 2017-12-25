@@ -10,6 +10,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.huizhou.receptionbooking.R;
+import com.huizhou.receptionbooking.afterLogin.meetingRoom.ActivityMeetingRoomList;
 import com.huizhou.receptionbooking.common.BaseTreeBean;
 import com.huizhou.receptionbooking.common.Node;
 import com.huizhou.receptionbooking.common.SimpleTreeAdapter;
@@ -129,9 +130,13 @@ public class ActivityContactList extends AppCompatActivity
                     @Override
                     public void onClick(Node node, int position)
                     {
-                        Intent intent = new Intent(ActivityContactList.this, ActivityContactEdit.class);
-                        intent.putExtra("id", node.getId());
-                        startActivityForResult(intent, 100);
+                        String type = node.getType();
+                        if("3".equals(type))
+                        {
+                            Intent intent = new Intent(ActivityContactList.this, ActivityContactEdit.class);
+                            intent.putExtra("id", node.getId());
+                            startActivityForResult(intent, 100);
+                        }
                     }
                 });
             }
@@ -148,6 +153,19 @@ public class ActivityContactList extends AppCompatActivity
         protected void onCancelled()
         {
 
+        }
+    }
+
+    @Override
+    protected void onResume()
+    {
+        //重新刷新数据
+        super.onResume();
+        if (null != mAdapter)
+        {
+            mDatas.clear();
+            mTask = new MyTask();
+            mTask.execute();
         }
     }
 }

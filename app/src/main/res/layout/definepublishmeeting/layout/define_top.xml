@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="40dp"
+              android:gravity="center"
+              android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:paddingTop="0dp"
+        android:orientation="horizontal">
+
+        <com.huizhou.receptionbooking.common.XTextView
+            android:id="@+id/defineTop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#1D82EA"
+            android:gravity="center"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:drawableLeft="@mipmap/back"
+            android:textSize="@dimen/top_size"/>
+
+    </LinearLayout>
+
+</LinearLayout>

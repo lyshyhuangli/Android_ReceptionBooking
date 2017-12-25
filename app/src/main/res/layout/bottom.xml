@@ -21,6 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/buttontxt"
+            android:textSize="10dp"
             android:text="我的会议"/>
     </LinearLayout>
     <LinearLayout 
@@ -41,6 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/buttontxt"
+            android:textSize="10dp"
             android:text="通讯录"/>
     </LinearLayout>
     <LinearLayout 
@@ -61,7 +63,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/buttontxt"
-            android:text="会议发布"/>
+            android:textSize="10dp"
+            android:text="预定会议"/>
     </LinearLayout>
     <LinearLayout 
         android:id="@+id/id_tab_setting"
@@ -81,6 +84,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/buttontxt"
+            android:textSize="10dp"
             android:text="设置"/>
     </LinearLayout>
 

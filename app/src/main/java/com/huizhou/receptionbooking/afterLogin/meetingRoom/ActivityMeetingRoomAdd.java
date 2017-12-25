@@ -1,6 +1,7 @@
 package com.huizhou.receptionbooking.afterLogin.meetingRoom;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.huizhou.receptionbooking.R;
+import com.huizhou.receptionbooking.afterLogin.contactGroup.ActivityGroupList;
 import com.huizhou.receptionbooking.afterLogin.department.ActivityDepartmentAdd;
 import com.huizhou.receptionbooking.afterLogin.department.ActivityDepartmentList;
 import com.huizhou.receptionbooking.common.XTextView;
@@ -20,6 +22,8 @@ import com.huizhou.receptionbooking.database.dao.impl.DepartmentDAOImpl;
 import com.huizhou.receptionbooking.database.dao.impl.MeetingRoomDAOImpl;
 import com.huizhou.receptionbooking.database.vo.DepartmentInfoRecord;
 import com.huizhou.receptionbooking.database.vo.MeetingRoomInfoRecord;
+
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +38,17 @@ public class ActivityMeetingRoomAdd extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meeting_room_add);
+
+        //获取所属部门
+        SharedPreferences userSettings = ActivityMeetingRoomAdd.this.getSharedPreferences("userInfo", 0);
+        String department = userSettings.getString("department", "default");
+        String departmentId = userSettings.getString("departmentId", "default");
+
+        TextView meetingRoomDepAddMr = (TextView) findViewById(R.id.meetingRoomDepAddMr);
+        meetingRoomDepAddMr.setText(department);
+
+        TextView meetingRoomDepAddMrId = (TextView) findViewById(R.id.meetingRoomDepAddMrId);
+        meetingRoomDepAddMrId.setText(departmentId);
 
         tv = (XTextView) this.findViewById(R.id.meetingRoomAddBack);
 
@@ -51,13 +66,24 @@ public class ActivityMeetingRoomAdd extends AppCompatActivity
 
     public void saveMeetingRoomAdd(View view)
     {
-        TextView meetingRoomAddMr = (TextView) findViewById(R.id.meetingRoomAddMr);
+        TextView meetingRoomAddMr = (TextView) findViewById(R.id.meetingRoomDepAddMr);
 
-        TextView meetingRoomAddMrId = (TextView) findViewById(R.id.meetingRoomAddMrId);
+        TextView meetingRoomAddMrId = (TextView) findViewById(R.id.meetingRoomDepAddMrId);
         int parentId = Integer.valueOf((String) meetingRoomAddMrId.getText());
 
         EditText meetingRoomNameAdd = (EditText) findViewById(R.id.meetingRoomNameAdd);
-        String meetingRoomName = meetingRoomNameAdd.getText().toString();
+        String meetingRoomName = null;
+        if (StringUtils.isBlank(meetingRoomNameAdd.getText().toString()))
+        {
+            Toast tos = Toast.makeText(getApplicationContext(), "请填写会议室", Toast.LENGTH_SHORT);
+            tos.setGravity(Gravity.CENTER, 0, 0);
+            tos.show();
+            return;
+        }
+        else
+        {
+            meetingRoomName = meetingRoomNameAdd.getText().toString();
+        }
 
         EditText remarkMeetingRoomAdd = (EditText) findViewById(R.id.remarkMeetingRoomAdd);
         String remark = remarkMeetingRoomAdd.getText().toString();
@@ -83,11 +109,11 @@ public class ActivityMeetingRoomAdd extends AppCompatActivity
             String id = data.getStringExtra("parentId");
             String name = data.getStringExtra("name");
 
-            TextView meetingRoomAddMr = (TextView) findViewById(R.id.meetingRoomAddMr);
-            meetingRoomAddMr.setText(name);
+            TextView meetingRoomDepAddMr = (TextView) findViewById(R.id.meetingRoomDepAddMr);
+            meetingRoomDepAddMr.setText(name);
 
-            TextView meetingRoomAddMrId = (TextView) findViewById(R.id.meetingRoomAddMrId);
-            meetingRoomAddMrId.setText(id);
+            TextView meetingRoomDepAddMrId = (TextView) findViewById(R.id.meetingRoomDepAddMrId);
+            meetingRoomDepAddMrId.setText(id);
         }
     }
 
@@ -143,7 +169,7 @@ public class ActivityMeetingRoomAdd extends AppCompatActivity
             }
             else
             {
-                Toast tos = Toast.makeText(getApplicationContext(),"保存成功", Toast.LENGTH_LONG);
+                Toast tos = Toast.makeText(getApplicationContext(), "保存成功", Toast.LENGTH_LONG);
                 tos.setGravity(Gravity.CENTER, 0, 0);
                 tos.show();
                 onBackPressed();

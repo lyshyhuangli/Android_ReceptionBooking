@@ -51,6 +51,7 @@ public class MeetingRoomDAOImpl implements MeetingRoomDAO
                 b.setId(String.valueOf(rs.getInt("id")));
                 b.setName(rs.getString("name"));
                 b.setParentId(String.valueOf(rs.getInt("parentId")));
+                b.setType(String.valueOf(rs.getInt("type")));
                 list.add(b);
             }
         }

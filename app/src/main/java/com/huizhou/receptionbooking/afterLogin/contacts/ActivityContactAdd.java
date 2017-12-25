@@ -19,6 +19,8 @@ import com.huizhou.receptionbooking.database.dao.UserInfoDAO;
 import com.huizhou.receptionbooking.database.dao.impl.UserInfoDAOImpl;
 import com.huizhou.receptionbooking.database.vo.UerInfoRecord;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -92,16 +94,49 @@ public class ActivityContactAdd extends AppCompatActivity
         TextView contactDepatmentMrAdd = (TextView) findViewById(R.id.contactDepatmentMrAdd);
 
         TextView contactDepatmentAddMrId = (TextView) findViewById(R.id.contactDepatmentAddMrId);
-        int parentId = Integer.valueOf((String) contactDepatmentAddMrId.getText());
+        int parentId = 0;
+        if (StringUtils.isBlank(contactDepatmentAddMrId.getText().toString()))
+        {
+            Toast tos = Toast.makeText(getApplicationContext(), "请选择部门", Toast.LENGTH_SHORT);
+            tos.setGravity(Gravity.CENTER, 0, 0);
+            tos.show();
+            return;
+        }
+        else
+        {
+            parentId = Integer.valueOf((String) contactDepatmentAddMrId.getText());
+        }
 
         EditText contactNameAdd = (EditText) findViewById(R.id.contactNameAdd);
-        String contactName = contactNameAdd.getText().toString();
+        String contactName = null;
+        if (StringUtils.isBlank(contactNameAdd.getText().toString()))
+        {
+            Toast tos = Toast.makeText(getApplicationContext(), "请填写姓名", Toast.LENGTH_SHORT);
+            tos.setGravity(Gravity.CENTER, 0, 0);
+            tos.show();
+            return;
+        }
+        else
+        {
+            contactName = contactNameAdd.getText().toString();
+        }
 
         EditText contactRemarkAdd = (EditText) findViewById(R.id.contactRemarkAdd);
         String remark = contactRemarkAdd.getText().toString();
 
         EditText contactPhoneAdd = (EditText) findViewById(R.id.contactPhoneAdd);
-        String phone = contactPhoneAdd.getText().toString();
+        String phone = null;
+        if (StringUtils.isBlank(contactPhoneAdd.getText().toString()))
+        {
+            Toast tos = Toast.makeText(getApplicationContext(), "请填写手机号", Toast.LENGTH_SHORT);
+            tos.setGravity(Gravity.CENTER, 0, 0);
+            tos.show();
+            return;
+        }
+        else
+        {
+            phone = contactPhoneAdd.getText().toString();
+        }
 
         Spinner contactSexSpinnerAdd = (Spinner) findViewById(R.id.contactSexSpinnerAdd);
         String sex = contactSexSpinnerAdd.getSelectedItem().toString();

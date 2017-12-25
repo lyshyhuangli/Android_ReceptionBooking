@@ -1,12 +1,14 @@
 package com.huizhou.receptionbooking.afterLogin.contacts;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
@@ -19,6 +21,8 @@ import com.huizhou.receptionbooking.common.XTextView;
 import com.huizhou.receptionbooking.database.dao.UserInfoDAO;
 import com.huizhou.receptionbooking.database.dao.impl.UserInfoDAOImpl;
 import com.huizhou.receptionbooking.database.vo.UerInfoRecord;
+
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,11 +43,16 @@ public class ActivityContactEdit extends AppCompatActivity
     private List<String> data_listSex;
     private ArrayAdapter<String> arr_adapterSex;
 
+    private String role;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact_edit);
+
+        SharedPreferences userSettings = this.getSharedPreferences("userInfo", 0);
+        role = userSettings.getString("role", "default");
 
         spinner = (Spinner) findViewById(R.id.contactRoleSpinner);
 
@@ -100,16 +109,49 @@ public class ActivityContactEdit extends AppCompatActivity
         TextView contactDepatmentMrEdit = (TextView) findViewById(R.id.contactDepatmentMrEdit);
 
         TextView contactDepatmentEditMrId = (TextView) findViewById(R.id.contactDepatmentEditMrId);
-        int parentId = Integer.valueOf((String) contactDepatmentEditMrId.getText());
+        int parentId = 0;
+        if (StringUtils.isBlank(contactDepatmentEditMrId.getText().toString()))
+        {
+            Toast tos = Toast.makeText(getApplicationContext(), "请选择部门", Toast.LENGTH_SHORT);
+            tos.setGravity(Gravity.CENTER, 0, 0);
+            tos.show();
+            return;
+        }
+        else
+        {
+            parentId = Integer.valueOf((String) contactDepatmentEditMrId.getText());
+        }
 
         EditText contactNameEt = (EditText) findViewById(R.id.contactNameEt);
-        String contactName = contactNameEt.getText().toString();
+        String contactName= null;
+        if (StringUtils.isBlank(contactNameEt.getText().toString()))
+        {
+            Toast tos = Toast.makeText(getApplicationContext(), "请填写姓名", Toast.LENGTH_SHORT);
+            tos.setGravity(Gravity.CENTER, 0, 0);
+            tos.show();
+            return;
+        }
+        else
+        {
+            contactName = contactNameEt.getText().toString();
+        }
 
         EditText contactRemarkEt = (EditText) findViewById(R.id.contactRemarkEt);
         String remark = contactRemarkEt.getText().toString();
 
         EditText contactPhoneEt = (EditText) findViewById(R.id.contactPhoneEt);
-        String phone = contactPhoneEt.getText().toString();
+        String phone = null;
+        if (StringUtils.isBlank(contactPhoneEt.getText().toString()))
+        {
+            Toast tos = Toast.makeText(getApplicationContext(), "请填写手机号", Toast.LENGTH_SHORT);
+            tos.setGravity(Gravity.CENTER, 0, 0);
+            tos.show();
+            return;
+        }
+        else
+        {
+             phone = contactPhoneEt.getText().toString();
+        }
 
         Spinner contactSexSpinner = (Spinner) findViewById(R.id.contactSexSpinner);
         String sex = contactSexSpinner.getSelectedItem().toString();
@@ -126,7 +168,7 @@ public class ActivityContactEdit extends AppCompatActivity
 
     }
 
-    public void getParentDepartmentEdit(View view)
+    public void getParentDepartmentEditForContact(View view)
     {
         Intent intent = new Intent(ActivityContactEdit.this, ActivityDepartmentList.class);
         intent.putExtra("type", "editContact");
@@ -239,6 +281,12 @@ public class ActivityContactEdit extends AppCompatActivity
 
                 EditText contactRemarkEt = (EditText) findViewById(R.id.contactRemarkEt);
                 contactRemarkEt.setText(d.getRemark());
+
+                if(!"管理员".equals(role))
+                {
+                    Button editUserConform = (Button)findViewById(R.id.editUserConform);
+                    editUserConform.setVisibility(View.GONE);
+                }
             }
         }
 

@@ -30,7 +30,7 @@ public class UserInfoDAOImpl implements UserInfoDAO
      * @param pwd
      * @return
      */
-    public boolean checkUserByUserAndPwd(String userName, String pwd, List<String> errorList,List<String> loginShowName)
+    public boolean checkUserByUserAndPwd(String userName, String pwd, List<String> errorList,List<String> loginInfo)
     {
         Connection conn = DbConnect.getConnection(errorList);
 
@@ -39,7 +39,9 @@ public class UserInfoDAOImpl implements UserInfoDAO
             return false;
         }
 
-        String strsql = "select * from tb_user_dep_meeting where phone  = ? and pwd = ? and type =3";
+        String strsql = "select u.*,d.name as department from tb_user_dep_meeting u " +
+                "LEFT JOIN tb_user_dep_meeting d ON u.parentId = d.id " +
+                "where   u.phone  = ? and u.pwd = ? and u.type =3";
         PreparedStatement pstmt = null;
         ResultSet rs = null;
 
@@ -52,7 +54,10 @@ public class UserInfoDAOImpl implements UserInfoDAO
 
             if (rs.next())
             {
-                loginShowName.add(rs.getString("name"));
+                loginInfo.add(rs.getString("name"));
+                loginInfo.add(rs.getString("department"));
+                loginInfo.add(rs.getString("parentId"));
+                loginInfo.add(rs.getString("role"));
                 return true;
             }
         }
@@ -222,6 +227,7 @@ public class UserInfoDAOImpl implements UserInfoDAO
                 b.setId(String.valueOf(rs.getInt("id")));
                 b.setName(rs.getString("name"));
                 b.setParentId(String.valueOf(rs.getInt("parentId")));
+                b.setType(String.valueOf(rs.getInt("type")));
                 list.add(b);
             }
         }

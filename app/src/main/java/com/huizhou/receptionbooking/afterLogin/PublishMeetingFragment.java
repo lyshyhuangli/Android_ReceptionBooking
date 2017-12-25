@@ -1,5 +1,6 @@
 package com.huizhou.receptionbooking.afterLogin;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import com.huizhou.receptionbooking.R;
 import com.huizhou.receptionbooking.afterLogin.tab1.FragmentAdapter;
 import com.huizhou.receptionbooking.afterLogin.tab3.Tab3Fragment;
+import com.huizhou.receptionbooking.common.XTextView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -23,8 +25,9 @@ import java.util.List;
 public class PublishMeetingFragment extends Fragment
 {
     private View view;
+    private XTextView tv;
 
-    private String[] titles = new String[]{"推荐", "娱乐", "科技", "军事", "奥运会", "视频", "情感", "图片", "时尚", "教育"};
+    //private String[] titles = new String[]{"推荐", "娱乐", "科技", "军事", "奥运会", "视频", "情感", "图片", "时尚", "教育"};
 
     //private String[] titles = new String[]{};
     private TabLayout mTabLayout;
@@ -52,6 +55,19 @@ public class PublishMeetingFragment extends Fragment
 
         mViewPager = (ViewPager) view.findViewById(R.id.viewpagerTab3);
         mTabLayout = (TabLayout) view.findViewById(R.id.tablayoutTab3);
+
+        tv = (XTextView) view.findViewById(R.id.topCommon);
+        tv.setText("预定会议");
+        //弹出menu菜单
+        tv.setDrawableRightListener(new XTextView.DrawableRightListener()
+        {
+            @Override
+            public void onDrawableRightClick(View view)
+            {
+                Intent intent = new Intent(getActivity(), CommonMenuActitity.class);
+                startActivityForResult(intent, 100);
+            }
+        });
 
         //只显示3天的会议发布
         mTitles = new ArrayList<>();

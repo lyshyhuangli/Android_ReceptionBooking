@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    android:background="@color/colorAccent"
     android:foreground="?android:attr/selectableItemBackground"
     card_view:cardCornerRadius="4dp"
     card_view:cardElevation="4dp"
@@ -24,19 +23,23 @@
              android:visibility="gone"/>
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.8"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/threadItem"
+                    android:drawableLeft="@mipmap/threaf2"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="5dip"
+                    android:textSize="@dimen/text_size"
+                    android:textColor="@color/txtcolor"/>
 
             </LinearLayout>
 
@@ -49,38 +52,25 @@
                     android:id="@+id/meetingTime"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.3"/>
+                    android:layout_weight="0.4"
+                    android:drawableLeft="@mipmap/time2"/>
 
                 <TextView
                     android:id="@+id/departmentItem"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.3"/>
+                    android:layout_weight="0.3"
+                    android:drawableLeft="@mipmap/dep2"/>
 
                 <TextView
                     android:id="@+id/meetingRoomItem"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.4"/>
+                    android:layout_weight="0.3"
+                    android:drawableLeft="@mipmap/place2"/>
 
             </LinearLayout>
 
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.2"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/tv_item_image"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:text="image"
-                />
-        </LinearLayout>
-
     </LinearLayout>
 </android.support.v7.widget.CardView>

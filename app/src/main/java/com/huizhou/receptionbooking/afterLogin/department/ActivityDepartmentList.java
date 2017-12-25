@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.huizhou.receptionbooking.R;
 import com.huizhou.receptionbooking.afterLogin.contacts.ActivityContactAdd;
 import com.huizhou.receptionbooking.afterLogin.contacts.ActivityContactEdit;
+import com.huizhou.receptionbooking.afterLogin.contacts.ActivityContactList;
 import com.huizhou.receptionbooking.afterLogin.meetingRoom.ActivityMeetingRoomAdd;
 import com.huizhou.receptionbooking.afterLogin.meetingRoom.ActivityMeetingRoomEdit;
 import com.huizhou.receptionbooking.common.BaseTreeBean;
@@ -209,4 +210,17 @@ public class ActivityDepartmentList extends AppCompatActivity
 
         }
     }
+    @Override
+    protected void onResume()
+    {
+        //重新刷新数据
+        super.onResume();
+        if (null != mAdapter)
+        {
+            mDatas.clear();
+            mTask = new MyTask();
+            mTask.execute();
+        }
+    }
+
 }

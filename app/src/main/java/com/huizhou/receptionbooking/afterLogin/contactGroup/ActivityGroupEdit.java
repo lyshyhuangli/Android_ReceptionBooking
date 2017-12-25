@@ -3,39 +3,26 @@ package com.huizhou.receptionbooking.afterLogin.contactGroup;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.huizhou.receptionbooking.R;
 import com.huizhou.receptionbooking.afterLogin.contacts.ActivityCheckBoxContactList;
-import com.huizhou.receptionbooking.afterLogin.contacts.ActivityContactEdit;
 import com.huizhou.receptionbooking.common.XTextView;
-import com.huizhou.receptionbooking.database.dao.GroupPersonDAO;
-import com.huizhou.receptionbooking.database.dao.UserInfoDAO;
-import com.huizhou.receptionbooking.database.dao.impl.GroupPersonDAOImpl;
-import com.huizhou.receptionbooking.database.dao.impl.UserInfoDAOImpl;
 import com.huizhou.receptionbooking.database.vo.GroupPersonInfoRecord;
-import com.huizhou.receptionbooking.database.vo.UerInfoRecord;
 import com.huizhou.receptionbooking.request.GetGroupPersonByIdReq;
 import com.huizhou.receptionbooking.request.UpdateGroupPersonByIdReq;
-import com.huizhou.receptionbooking.response.CheckUserByUserAndPwdResp;
 import com.huizhou.receptionbooking.response.GetGroupPersonByIdResp;
 import com.huizhou.receptionbooking.response.UpdateGroupPersonByIdResp;
 import com.huizhou.receptionbooking.utils.HttpClientClass;
 
 import org.apache.commons.lang3.StringUtils;
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ActivityGroupEdit extends AppCompatActivity
 {
@@ -79,9 +66,10 @@ public class ActivityGroupEdit extends AppCompatActivity
         String groupUserName = groupEditMr.getText().toString();
         if (StringUtils.isBlank(groupUserName))
         {
-            Toast tos = Toast.makeText(this, "群组联系人不能为空", Toast.LENGTH_LONG);
+            Toast tos = Toast.makeText(this, "请选择群组联系人", Toast.LENGTH_LONG);
             tos.setGravity(Gravity.CENTER, 0, 0);
             tos.show();
+            return;
         }
 
         TextView groupEditdMrId = (TextView) findViewById(R.id.groupEditdMrId);
@@ -92,9 +80,10 @@ public class ActivityGroupEdit extends AppCompatActivity
 
         if (StringUtils.isBlank(grouptName))
         {
-            Toast tos = Toast.makeText(this, "群组名不能为空", Toast.LENGTH_LONG);
+            Toast tos = Toast.makeText(this, "请填写群组名", Toast.LENGTH_LONG);
             tos.setGravity(Gravity.CENTER, 0, 0);
             tos.show();
+            return;
         }
 
         mTask = new MyEditTask();
