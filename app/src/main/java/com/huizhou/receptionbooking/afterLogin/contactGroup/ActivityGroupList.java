@@ -85,12 +85,7 @@ public class ActivityGroupList extends AppCompatActivity implements AbsListView.
         searchContactGroup = (SearchView) findViewById(R.id.searchContactGroupSv);
         searchContactGroup.setFocusable(true);
         searchContactGroup.setFocusableInTouchMode(true);
-        if (null != searchContactGroup)
-        {
-            int id = searchContactGroup.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
-            TextView textView = (TextView) searchContactGroup.findViewById(id);
-            textView.setTextSize(15);//字体、提示字体大小
-        }
+
         // 设置搜索文本监听
         searchContactGroup.setOnQueryTextListener(new SearchView.OnQueryTextListener()
         {

@@ -165,7 +165,7 @@ public class DepartmentDAOImpl implements DepartmentDAO
             pstmt.setString(1, info.getName());
             pstmt.setInt(2, info.getParentId());
             pstmt.setString(3, info.getRemark());
-            pstmt.setInt(4, 3);
+            pstmt.setInt(4, 1);
             return !pstmt.execute();
         }
         catch (Exception e)

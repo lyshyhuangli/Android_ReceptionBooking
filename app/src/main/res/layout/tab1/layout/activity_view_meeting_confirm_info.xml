@@ -25,7 +25,7 @@
             android:paddingRight="10dip"
             android:text="参会情况"
             android:textColor="@color/white"
-            android:textSize="22dp"/>
+            android:textSize="@dimen/top_size"/>
 
     </LinearLayout>
 

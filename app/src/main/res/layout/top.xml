@@ -20,7 +20,7 @@
             android:drawableRight="@mipmap/newstatic"
             android:paddingRight="10dip"
             android:textColor="@color/white"
-            android:textSize="20dp"/>
+            android:textSize="@dimen/top_size"/>
 
     </LinearLayout>
 

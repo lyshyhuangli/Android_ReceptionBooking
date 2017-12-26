@@ -5,12 +5,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:layout_gravity="center"
     tools:context="com.huizhou.receptionbooking.startApp.FloatingActionButtonAtivity">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@mipmap/skip"
+        android:text="开启会议"
+        android:textColor="@color/buttontxt"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_marginBottom="1dp"
         android:onClick="skip"/>
 
 </LinearLayout>

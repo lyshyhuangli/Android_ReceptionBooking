@@ -37,7 +37,7 @@
         <SearchView
             android:id="@+id/searchContactEt"
             android:layout_width="0dp"
-            android:layout_height="fill_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="0.8"
             android:iconifiedByDefault="false"
             android:queryHint="搜索"
