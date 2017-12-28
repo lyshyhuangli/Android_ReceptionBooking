@@ -1,25 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context="com.huizhou.receptionbooking.startApp.StartAppActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+    <com.huizhou.receptionbooking.startApp.CustomVideoView
+        android:id="@+id/videoView1"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:clickable="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+       >
+    </com.huizhou.receptionbooking.startApp.CustomVideoView>
 
-        <VideoView
-            android:onClick="showSkip"
-            android:id="@+id/videoView1"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent">
-        </VideoView>
+    <Button
+        android:id="@+id/skipButton"
+        android:layout_marginBottom="20dp"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:text="开启会议"
+        android:textSize="15sp"
+        android:textColor="@color/buttontxt"
+        android:layout_height="40dp"
+        android:layout_width="86dp"
+        android:onClick="skipButton"
+        />
 
-    </LinearLayout>
-
-</LinearLayout>
+</RelativeLayout>

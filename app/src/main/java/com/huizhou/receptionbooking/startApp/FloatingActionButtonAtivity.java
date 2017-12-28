@@ -1,6 +1,7 @@
 package com.huizhou.receptionbooking.startApp;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +12,9 @@ import android.view.WindowManager;
 
 import com.huizhou.receptionbooking.LoginActivity;
 import com.huizhou.receptionbooking.R;
+import com.huizhou.receptionbooking.afterLogin.AfterLogin;
+
+import org.apache.commons.lang3.StringUtils;
 
 public class FloatingActionButtonAtivity extends AppCompatActivity
 {
@@ -27,7 +31,7 @@ public class FloatingActionButtonAtivity extends AppCompatActivity
         p.height = 149;   //高度设置为屏幕的1.0
         p.width = 270;    //宽度设置为屏幕的0.8
         p.dimAmount = 0.2f;      //设置黑暗度
-       // p.type= WindowManager.LayoutParams.TYPE_APPLICATION_MEDIA  ;
+        // p.type= WindowManager.LayoutParams.TYPE_APPLICATION_MEDIA  ;
         p.y = 40;
         //p.x=0;
         p.gravity = Gravity.CENTER | Gravity.BOTTOM;
@@ -36,8 +40,26 @@ public class FloatingActionButtonAtivity extends AppCompatActivity
 
     public void skip(View view)
     {
-        Intent intent = new Intent(FloatingActionButtonAtivity.this, LoginActivity.class);
-        startActivityForResult(intent, 100);
-        finish();
+
+
+        SharedPreferences userSettings = getApplicationContext().getSharedPreferences("userInfo", 0);
+        String name = userSettings.getString("loginUserName", "default");
+
+        SharedPreferences password = getApplicationContext().getSharedPreferences("password", 0);
+        String passwordLg = password.getString("passwordLg", "default");
+
+        if (StringUtils.isNotBlank(name) && !"default".equals(name) && StringUtils.isNotBlank(passwordLg)
+                && !"default".equals(passwordLg))
+        {
+            Intent intent = new Intent(FloatingActionButtonAtivity.this, AfterLogin.class);
+            startActivity(intent);
+            finish();
+        }
+        else
+        {
+            Intent intent = new Intent(FloatingActionButtonAtivity.this, LoginActivity.class);
+            startActivityForResult(intent, 100);
+            finish();
+        }
     }
 }

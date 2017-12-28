@@ -155,6 +155,11 @@ public class LoginActivity extends AppCompatActivity
                 editor.putString("departmentId", loginInfo.get(2));
                 editor.putString("role",loginInfo.get(3));
                 editor.commit();
+
+                SharedPreferences pwSettings = getSharedPreferences("password", 0);
+                SharedPreferences.Editor editorPw = pwSettings.edit();
+                editorPw.putString("passwordLg", password);
+                editorPw.commit();
             }
             catch (Exception e)
             {

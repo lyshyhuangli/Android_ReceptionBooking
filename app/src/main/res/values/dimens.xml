@@ -7,5 +7,5 @@
     <dimen name="editview_size">30dp</dimen>
     <dimen name="top_size">25dp</dimen>
     <dimen name="text_size">15dp</dimen>
-    <dimen name="tab4_size">18sp</dimen>
+    <dimen name="tab4_size">17sp</dimen>
 </resources>

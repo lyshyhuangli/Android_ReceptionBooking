@@ -1,6 +1,7 @@
 package com.huizhou.receptionbooking.startApp;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -12,10 +13,13 @@ import android.widget.VideoView;
 
 import com.huizhou.receptionbooking.LoginActivity;
 import com.huizhou.receptionbooking.R;
+import com.huizhou.receptionbooking.afterLogin.AfterLogin;
+
+import org.apache.commons.lang3.StringUtils;
 
 public class StartAppActivity extends AppCompatActivity
 {
-    VideoView videoView;
+    CustomVideoView videoView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -23,10 +27,10 @@ public class StartAppActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_app);
 
-        Intent intent = new Intent(this, FloatingActionButtonAtivity.class);
-        startActivityForResult(intent, 100);
+        // Intent intent = new Intent(this, FloatingActionButtonAtivity.class);
+        // startActivityForResult(intent, 100);
 
-        videoView = (VideoView) findViewById(R.id.videoView1);
+        videoView = (CustomVideoView) findViewById(R.id.videoView1);
         /***
          * 将播放器关联上一个音频或者视频文件
          * videoView.setVideoURI(Uri uri)
@@ -53,9 +57,8 @@ public class StartAppActivity extends AppCompatActivity
             public void onCompletion(MediaPlayer mp)
             {
                 //Log.i("通知", "完成");
-                Intent intent = new Intent(StartAppActivity.this, LoginActivity.class);
-                startActivityForResult(intent, 100);
-                finish();
+                goToLogin();
+                videoView = null;
             }
         });
 
@@ -90,9 +93,32 @@ public class StartAppActivity extends AppCompatActivity
         });
     }
 
-    public void showSkip(View view)
+    public void skipButton(View view)
     {
-        Intent intent = new Intent(this, FloatingActionButtonAtivity.class);
-        startActivityForResult(intent, 100);
+        goToLogin();
     }
+
+    private void goToLogin()
+    {
+        SharedPreferences userSettings = getApplicationContext().getSharedPreferences("userInfo", 0);
+        String name = userSettings.getString("loginUserName", "default");
+
+        SharedPreferences password = getApplicationContext().getSharedPreferences("password", 0);
+        String passwordLg = password.getString("passwordLg", "default");
+
+        if (StringUtils.isNotBlank(name) && !"default".equals(name) && StringUtils.isNotBlank(passwordLg)
+                && !"default".equals(passwordLg))
+        {
+            Intent intent = new Intent(StartAppActivity.this, AfterLogin.class);
+            startActivity(intent);
+            finish();
+        }
+        else
+        {
+            Intent intent = new Intent(StartAppActivity.this, LoginActivity.class);
+            startActivityForResult(intent, 100);
+            finish();
+        }
+    }
+
 }
