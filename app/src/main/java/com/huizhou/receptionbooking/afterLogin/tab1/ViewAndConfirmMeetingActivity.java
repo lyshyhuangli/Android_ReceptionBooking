@@ -39,6 +39,8 @@ public class ViewAndConfirmMeetingActivity extends AppCompatActivity
     private String loginShowName;
     private XTextView tv;
 
+    private String meetingBookUser;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -131,9 +133,10 @@ public class ViewAndConfirmMeetingActivity extends AppCompatActivity
                 tos.show();
             }
 
+            meetingBookUser= result.getBookUser();
             if(!userName.equals(result.getBookUser()))
             {
-                LinearLayout ll  = (LinearLayout) findViewById(R.id.viewAdminMeetingLl) ;
+                LinearLayout ll  = (LinearLayout) findViewById(R.id.makeQRCodeLl) ;
                 ll.setVisibility(View.GONE);
             }
 
@@ -218,6 +221,7 @@ public class ViewAndConfirmMeetingActivity extends AppCompatActivity
     {
         Intent it = new Intent(this, ViewMeetingConfirmInfoActivity.class);
         it.putExtra("id", id);
+        it.putExtra("meetingBookUser",meetingBookUser);
         startActivity(it);
     }
 

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -20,6 +21,7 @@ import com.huizhou.receptionbooking.utils.HttpClientClass;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ViewMeetingConfirmInfoActivity extends AppCompatActivity
@@ -33,6 +35,7 @@ public class ViewMeetingConfirmInfoActivity extends AppCompatActivity
     private ViewMeetingConfirmInfoAdapter adapter;
 
     private int id;
+    private String meetingBookUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -43,6 +46,7 @@ public class ViewMeetingConfirmInfoActivity extends AppCompatActivity
         Intent i = getIntent();
         //会议ID
         id = Integer.parseInt(i.getStringExtra("id"));
+        meetingBookUser = i.getStringExtra("meetingBookUser");
 
         tv = (XTextView) this.findViewById(R.id.viewMeetingAttendBack);
         //回退页面
@@ -60,7 +64,6 @@ public class ViewMeetingConfirmInfoActivity extends AppCompatActivity
 
         listView = (ListView) findViewById(R.id.viewMeetingAttendDataList);
         loadFirstTime();
-
 
     }
 
@@ -137,9 +140,27 @@ public class ViewMeetingConfirmInfoActivity extends AppCompatActivity
                 return;
             }
 
-            adapter = new ViewMeetingConfirmInfoAdapter(ViewMeetingConfirmInfoActivity.this, result);
+            if (!meetingBookUser.equals(userName))
+            {
+                List<MeetingConfirmRecord> temp = new ArrayList<>();
+                for (MeetingConfirmRecord m : result)
+                {
+                    if (userName.equals(m.getPhone()))
+                    {
+                        temp.add(m);
+                        break;
+                    }
+                }
+
+                adapter = new ViewMeetingConfirmInfoAdapter(ViewMeetingConfirmInfoActivity.this, temp);
+            }
+            else
+            {
+                adapter = new ViewMeetingConfirmInfoAdapter(ViewMeetingConfirmInfoActivity.this, result);
+            }
             listView.setAdapter(adapter);
             adapter.notifyDataSetChanged();
+
         }
 
         //onCancelled方法用于在取消执行中的任务时更改UI

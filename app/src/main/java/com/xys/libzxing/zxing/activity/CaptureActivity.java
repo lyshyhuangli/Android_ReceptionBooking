@@ -68,6 +68,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 
     private Rect mCropRect = null;
     private boolean isHasSurface = false;
+    private String type = null;
 
     public Handler getHandler() {
         return handler;
@@ -84,6 +85,12 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
         Window window = getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.activity_capture);
+
+        Intent i  = getIntent();
+        if(i != null)
+        {
+            type  = i.getStringExtra("type");
+        }
 
         scanPreview = (SurfaceView) findViewById(R.id.capture_preview);
         scanContainer = (RelativeLayout) findViewById(R.id.capture_container);
@@ -189,11 +196,22 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
         bundle.putInt("height", mCropRect.height());
         bundle.putString("result", rawResult.getText());
 
-        resultIntent.setAction("com.gasFragment");
-        resultIntent.putExtras(bundle);
-       // this.setResult(RESULT_OK, resultIntent);
-        sendBroadcast(resultIntent);
-        CaptureActivity.this.finish();
+        if("a".equals(type))
+        {
+            resultIntent.putExtras(bundle);
+            this.setResult(RESULT_OK, resultIntent);
+            CaptureActivity.this.finish();
+        }
+        else
+        {
+            resultIntent.setAction("com.gasFragment");
+            resultIntent.putExtras(bundle);
+            // this.setResult(RESULT_OK, resultIntent);
+            sendBroadcast(resultIntent);
+            CaptureActivity.this.finish();
+        }
+
+
     }
 
     private void initCamera(SurfaceHolder surfaceHolder) {

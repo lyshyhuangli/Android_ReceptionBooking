@@ -438,25 +438,17 @@
                     android:id="@+id/viewPublishMeetingSave"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.3"
+                    android:layout_weight="0.5"
                     android:onClick="confirmMeeting"
                     android:text="参会"
                     />
 
-                <Button
-                    android:id="@+id/leaveMeeting"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.3"
-                    android:onClick="leaveMeeting"
-                    android:text="请假"
-                    />
 
                 <Button
                     android:id="@+id/viewRepublishMeeting"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.4"
+                    android:layout_weight="0.5"
                     android:onClick="republishMeeting"
                     android:text="转发会议"
                     />
@@ -470,23 +462,38 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/makeQRCode"
+                    android:id="@+id/leaveMeeting"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.6"
-                    android:onClick="makeQRCode"
-                    android:text="生成二维码图片"
+                    android:layout_weight="0.5"
+                    android:onClick="leaveMeeting"
+                    android:text="请假"
                     />
 
                 <Button
                     android:id="@+id/viewMeetingConfirmInfo"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.4"
+                    android:layout_weight="0.5"
                     android:onClick="viewMeetingConfirmInfo"
                     android:text="参会情况"
                     />
 
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/makeQRCodeLl"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/makeQRCode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="makeQRCode"
+                    android:text="生成二维码图片"
+                    />
             </LinearLayout>
 
         </LinearLayout>

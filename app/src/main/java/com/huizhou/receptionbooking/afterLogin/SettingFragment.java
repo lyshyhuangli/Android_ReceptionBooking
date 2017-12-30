@@ -256,7 +256,9 @@ public class SettingFragment extends Fragment
             @Override
             public void onClick(View v)
             {
-                startActivityForResult(new Intent(getActivity(), CaptureActivity.class), 0);
+                Intent i = new Intent(getActivity(), CaptureActivity.class);
+                i.putExtra("type","f");
+                startActivityForResult(i, 0);
             }
         });
     }
