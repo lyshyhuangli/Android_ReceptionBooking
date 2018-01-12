@@ -61,6 +61,7 @@
                     android:id="@+id/viewAndConfirmThreaf"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="5dp"
                     android:layout_weight="0.6"
@@ -160,9 +161,10 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:text="会议室:"
+                    android:text="开会地点:"
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/textview_size"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
                     android:layout_weight="0.3"
                     android:layout_marginTop="5dp"
                     android:background="@color/settingbtn"
@@ -242,7 +244,8 @@
                 <TextView
                     android:text="纪律要求:"
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/textview_size"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
                     android:layout_marginTop="5dp"
                     android:layout_weight="0.3"
                     android:background="@color/settingbtn"

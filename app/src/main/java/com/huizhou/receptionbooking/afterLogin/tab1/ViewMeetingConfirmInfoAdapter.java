@@ -1,6 +1,7 @@
 package com.huizhou.receptionbooking.afterLogin.tab1;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -93,14 +94,17 @@ public class ViewMeetingConfirmInfoAdapter extends BaseAdapter
         if (1== attendType)
         {
             holder.attendTypeResult.setText(attend +"参加");
-        }
-        else if(2== attendType)
-        {
-            holder.attendTypeResult.setText(attend +"请假");
+            holder.attendTypeResult.setTextColor(Color.rgb(0, 255, 0));
         }
         else if(3== attendType)
         {
+            holder.attendTypeResult.setText(attend +"请假");
+            holder.attendTypeResult.setTextColor(Color.rgb(255, 0, 0));
+        }
+        else if(2== attendType)
+        {
             holder.attendTypeResult.setText(attend +"代参");
+            holder.attendTypeResult.setTextColor(Color.rgb(0, 255, 0));
         }
         else
         {
@@ -111,10 +115,12 @@ public class ViewMeetingConfirmInfoAdapter extends BaseAdapter
         if (1== isSign)
         {
             holder.signTypeResult.setText("签到：已签");
+            holder.signTypeResult.setTextColor(Color.rgb(0, 255, 0));
         }
         else
         {
             holder.signTypeResult.setText("签到：");
+            holder.attendTypeResult.setTextColor(Color.rgb(255, 0, 0));
         }
 
         if(StringUtils.isNotBlank(info.getReason()))

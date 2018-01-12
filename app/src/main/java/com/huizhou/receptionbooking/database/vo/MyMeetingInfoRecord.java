@@ -16,6 +16,17 @@ public class MyMeetingInfoRecord
     private String name;
     private int parentId;
     private String department;
+    private String createTime;
+
+    public String getCreateTime()
+    {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime)
+    {
+        this.createTime = createTime;
+    }
 
     public int getId()
     {

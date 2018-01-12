@@ -137,7 +137,36 @@ public class DefineMeetingViewActivity extends AppCompatActivity implements Time
                 { //清除上次记录的日期
                     time.delete(0, time.length());
                 }
-                startTime.setText(time.append(String.valueOf(houre)).append(":").append(String.valueOf(minute)).append(""));
+
+                StringBuilder h = new StringBuilder();
+                if (0 == houre)
+                {
+                    h.append("00");
+                }
+                else if(houre<10)
+                {
+                    h.append("0"+houre);
+                }
+                else
+                {
+                    h.append(houre);
+                }
+
+                StringBuilder m = new StringBuilder();
+                if (0 == minute)
+                {
+                    m.append("00");
+                }
+                else if(minute<10)
+                {
+                    m.append("0"+minute);
+                }
+                else
+                {
+                    m.append(minute);
+                }
+
+                startTime.setText(time.append(h.toString()).append(":").append(m.toString()).append(""));
                 dialog.dismiss();
             }
         });
@@ -190,7 +219,35 @@ public class DefineMeetingViewActivity extends AppCompatActivity implements Time
                 { //清除上次记录的日期
                     time.delete(0, time.length());
                 }
-                endTime.setText(time.append(String.valueOf(houre)).append(":").append(String.valueOf(minute)).append(""));
+
+                StringBuilder h = new StringBuilder();
+                if (0 == houre)
+                {
+                    h.append("00");
+                }
+                else if(houre<10)
+                {
+                    h.append("0"+houre);
+                }
+                else
+                {
+                    h.append(houre);
+                }
+
+                StringBuilder m = new StringBuilder();
+                if (0 == minute)
+                {
+                    m.append("00");
+                }
+                else if(minute<10)
+                {
+                    m.append("0"+minute);
+                }
+                else
+                {
+                    m.append(minute);
+                }
+                endTime.setText(time.append(h.toString()).append(":").append(m.toString()).append(""));
                 dialog.dismiss();
             }
         });

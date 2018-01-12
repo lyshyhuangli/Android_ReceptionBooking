@@ -210,7 +210,7 @@ public class republishMeetingToOtherActivity extends AppCompatActivity
                         req2.setOperatorId(userName);
                         req2.setMeetingId(Integer.parseInt(id));
                         req2.setPhone(userName);
-                        req2.setAttendType(3);
+                        req2.setAttendType(2);
                         req2.setReason(params[2]);
                         String result2 = HttpClientClass.httpPost(req2, "updateMeetingConfirmByMeetingIdAndPhone");
 
@@ -240,7 +240,7 @@ public class republishMeetingToOtherActivity extends AppCompatActivity
                         req2.setOperatorId(userName);
                         req2.setMeetingId(Integer.parseInt(id));
                         req2.setPhone(userName);
-                        req2.setAttendType(3);
+                        req2.setAttendType(2);
                         req2.setReason(params[2]);
                         req2.setUserName(showName);
                         String result2 = HttpClientClass.httpPost(req2, "saveMeetingConfirm");

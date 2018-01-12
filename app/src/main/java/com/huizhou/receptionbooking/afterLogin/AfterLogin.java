@@ -1,23 +1,27 @@
 package com.huizhou.receptionbooking.afterLogin;
 
 import android.Manifest;
+import android.app.NotificationManager;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.view.menu.MenuBuilder;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
+import com.huizhou.receptionbooking.LoginActivity;
 import com.huizhou.receptionbooking.R;
+import com.huizhou.receptionbooking.startApp.StartAppActivity;
+import com.service.TimeGetDataService;
 
-import java.lang.reflect.Method;
+import org.apache.commons.lang3.StringUtils;
+
+import java.util.UUID;
 
 
 /**
@@ -58,10 +62,43 @@ public class AfterLogin extends FragmentActivity implements View.OnClickListener
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_afterlogin);
+
+        String uuid = UUID.randomUUID().toString();
+        SharedPreferences startThread = getSharedPreferences("startThread", 0);
+        SharedPreferences.Editor editorTh = startThread.edit();
+        editorTh.putString("newThread", uuid);
+        editorTh.commit();
+
+        //消除点击的通知信息
+        int notificationId = getIntent().getIntExtra("notificationId", 0);
+        if (notificationId != 0)
+        {
+            goToLogin();
+
+            try
+            {
+                NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                //移除标记为id的通知 (只是针对当前Context下的所有Notification)
+                notificationManager.cancel(notificationId);
+                //移除所有通知
+                //notificationManager.cancelAll();
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+        }
+        else
+        {
+            Intent i = new Intent(AfterLogin.this, TimeGetDataService.class);
+            startService(i);
+        }
+
         initView();//初始化所有的view
         initEvents();
-        setSelect(0);//默认显示微信聊天界面
+        setSelect(0);//默认显示会议界面
     }
+
 
     private void initEvents()
     {
@@ -140,22 +177,22 @@ public class AfterLogin extends FragmentActivity implements View.OnClickListener
         switch (i)
         {
             case 0:
-//                if (tab01 == null)
-//                {
-//                    tab01 = new MyMeetingFragment();
-//                /*
-//                 * 将Fragment添加到活动中，public abstract FragmentTransaction add (int containerViewId, Fragment fragment)
-//				 * containerViewId即为Optional identifier of the container this fragment is to be placed in. If 0, it will not be placed in a container.
-//				 * */
-//                    transaction.add(R.id.id_content, tab01);//将微信聊天界面的Fragment添加到Activity中
-//                }
-//                else
-//                {
-//                    transaction.show(tab01);
-//                }
+                if (tab01 == null)
+                {
+                    tab01 = new MyMeetingFragment();
+                /*
+                 * 将Fragment添加到活动中，public abstract FragmentTransaction add (int containerViewId, Fragment fragment)
+				 * containerViewId即为Optional identifier of the container this fragment is to be placed in. If 0, it will not be placed in a container.
+				 * */
+                    transaction.add(R.id.id_content, tab01);//将微信聊天界面的Fragment添加到Activity中
+                }
+                else
+                {
+                    transaction.show(tab01);
+                }
 
-                tab01 = new MyMeetingFragment();
-                transaction.add(R.id.id_content, tab01);//将微信聊天界面的Fragment添加到Activity中
+                //tab01 = new MyMeetingFragment();
+               // transaction.add(R.id.id_content, tab01);//将微信聊天界面的Fragment添加到Activity中
                 mImgWeixin.setImageResource(R.mipmap.tab_weixin_pressed);
                 break;
             case 1:
@@ -268,6 +305,29 @@ public class AfterLogin extends FragmentActivity implements View.OnClickListener
             transaction.replace(R.id.id_content, tab02, "queryParams");
             mImgFrd.setImageResource(R.mipmap.tab_find_frd_pressed);
             transaction.commit();//提交事务
+        }
+    }
+
+    private void goToLogin()
+    {
+        SharedPreferences userSettings = getApplicationContext().getSharedPreferences("userInfo", 0);
+        String name = userSettings.getString("loginUserName", "default");
+
+        SharedPreferences password = getApplicationContext().getSharedPreferences("password", 0);
+        String passwordLg = password.getString("passwordLg", "default");
+
+        if (StringUtils.isNotBlank(name) && !"default".equals(name) && StringUtils.isNotBlank(passwordLg)
+                && !"default".equals(passwordLg))
+        {
+            Intent intent = new Intent(AfterLogin.this, AfterLogin.class);
+            startActivity(intent);
+            finish();
+        }
+        else
+        {
+            Intent intent = new Intent(AfterLogin.this, LoginActivity.class);
+            startActivityForResult(intent, 100);
+            finish();
         }
     }
 }

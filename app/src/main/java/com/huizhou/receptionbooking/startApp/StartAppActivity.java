@@ -1,5 +1,7 @@
 package com.huizhou.receptionbooking.startApp;
 
+import android.app.Activity;
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -14,10 +16,11 @@ import android.widget.VideoView;
 import com.huizhou.receptionbooking.LoginActivity;
 import com.huizhou.receptionbooking.R;
 import com.huizhou.receptionbooking.afterLogin.AfterLogin;
+import com.service.TimeGetDataService;
 
 import org.apache.commons.lang3.StringUtils;
 
-public class StartAppActivity extends AppCompatActivity
+public class StartAppActivity extends Activity
 {
     CustomVideoView videoView;
 
@@ -26,9 +29,6 @@ public class StartAppActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_app);
-
-        // Intent intent = new Intent(this, FloatingActionButtonAtivity.class);
-        // startActivityForResult(intent, 100);
 
         videoView = (CustomVideoView) findViewById(R.id.videoView1);
         /***

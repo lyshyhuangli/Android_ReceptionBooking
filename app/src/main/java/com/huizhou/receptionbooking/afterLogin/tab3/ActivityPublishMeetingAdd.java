@@ -38,8 +38,8 @@ import java.util.List;
 public class ActivityPublishMeetingAdd extends AppCompatActivity implements TimePicker.OnTimeChangedListener
 {
 
-    int houre = 00;
-    int minute = 00;
+    int houre = 0;
+    int minute = 0;
 
     private String type;
     private String meetingRoomId;
@@ -102,8 +102,8 @@ public class ActivityPublishMeetingAdd extends AppCompatActivity implements Time
 
     public void getStartTime(View view)
     {
-        houre = 00;
-        minute = 00;
+        houre = 0;
+        minute = 0;
         AlertDialog.Builder builder2 = new AlertDialog.Builder(context);
 
         builder2.setPositiveButton("确定", new DialogInterface.OnClickListener()
@@ -115,7 +115,37 @@ public class ActivityPublishMeetingAdd extends AppCompatActivity implements Time
                 { //清除上次记录的日期
                     time.delete(0, time.length());
                 }
-                startTime.setText(time.append(String.valueOf(houre)).append(":").append(String.valueOf(minute)).append(""));
+
+                StringBuilder h = new StringBuilder();
+                if (0 == houre)
+                {
+                    h.append("00");
+                }
+                else if(houre<10)
+                {
+                    h.append("0"+houre);
+                }
+                else
+                {
+                    h.append(houre);
+                }
+
+                StringBuilder m = new StringBuilder();
+                if (0 == minute)
+                {
+                    m.append("00");
+                }else if(minute<10)
+                {
+                    m.append("0"+minute);
+                }
+
+                else
+                {
+                    m.append(minute);
+                }
+
+
+                startTime.setText(time.append(h.toString()).append(":").append(m.toString()).append(""));
                 dialog.dismiss();
             }
         });
@@ -168,7 +198,36 @@ public class ActivityPublishMeetingAdd extends AppCompatActivity implements Time
                 { //清除上次记录的日期
                     time.delete(0, time.length());
                 }
-                endTime.setText(time.append(String.valueOf(houre)).append(":").append(String.valueOf(minute)).append(""));
+
+                StringBuilder h = new StringBuilder();
+                if (0 == houre)
+                {
+                    h.append("00");
+                }
+                else if(houre<10)
+                {
+                    h.append("0"+houre);
+                }
+                else
+                {
+                    h.append(houre);
+                }
+
+                StringBuilder m = new StringBuilder();
+                if (0 == minute)
+                {
+                    m.append("00");
+                }
+                else if(minute<10)
+                {
+                    m.append("0"+minute);
+                }
+                else
+                {
+                    m.append(minute);
+                }
+
+                endTime.setText(time.append(h.toString()).append(":").append(m.toString()).append(""));
                 dialog.dismiss();
             }
         });

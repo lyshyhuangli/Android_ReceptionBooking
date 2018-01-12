@@ -1,10 +1,12 @@
 package com.huizhou.receptionbooking.afterLogin.tab1;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,7 +14,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.chanven.lib.cptr.PtrClassicFrameLayout;
@@ -22,14 +23,14 @@ import com.chanven.lib.cptr.loadmore.OnLoadMoreListener;
 import com.chanven.lib.cptr.recyclerview.RecyclerAdapterWithHF;
 import com.google.gson.Gson;
 import com.huizhou.receptionbooking.R;
-import com.huizhou.receptionbooking.afterLogin.contactGroup.ActivityGroupEdit;
-import com.huizhou.receptionbooking.afterLogin.contactGroup.ActivityGroupList;
+import com.huizhou.receptionbooking.afterLogin.bookDining.BookDiningListActivity;
 import com.huizhou.receptionbooking.database.vo.MyMeetingInfoRecord;
 import com.huizhou.receptionbooking.request.GetMyBedMeetingReq;
 import com.huizhou.receptionbooking.request.GetMyBeingMeetingReq;
 import com.huizhou.receptionbooking.response.GetMyBedMeetingResp;
 import com.huizhou.receptionbooking.response.GetMyBeingMeetingResp;
 import com.huizhou.receptionbooking.utils.HttpClientClass;
+import com.service.TimeGetDataService;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -37,6 +38,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by Administrator on 2017/10/16.
@@ -47,6 +50,7 @@ public class TabFragment extends Fragment
     private String type;
     private int count = 1;
     private String userName;
+    private View view;
 
     private RecyclerView mRecyclerView;
     //支持下拉刷新的ViewGroup
@@ -75,16 +79,8 @@ public class TabFragment extends Fragment
         return fragment;
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    private void setAdapter()
     {
-        View view = inflater.inflate(R.layout.tab1_fragment, container, false);
-
-        SharedPreferences userSettings = getActivity().getSharedPreferences("userInfo", 0);
-        userName = userSettings.getString("loginUserName", "default");
-
-        type = getArguments().getString("type");
-
         mRecyclerView = (RecyclerView) view.findViewById(R.id.rv_list);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -101,16 +97,60 @@ public class TabFragment extends Fragment
             {
                 RvAdapter.NormalViewHolder vh = (RvAdapter.NormalViewHolder) view.getTag();
 
+                //清楚未读会议的颜色和缓存
+                UnreadMeetingInfoRecord unreadMeetingInfoRecord = null;
+                SharedPreferences unreadingMeeting = getActivity().getSharedPreferences("unreadingMeeting"+userName, Context.MODE_MULTI_PROCESS);
+                if (unreadingMeeting != null)
+                {
+                    Gson gson = new Gson();
+                    String ids = unreadingMeeting.getString("ids", "default");
+                    if (StringUtils.isNotBlank(ids) && !"default".equals(ids))
+                    {
+                        unreadMeetingInfoRecord = gson.fromJson(ids, UnreadMeetingInfoRecord.class);
+                        Map<Integer, UnreadMeetingMoreRecord> map = unreadMeetingInfoRecord.getUnreadMeetingIds();
+                        Integer id = Integer.valueOf(vh.meetingId.getText().toString());
+                        if (map.containsKey(id))
+                        {
+                            UnreadMeetingMoreRecord v = map.get(id);
+                            v.setRead(true);
+                        }
+
+                        String jsonString = gson.toJson(unreadMeetingInfoRecord);
+                        SharedPreferences.Editor editor = unreadingMeeting.edit();
+                        editor.putString("ids", jsonString);
+                        editor.commit();
+                    }
+                }
+
                 //跳转到详细页面
                 Intent it = new Intent(getActivity(), ViewAndConfirmMeetingActivity.class);
                 it.putExtra("id", vh.meetingId.getText().toString());
-                it.putExtra("meetingRoom",vh.meetingRoomItem.getText().toString());
-                it.putExtra("departmentItem",vh.departmentItem.getText().toString());
+                it.putExtra("meetingRoom", vh.meetingRoomItem.getText().toString());
+                it.putExtra("departmentItem", vh.departmentItem.getText().toString());
                 startActivity(it);
-
-                //Toast.makeText(getActivity(), vh.mTextView.getText().toString(), Toast.LENGTH_LONG).show();
             }
         });
+
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
+        view = inflater.inflate(R.layout.tab1_fragment, container, false);
+
+        SharedPreferences userSettings = getActivity().getSharedPreferences("userInfo", 0);
+        userName = userSettings.getString("loginUserName", "default");
+        try
+        {
+            //先等service中的Thread获取未读会议信息
+            Thread.sleep(1000);
+        }
+        catch (Exception e)
+        {
+
+        }
+
+        type = getArguments().getString("type");
 
         mPtrFrame = (PtrClassicFrameLayout) view.findViewById(R.id.rotate_header_list_view_frame);
 //下拉刷新支持时间
@@ -145,12 +185,7 @@ public class TabFragment extends Fragment
                 departmentItem.clear();
                 meetingRoomItem.clear();
 
-                refleshType =0;
-//模拟数据
-//                for (int i = 0; i <= 5; i++)
-//                {
-//                    idsList.add(String.valueOf(i));
-//                }
+                refleshType = 0;
 
                 if ("待开会议".equals(type))
                 {
@@ -159,7 +194,7 @@ public class TabFragment extends Fragment
                 }
                 else
                 {
-                    count =1;
+                    count = 1;
                     MyBedMeetingTask myTask = new MyBedMeetingTask();
                     myTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                 }
@@ -170,7 +205,7 @@ public class TabFragment extends Fragment
                     {
                         //mAdapter.notifyDataSetChanged();
                         //mPtrFrame.refreshComplete();
-                       // mPtrFrame.setLoadMoreEnable(true);
+                        // mPtrFrame.setLoadMoreEnable(true);
                     }
                 }, 0);
             }
@@ -193,7 +228,7 @@ public class TabFragment extends Fragment
 //                            idsList.add(String.valueOf(i));
 //                        }
 
-                        refleshType =1;
+                        refleshType = 1;
                         if ("待开会议".equals(type))
                         {
                             idsList.clear();
@@ -218,14 +253,30 @@ public class TabFragment extends Fragment
                             myTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                         }
 
-                        //mAdapter.notifyDataSetChanged();
-                        //mPtrFrame.loadMoreComplete(true);
-//                        Toast.makeText(getActivity(), "load more complete", Toast.LENGTH_SHORT)
-//                                .show();
+
                     }
                 }, 0);
             }
         });
+
+        if ("待开会议".equals(type))
+        {
+            SharedPreferences startThread = getActivity().getSharedPreferences("startThread", 0);
+            if (startThread != null)
+            {
+                String newThread = startThread.getString("newThread", "default");
+
+                if (StringUtils.isNotBlank(newThread))
+                {
+                    //获取最新会议信息
+                    MyNewMeetingThread myNewMeetingThread = new MyNewMeetingThread();
+                    Thread t1 = new Thread(myNewMeetingThread);
+                    t1.setName(newThread);
+                    t1.start();
+                }
+            }
+        }
+
         return view;
     }
 
@@ -234,7 +285,7 @@ public class TabFragment extends Fragment
      */
     private class MyBingMeetingTask extends AsyncTask<String, Integer, String>
     {
-        //onPreExecute方法用于在执行后台任务前做一些UI操作
+        //onPreExecute 方法用于在执行后台任务前做一些UI操作
         @Override
         protected void onPreExecute()
         {
@@ -304,7 +355,8 @@ public class TabFragment extends Fragment
                 tos.show();
             }
 
-            if(refleshType==0)
+            setAdapter();
+            if (refleshType == 0)
             {
                 mAdapter.notifyDataSetChanged();
                 mPtrFrame.refreshComplete();
@@ -404,7 +456,9 @@ public class TabFragment extends Fragment
                 tos.show();
             }
 
-            if(refleshType==0)
+            setAdapter();
+
+            if (refleshType == 0)
             {
                 mAdapter.notifyDataSetChanged();
                 mPtrFrame.refreshComplete();
@@ -424,4 +478,66 @@ public class TabFragment extends Fragment
 
         }
     }
+
+
+    /**
+     * 获取最新会议信息线程
+     */
+    public class MyNewMeetingThread extends Thread
+    {
+        public void run()
+        {
+            while (true)
+            {
+                String str = Thread.currentThread().getName();
+
+                //登录出会抛空指针
+                if(null != getActivity())
+                {
+                    SharedPreferences startThread = getActivity().getSharedPreferences("startThread", 0);
+                    if (startThread != null)
+                    {
+                        String newThread = startThread.getString("newThread", "default");
+                        if (!str.equals(newThread))
+                        {
+                            break;
+                        }
+
+                    }
+                }
+                else
+                {
+                    break;
+                }
+
+                try
+                {
+                    //要比service的Thread慢一点
+                    Thread.sleep(2000);
+
+                    if ("待开会议".equals(type))
+                    {
+                        idsList.clear();
+                        threadItem.clear();
+                        meetingTime.clear();
+                        departmentItem.clear();
+                        meetingRoomItem.clear();
+
+                        MyBingMeetingTask myTask = new MyBingMeetingTask();
+                        myTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                    }
+                    else
+                    {
+
+                    }
+                }
+                catch (InterruptedException e)
+                {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
 }

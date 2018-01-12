@@ -1,14 +1,20 @@
 package com.huizhou.receptionbooking.afterLogin.tab1;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.huizhou.receptionbooking.R;
+
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 import java.util.Map;
@@ -54,6 +60,7 @@ public class RvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         public TextView meetingRoomItem;
         public TextView meetingId;
         public CardView mCardView;
+        public LinearLayout ll;
 
         public NormalViewHolder(View itemView)
         {
@@ -64,6 +71,7 @@ public class RvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             meetingRoomItem = (TextView) itemView.findViewById(R.id.meetingRoomItem);
             meetingId = (TextView)   itemView.findViewById(R.id.meetingId);
             mCardView = (CardView) itemView.findViewById(R.id.cv_item);
+            ll=(LinearLayout) itemView.findViewById(R.id.rv_item_ll);
         }
     }
 
@@ -86,6 +94,33 @@ public class RvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         viewholder.departmentItem.setText(departmentItemMap.get(index));
         viewholder.meetingRoomItem.setText(meetingRoomItemMap.get(index));
         viewholder.meetingId.setText(index.toString());
+
+        SharedPreferences userSettings = mContext.getSharedPreferences("userInfo", 0);
+        String userName = userSettings.getString("loginUserName", "default");
+
+        UnreadMeetingInfoRecord unreadMeetingInfoRecord = null;
+        SharedPreferences unreadingMeeting =  mContext.getSharedPreferences("unreadingMeeting"+userName, Context.MODE_MULTI_PROCESS);
+        if (unreadingMeeting != null)
+        {
+            Gson gson = new Gson();
+            String ids = unreadingMeeting.getString("ids", "default");
+            if (StringUtils.isNotBlank(ids) && !"default".equals(ids))
+            {
+                unreadMeetingInfoRecord = gson.fromJson(ids, UnreadMeetingInfoRecord.class);
+                Map<Integer, UnreadMeetingMoreRecord> map = unreadMeetingInfoRecord.getUnreadMeetingIds();
+
+                for (Map.Entry<Integer, UnreadMeetingMoreRecord> entry : map.entrySet())
+                {
+                    Integer key = entry.getKey();
+                    UnreadMeetingMoreRecord value = entry.getValue();
+                    if (!value.isRead() && index == key)
+                    {
+                        viewholder.ll.setBackgroundColor(Color.parseColor("#FFDEAD"));
+                        break;
+                    }
+                }
+            }
+        }
 
         viewholder.itemView.setTag(viewholder);
         viewholder.itemView.setOnClickListener(new View.OnClickListener()

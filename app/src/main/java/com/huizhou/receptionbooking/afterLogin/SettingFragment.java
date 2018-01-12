@@ -19,7 +19,6 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.huizhou.receptionbooking.LoginActivity;
 import com.huizhou.receptionbooking.R;
 import com.huizhou.receptionbooking.afterLogin.bookDining.AddBookDiningActivity;
 import com.huizhou.receptionbooking.afterLogin.contacts.ActivityContactList;
@@ -166,9 +165,20 @@ public class SettingFragment extends Fragment
                 editor.clear();
                 editor.commit();
 
-                Intent intent = new Intent(getActivity(), LoginActivity.class);
-                startActivity(intent);
-                getActivity().finish();
+                //清楚缓存
+                SharedPreferences password = getActivity().getSharedPreferences("password", 0);
+                SharedPreferences.Editor editorPassword = password.edit();
+                editorPassword.clear();
+                editorPassword.commit();
+
+                getActivity().unregisterReceiver(receiveBroadCast);
+
+                //Intent intent = new Intent(getActivity(), LoginActivity.class);
+               // startActivity(intent);
+                //getActivity().finish();
+                onDestroy();
+                //参数用作状态码；根据惯例，非 0 的状态码表示异常终止。
+                System.exit(0);
             }
         });
 

@@ -52,7 +52,7 @@ public class LeaveMeetingActivity extends AppCompatActivity
 
         SharedPreferences userSettings = this.getSharedPreferences("userInfo", 0);
         userName = userSettings.getString("loginUserName", "default");
-        showName= userSettings.getString("loginShowName", "default");
+        showName = userSettings.getString("loginShowName", "default");
 
         Intent i = getIntent();
         id = i.getStringExtra("id");
@@ -128,7 +128,7 @@ public class LeaveMeetingActivity extends AppCompatActivity
                         req2.setOperatorId(userName);
                         req2.setMeetingId(Integer.parseInt(id));
                         req2.setPhone(userName);
-                        req2.setAttendType(2);
+                        req2.setAttendType(3);
                         req2.setReason(params[0]);
                         String result2 = HttpClientClass.httpPost(req2, "updateMeetingConfirmByMeetingIdAndPhone");
 
@@ -158,7 +158,7 @@ public class LeaveMeetingActivity extends AppCompatActivity
                         req2.setOperatorId(userName);
                         req2.setMeetingId(Integer.parseInt(id));
                         req2.setPhone(userName);
-                        req2.setAttendType(2);
+                        req2.setAttendType(3);
                         req2.setReason(params[0]);
                         req2.setUserName(showName);
                         String result2 = HttpClientClass.httpPost(req2, "saveMeetingConfirm");
