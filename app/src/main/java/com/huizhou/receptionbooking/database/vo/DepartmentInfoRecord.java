@@ -16,6 +16,18 @@ public class DepartmentInfoRecord
 
     private String remark;
 
+    private int depSort;
+
+    public int getDepSort()
+    {
+        return depSort;
+    }
+
+    public void setDepSort(int depSort)
+    {
+        this.depSort = depSort;
+    }
+
     public String getParentName()
     {
         return parentName;

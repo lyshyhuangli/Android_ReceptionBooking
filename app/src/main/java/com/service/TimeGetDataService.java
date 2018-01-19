@@ -42,7 +42,7 @@ public class TimeGetDataService extends Service
     @Override
     public void onCreate()
     {
-         //android.os.Debug.waitForDebugger();
+        //android.os.Debug.waitForDebugger();
         super.onCreate();
     }
 
@@ -66,8 +66,6 @@ public class TimeGetDataService extends Service
         Thread t3 = new Thread(meetingBeginWakeupThread);
         t3.start();
 
-//        Toast.makeText(TimeGetDataService.this, "Service3 正在启动...444444444444444444444", Toast.LENGTH_LONG)
-//                .show();
         return START_STICKY;
     }
 
@@ -147,11 +145,9 @@ public class TimeGetDataService extends Service
                 try
                 {
                     //要比MyNewMeetingThread延迟一点，要不然获取不到缓存信息
-                    Thread.sleep(10000);
-                    MeetingBeginWakeup();
-
                     //20分钟=1200000
                     Thread.sleep(1200000);
+                    MeetingBeginWakeup();
                 }
                 catch (InterruptedException e)
                 {
@@ -181,7 +177,6 @@ public class TimeGetDataService extends Service
 
                 for (Map.Entry<Integer, UnreadMeetingMoreRecord> entry : map.entrySet())
                 {
-
                     Integer key = entry.getKey();
                     UnreadMeetingMoreRecord value = entry.getValue();
 
@@ -209,25 +204,12 @@ public class TimeGetDataService extends Service
                         continue;
                     }
 
-//                    if (meetingMillis > currentTime)
-//                    {
-//                        //提前20分钟提醒
-//                        if (currentTime + 1200000 > meetingMillis)
-//                        {
-//                            //启动通知服务
-//                            sendNotification(String.valueOf(key), "开会提醒", "您即将有会参加!", 3);
-//                            break;
-//                        }
-
-
-                        //提前40分钟提醒=2400000
-                        if (currentTime + 2400000 > meetingMillis)
-                        {
-                            //启动通知服务
-                            sendNotification(String.valueOf(key), "开会提醒", "您即将有会参加!", 3);
-                            break;
-                        }
-                   // }
+                    //提前40分钟提醒=2400000
+                    if (currentTime + 2400000 > meetingMillis)
+                    {
+                        //启动通知服务
+                        sendNotification(String.valueOf(key), "开会提醒", "您即将有会参加!", 3);
+                    }
                 }
             }
         }

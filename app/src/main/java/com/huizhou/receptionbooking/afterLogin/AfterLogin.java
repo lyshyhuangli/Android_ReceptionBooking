@@ -74,7 +74,6 @@ public class AfterLogin extends FragmentActivity implements View.OnClickListener
         if (notificationId != 0)
         {
             goToLogin();
-
             try
             {
                 NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);

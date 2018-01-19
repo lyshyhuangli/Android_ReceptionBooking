@@ -149,7 +149,7 @@ public class UserInfoDAOImpl implements UserInfoDAO
         }
 
         //type=3代表通讯录
-        String strSql = "select * from tb_user_dep_meeting where type =3 or type =1 ";
+        String strSql = "select * from tb_user_dep_meeting where type =3 or type =1 ORDER BY depSort ,personSort";
         PreparedStatement pstmt = null;
         ResultSet rs = null;
         List<Node> list = new ArrayList<>();
@@ -211,7 +211,7 @@ public class UserInfoDAOImpl implements UserInfoDAO
         }
 
         //type=3代表通讯录
-        String strSql = "select * from tb_user_dep_meeting where type =3 or type =1 ";
+        String strSql = "select * from tb_user_dep_meeting where type =3 or type =1 ORDER BY depSort ,personSort";
         PreparedStatement pstmt = null;
         ResultSet rs = null;
         List<BaseTreeBean> list = new LinkedList<>();
@@ -273,7 +273,7 @@ public class UserInfoDAOImpl implements UserInfoDAO
             return null;
         }
 
-        String strSql = "select d.id,d.name,d.parentId,d.remark,d.phone,d.sex,d.idcard,d.role,t.name as pname from tb_user_dep_meeting d LEFT JOIN tb_user_dep_meeting t on d.parentId = t.id where  d.id =" + id;
+        String strSql = "select d.id,d.name,d.parentId,d.remark,d.phone,d.sex,d.idcard,d.role,t.name as pname,d.personSort as personSort ,d.post,d.carId from tb_user_dep_meeting d LEFT JOIN tb_user_dep_meeting t on d.parentId = t.id where  d.id =" + id;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
 
@@ -294,6 +294,9 @@ public class UserInfoDAOImpl implements UserInfoDAO
                 m.setSex(rs.getString("sex"));
                 m.setRole(rs.getString("role"));
                 m.setIdcard(rs.getString("idcard"));
+                m.setPersonSort(rs.getInt("personSort"));
+                m.setPost(rs.getString("post"));
+                m.setCarId(rs.getString("carId"));
             }
         }
         catch (Exception e)

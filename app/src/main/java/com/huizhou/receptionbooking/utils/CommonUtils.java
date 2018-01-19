@@ -4,6 +4,8 @@ package com.huizhou.receptionbooking.utils;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by Administrator on 2017/9/1.
@@ -44,6 +46,7 @@ public class CommonUtils
 
     /**
      * 根据就餐情况返回数字
+     *
      * @param str
      * @return
      */
@@ -61,6 +64,22 @@ public class CommonUtils
         {
             return 1;
         }
+    }
+
+    /**
+     * 判断字符串是否为数字
+     * @param str
+     * @return
+     */
+    public  static boolean isNumeric(String str)
+    {
+        Pattern pattern = Pattern.compile("[0-9]*");
+        Matcher isNum = pattern.matcher(str);
+        if (!isNum.matches())
+        {
+            return false;
+        }
+        return true;
     }
 
 }

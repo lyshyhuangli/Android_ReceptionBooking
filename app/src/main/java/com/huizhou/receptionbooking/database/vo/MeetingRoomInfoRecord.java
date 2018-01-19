@@ -16,6 +16,18 @@ public class MeetingRoomInfoRecord
 
     private String remark;
 
+    private int meetingroomSort;
+
+    public int getMeetingroomSort()
+    {
+        return meetingroomSort;
+    }
+
+    public void setMeetingroomSort(int meetingroomSort)
+    {
+        this.meetingroomSort = meetingroomSort;
+    }
+
     public String getParentName()
     {
         return parentName;

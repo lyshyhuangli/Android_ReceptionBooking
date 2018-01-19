@@ -98,7 +98,6 @@ public class TreeHelper
                 {
                     f.setAccessible(true);
                     pId = (String) f.get(t);
-                    ;
                 }
                 if (f.getAnnotation(TreeNodeLabel.class) != null)
                 {

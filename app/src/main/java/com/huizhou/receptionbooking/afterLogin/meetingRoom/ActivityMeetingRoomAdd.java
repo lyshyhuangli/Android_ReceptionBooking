@@ -3,35 +3,29 @@ package com.huizhou.receptionbooking.afterLogin.meetingRoom;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.huizhou.receptionbooking.R;
-import com.huizhou.receptionbooking.afterLogin.contactGroup.ActivityGroupList;
-import com.huizhou.receptionbooking.afterLogin.department.ActivityDepartmentAdd;
 import com.huizhou.receptionbooking.afterLogin.department.ActivityDepartmentList;
 import com.huizhou.receptionbooking.common.XTextView;
-import com.huizhou.receptionbooking.database.dao.DepartmentDAO;
-import com.huizhou.receptionbooking.database.dao.MeetingRoomDAO;
-import com.huizhou.receptionbooking.database.dao.impl.DepartmentDAOImpl;
-import com.huizhou.receptionbooking.database.dao.impl.MeetingRoomDAOImpl;
-import com.huizhou.receptionbooking.database.vo.DepartmentInfoRecord;
-import com.huizhou.receptionbooking.database.vo.MeetingRoomInfoRecord;
+import com.huizhou.receptionbooking.request.AddMeetingRoomRequest;
+import com.huizhou.receptionbooking.response.AddMeetingRoomResp;
+import com.huizhou.receptionbooking.utils.HttpClientClass;
 
 import org.apache.commons.lang3.StringUtils;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ActivityMeetingRoomAdd extends AppCompatActivity
 {
     private MyTask mTask;
     private XTextView tv;
+    private String loginUserName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -43,6 +37,7 @@ public class ActivityMeetingRoomAdd extends AppCompatActivity
         SharedPreferences userSettings = ActivityMeetingRoomAdd.this.getSharedPreferences("userInfo", 0);
         String department = userSettings.getString("department", "default");
         String departmentId = userSettings.getString("departmentId", "default");
+        loginUserName = userSettings.getString("loginUserName", "default");
 
         TextView meetingRoomDepAddMr = (TextView) findViewById(R.id.meetingRoomDepAddMr);
         meetingRoomDepAddMr.setText(department);
@@ -89,7 +84,7 @@ public class ActivityMeetingRoomAdd extends AppCompatActivity
         String remark = remarkMeetingRoomAdd.getText().toString();
 
         mTask = new MyTask();
-        mTask.execute(String.valueOf(parentId), meetingRoomName, remark);
+        mTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, String.valueOf(parentId), meetingRoomName, remark);
 
     }
 
@@ -117,7 +112,7 @@ public class ActivityMeetingRoomAdd extends AppCompatActivity
         }
     }
 
-    private class MyTask extends AsyncTask<String, Integer, List<String>>
+    private class MyTask extends AsyncTask<String, Integer, Integer>
     {
         //onPreExecute方法用于在执行后台任务前做一些UI操作
         @Override
@@ -128,25 +123,34 @@ public class ActivityMeetingRoomAdd extends AppCompatActivity
 
         //doInBackground方法内部执行后台任务,不可在此方法内修改UI
         @Override
-        protected List<String> doInBackground(String... params)
+        protected Integer doInBackground(String... params)
         {
-            List<String> errorList = new ArrayList<>();
-            MeetingRoomInfoRecord m = new MeetingRoomInfoRecord();
-            m.setParentId(Integer.valueOf(params[0]));
-            m.setName(params[1]);
-            m.setRemark(params[2]);
-            try
+            AddMeetingRoomRequest req = new AddMeetingRoomRequest();
+            req.setOperatorId(loginUserName);
+            req.setName(params[1]);
+            req.setParentId(Integer.valueOf(params[0]));
+            req.setType(2);
+            req.setRemark(params[2]);
+
+            String result = HttpClientClass.httpPost(req, "addMeetingRoom");
+
+            if (StringUtils.isBlank(result))
             {
-                MeetingRoomDAO dao = new MeetingRoomDAOImpl();
-                dao.saveMeetingRoom(m, errorList);
-                return errorList;
-            }
-            catch (Exception e)
-            {
-                e.printStackTrace();
+                return null;
             }
 
-            return errorList;
+            Gson gson = new Gson();
+            AddMeetingRoomResp info = gson.fromJson(result, AddMeetingRoomResp.class);
+            if (null != info)
+            {
+                if (0 == info.getResultCode())
+                {
+                    return info.getResult();
+                }
+            }
+
+            return null;
+
         }
 
         //onProgressUpdate方法用于更新进度信息
@@ -158,11 +162,11 @@ public class ActivityMeetingRoomAdd extends AppCompatActivity
 
         //onPostExecute方法用于在执行完后台任务后更新UI,显示结果
         @Override
-        protected void onPostExecute(List<String> list)
+        protected void onPostExecute(Integer result)
         {
-            if (!list.isEmpty())
+            if (result == null || result != 1)
             {
-                Toast tos = Toast.makeText(getApplicationContext(), list.get(0), Toast.LENGTH_LONG);
+                Toast tos = Toast.makeText(getApplicationContext(), "保存失败", Toast.LENGTH_LONG);
                 tos.setGravity(Gravity.CENTER, 0, 0);
                 tos.show();
                 return;

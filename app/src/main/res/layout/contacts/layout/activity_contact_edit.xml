@@ -247,6 +247,46 @@
 
             </LinearLayout>
 
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/textview_size"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="0.4"
+                    android:background="@color/settingbtn"
+                    android:drawableLeft="@mipmap/post"
+                    android:drawablePadding="10dip"
+                    android:gravity="center_vertical|left"
+                    android:paddingLeft="10dip"
+                    android:paddingRight="10dip"
+                    android:text="职        务:"
+                    android:textColor="@color/txtcolor"
+                    android:textSize="@dimen/text_size"/>
+
+                <EditText
+                    android:id="@+id/contactPostEdit"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/textview_size"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="0.5"
+                    android:background="@drawable/bg_edittext_selector"
+                    android:paddingLeft="5dip"
+                    android:paddingRight="5dip"
+                    android:textColor="@color/txtcolor"
+                    android:textSize="@dimen/text_size"
+                    />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.1"/>
+            </LinearLayout>
+
+
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -289,6 +329,84 @@
                     android:layout_height="match_parent"
                     android:layout_weight="0.1"/>
 
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/textview_size"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="0.4"
+                    android:background="@color/settingbtn"
+                    android:drawableLeft="@mipmap/sort"
+                    android:drawablePadding="10dip"
+                    android:gravity="center_vertical|left"
+                    android:paddingLeft="10dip"
+                    android:paddingRight="10dip"
+                    android:text="序        号:"
+                    android:textColor="@color/txtcolor"
+                    android:textSize="@dimen/text_size"/>
+
+                <EditText
+                    android:id="@+id/contactSortEdit"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/textview_size"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="0.5"
+                    android:background="@drawable/bg_edittext_selector"
+                    android:paddingLeft="5dip"
+                    android:paddingRight="5dip"
+                    android:textColor="@color/txtcolor"
+                    android:textSize="@dimen/text_size"
+                    />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.1"/>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/textview_size"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="0.4"
+                    android:background="@color/settingbtn"
+                    android:drawableLeft="@mipmap/carid"
+                    android:drawablePadding="10dip"
+                    android:gravity="center_vertical|left"
+                    android:paddingLeft="10dip"
+                    android:paddingRight="10dip"
+                    android:text="车        牌:"
+                    android:textColor="@color/txtcolor"
+                    android:textSize="@dimen/text_size"/>
+
+                <EditText
+                    android:id="@+id/contactCarIdEdit"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/textview_size"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="0.5"
+                    android:background="@drawable/bg_edittext_selector"
+                    android:paddingLeft="5dip"
+                    android:paddingRight="5dip"
+                    android:textColor="@color/txtcolor"
+                    android:textSize="@dimen/text_size"
+                    />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.1"/>
             </LinearLayout>
 
             <LinearLayout

@@ -17,6 +17,39 @@ public class UerInfoRecord
     private String role;
     private int type;
     private String parentName;
+    private int personSort;
+    private String post;
+    private String carId;
+
+    public String getPost()
+    {
+        return post;
+    }
+
+    public void setPost(String post)
+    {
+        this.post = post;
+    }
+
+    public String getCarId()
+    {
+        return carId;
+    }
+
+    public void setCarId(String carId)
+    {
+        this.carId = carId;
+    }
+
+    public int getPersonSort()
+    {
+        return personSort;
+    }
+
+    public void setPersonSort(int personSort)
+    {
+        this.personSort = personSort;
+    }
 
     public String getParentName()
     {

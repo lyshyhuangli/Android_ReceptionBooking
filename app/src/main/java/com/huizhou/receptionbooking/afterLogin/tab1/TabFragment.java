@@ -189,8 +189,8 @@ public class TabFragment extends Fragment
 
                 if ("待开会议".equals(type))
                 {
-                    MyBingMeetingTask myTask = new MyBingMeetingTask();
-                    myTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                    //MyBingMeetingTask myTask = new MyBingMeetingTask();
+                    //myTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                 }
                 else
                 {
@@ -222,12 +222,6 @@ public class TabFragment extends Fragment
                     @Override
                     public void run()
                     {
-//模拟数据
-//                        for (int i = 0; i <= 5; i++)
-//                        {
-//                            idsList.add(String.valueOf(i));
-//                        }
-
                         refleshType = 1;
                         if ("待开会议".equals(type))
                         {
@@ -237,8 +231,8 @@ public class TabFragment extends Fragment
                             departmentItem.clear();
                             meetingRoomItem.clear();
 
-                            MyBingMeetingTask myTask = new MyBingMeetingTask();
-                            myTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                            //MyBingMeetingTask myTask = new MyBingMeetingTask();
+                            //myTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                         }
                         else
                         {
@@ -252,8 +246,6 @@ public class TabFragment extends Fragment
                             MyBedMeetingTask myTask = new MyBedMeetingTask();
                             myTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                         }
-
-
                     }
                 }, 0);
             }
@@ -350,9 +342,10 @@ public class TabFragment extends Fragment
         {
             if (!"OK".equals(result))
             {
-                Toast tos = Toast.makeText(getActivity(), "查询会议信息失败，请检查网络或重试。", Toast.LENGTH_LONG);
-                tos.setGravity(Gravity.CENTER, 0, 0);
-                tos.show();
+//                Toast tos = Toast.makeText(getActivity(), "刷新待开会议信息失败，请检查网络。", Toast.LENGTH_LONG);
+//                tos.setGravity(Gravity.CENTER, 0, 0);
+//                tos.show();
+                return;
             }
 
             setAdapter();
@@ -451,9 +444,10 @@ public class TabFragment extends Fragment
 
             if (!"OK".equals(result))
             {
-                Toast tos = Toast.makeText(getActivity(), "查询会议信息失败，请检查网络或重试。", Toast.LENGTH_LONG);
+                Toast tos = Toast.makeText(getActivity(), "查询以开完会议信息失败，请检查网络或重试。", Toast.LENGTH_LONG);
                 tos.setGravity(Gravity.CENTER, 0, 0);
                 tos.show();
+                return;
             }
 
             setAdapter();
@@ -498,6 +492,7 @@ public class TabFragment extends Fragment
                     if (startThread != null)
                     {
                         String newThread = startThread.getString("newThread", "default");
+                        //如果不是新线程，则跳出自动结束
                         if (!str.equals(newThread))
                         {
                             break;

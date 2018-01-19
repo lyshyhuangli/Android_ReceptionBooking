@@ -33,7 +33,7 @@ public class DepartmentDAOImpl implements DepartmentDAO
         }
 
         //type=1代表部门
-        String strSql = "select * from tb_user_dep_meeting where type =1";
+        String strSql = "select * from tb_user_dep_meeting where type =1 ORDER BY depSort";
         PreparedStatement pstmt = null;
         ResultSet rs = null;
         List<BaseTreeBean> list = new LinkedList<>();
@@ -95,7 +95,7 @@ public class DepartmentDAOImpl implements DepartmentDAO
             return null;
         }
 
-        String strSql = "select d.id,d.name,d.parentId,d.remark,t.name as pname from tb_user_dep_meeting d LEFT JOIN tb_user_dep_meeting t on d.parentId = t.id where d.type =1 and d.id =" + id;
+        String strSql = "select d.id,d.name,d.parentId,d.remark,t.name as pname,d.depSort as depSort from tb_user_dep_meeting d LEFT JOIN tb_user_dep_meeting t on d.parentId = t.id where d.type =1 and d.id =" + id;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
 
@@ -112,6 +112,7 @@ public class DepartmentDAOImpl implements DepartmentDAO
                 d.setParentId(rs.getInt("parentId"));
                 d.setRemark(rs.getString("remark"));
                 d.setParentName(rs.getString("pname"));
+                d.setDepSort(rs.getInt("depSort"));
             }
         }
         catch (Exception e)

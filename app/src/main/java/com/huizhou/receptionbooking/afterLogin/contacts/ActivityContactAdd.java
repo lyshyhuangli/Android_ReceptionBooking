@@ -1,9 +1,10 @@
 package com.huizhou.receptionbooking.afterLogin.contacts;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -12,12 +13,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.huizhou.receptionbooking.R;
 import com.huizhou.receptionbooking.afterLogin.department.ActivityDepartmentList;
 import com.huizhou.receptionbooking.common.XTextView;
-import com.huizhou.receptionbooking.database.dao.UserInfoDAO;
-import com.huizhou.receptionbooking.database.dao.impl.UserInfoDAOImpl;
-import com.huizhou.receptionbooking.database.vo.UerInfoRecord;
+import com.huizhou.receptionbooking.request.AddUserInfoReq;
+import com.huizhou.receptionbooking.response.AddUserInfoResp;
+import com.huizhou.receptionbooking.utils.HttpClientClass;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -26,7 +28,6 @@ import java.util.List;
 
 public class ActivityContactAdd extends AppCompatActivity
 {
-
     private MyEditTask mTask;
     private XTextView tv;
 
@@ -37,12 +38,16 @@ public class ActivityContactAdd extends AppCompatActivity
     private Spinner spinnerSex;
     private List<String> data_listSex;
     private ArrayAdapter<String> arr_adapterSex;
+    private String loginUserName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact_add);
+
+        SharedPreferences userSettings = getSharedPreferences("userInfo", 0);
+        loginUserName = userSettings.getString("loginUserName", "default");
 
         spinner = (Spinner) findViewById(R.id.contactRoleSpinnerAdd);
 
@@ -85,8 +90,6 @@ public class ActivityContactAdd extends AppCompatActivity
                 onBackPressed();
             }
         });
-
-
     }
 
     public void saveUserAdd(View view)
@@ -138,9 +141,14 @@ public class ActivityContactAdd extends AppCompatActivity
             phone = contactPhoneAdd.getText().toString();
         }
 
+        EditText contactPostAdd = (EditText) findViewById(R.id.contactPostAdd);
+        String contactPost = contactPostAdd.getText().toString();
+
+        EditText contactCarIdAdd = (EditText) findViewById(R.id.contactCarIdAdd);
+        String contactCarId = contactCarIdAdd.getText().toString();
+
         Spinner contactSexSpinnerAdd = (Spinner) findViewById(R.id.contactSexSpinnerAdd);
         String sex = contactSexSpinnerAdd.getSelectedItem().toString();
-
 
         EditText contactIdcardAdd = (EditText) findViewById(R.id.contactIdcardAdd);
         String idCard = contactIdcardAdd.getText().toString();
@@ -149,8 +157,7 @@ public class ActivityContactAdd extends AppCompatActivity
         String role = contactRoleSpinnerAdd.getSelectedItem().toString();
 
         mTask = new MyEditTask();
-        mTask.execute(String.valueOf(parentId), contactName, remark, phone, sex, idCard, role);
-
+        mTask.execute(String.valueOf(parentId), contactName, remark, phone, sex, idCard, role,contactPost,contactCarId);
     }
 
     public void getParentDepartmentAddForContact(View view)
@@ -177,7 +184,7 @@ public class ActivityContactAdd extends AppCompatActivity
         }
     }
 
-    private class MyEditTask extends AsyncTask<String, Integer, List<String>>
+    private class MyEditTask extends AsyncTask<String, Integer, Integer>
     {
         //onPreExecute方法用于在执行后台任务前做一些UI操作
         @Override
@@ -188,30 +195,39 @@ public class ActivityContactAdd extends AppCompatActivity
 
         //doInBackground方法内部执行后台任务,不可在此方法内修改UI
         @Override
-        protected List<String> doInBackground(String... params)
+        protected Integer doInBackground(String... params)
         {
-            // mTask.execute(String.valueOf(parentId), contactName, remark, phone, sex, idCard, role);
-            List<String> errorList = new ArrayList<>();
-            UerInfoRecord d = new UerInfoRecord();
-            d.setParentId(Integer.valueOf(params[0]));
-            d.setName(params[1]);
-            d.setRemark(params[2]);
-            d.setPhone(params[3]);
-            d.setSex(params[4]);
-            d.setIdcard(params[5]);
-            d.setRole(params[6]);
-            try
+            AddUserInfoReq req = new AddUserInfoReq();
+            req.setOperatorId(loginUserName);
+            req.setName(params[1]);
+            req.setParentId(Integer.valueOf(params[0]));
+            req.setType(3);
+            req.setRemark(params[2]);
+            req.setPhone(params[3]);
+            req.setSex(params[4]);
+            req.setIdCard(params[5]);
+            req.setRole(params[6]);
+            req.setPost(params[7]);
+            req.setCarId(params[8]);
+
+            String result = HttpClientClass.httpPost(req, "addUserInfo");
+
+            if (StringUtils.isBlank(result))
             {
-                UserInfoDAO dao = new UserInfoDAOImpl();
-                dao.saveContactPersion(d, errorList);
-                return errorList;
-            }
-            catch (Exception e)
-            {
-                e.printStackTrace();
+                return null;
             }
 
-            return errorList;
+            Gson gson = new Gson();
+            AddUserInfoResp info = gson.fromJson(result, AddUserInfoResp.class);
+            if (null != info)
+            {
+                if (0 == info.getResultCode())
+                {
+                    return info.getResult();
+                }
+            }
+
+            return null;
         }
 
         //onProgressUpdate方法用于更新进度信息
@@ -223,11 +239,11 @@ public class ActivityContactAdd extends AppCompatActivity
 
         //onPostExecute方法用于在执行完后台任务后更新UI,显示结果
         @Override
-        protected void onPostExecute(List<String> list)
+        protected void onPostExecute(Integer result)
         {
-            if (!list.isEmpty())
+            if (result == null || result != 1)
             {
-                Toast tos = Toast.makeText(getApplicationContext(), list.get(0), Toast.LENGTH_LONG);
+                Toast tos = Toast.makeText(getApplicationContext(), "保存失败", Toast.LENGTH_LONG);
                 tos.setGravity(Gravity.CENTER, 0, 0);
                 tos.show();
                 return;

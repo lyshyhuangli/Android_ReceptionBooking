@@ -35,7 +35,7 @@ public class MeetingRoomDAOImpl implements MeetingRoomDAO
         }
 
         //type=2代表会议室
-        String strSql = "select * from tb_user_dep_meeting where type =2 or type =1 ";
+        String strSql = "select * from tb_user_dep_meeting where type =2 or type =1 ORDER BY depSort ,meetingroomSort";
         PreparedStatement pstmt = null;
         ResultSet rs = null;
         List<BaseTreeBean> list = new LinkedList<>();
@@ -97,7 +97,7 @@ public class MeetingRoomDAOImpl implements MeetingRoomDAO
             return null;
         }
 
-        String strSql = "select d.id,d.name,d.parentId,d.remark,t.name as pname from tb_user_dep_meeting d LEFT JOIN tb_user_dep_meeting t on d.parentId = t.id where  d.id =" + id;
+        String strSql = "select d.id,d.name,d.parentId,d.remark,t.name as pname,d.meetingroomSort as meetingroomSort from tb_user_dep_meeting d LEFT JOIN tb_user_dep_meeting t on d.parentId = t.id where  d.id =" + id;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
 
@@ -114,6 +114,7 @@ public class MeetingRoomDAOImpl implements MeetingRoomDAO
                 m.setParentId(rs.getInt("parentId"));
                 m.setRemark(rs.getString("remark"));
                 m.setParentName(rs.getString("pname"));
+                m.setMeetingroomSort(rs.getInt("meetingroomSort"));
             }
         }
         catch (Exception e)
